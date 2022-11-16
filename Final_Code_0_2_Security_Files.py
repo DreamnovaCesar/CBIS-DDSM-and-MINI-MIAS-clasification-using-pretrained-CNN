@@ -144,6 +144,7 @@ class SecurityFiles(Utilities):
         print("Deleting keys random value...");
         del self.__Key_random;
 
+    # ? Method to generate keys
     @Utilities.timer_func
     def generate_key(self) -> None: 
         """
@@ -182,8 +183,7 @@ class SecurityFiles(Utilities):
             # * Save dataframe in the new path
             Dataframe_keys.to_csv(Dataframe_Key_folder);
 
-    # ? Encrypt files
-
+    # ? Method to encrypt files
     @Utilities.timer_func
     def encrypt_files(self) -> None:
         """
@@ -287,8 +287,7 @@ class SecurityFiles(Utilities):
                 except OSError:
                     print('Is not a key {} ❌'.format(str(self.__Key_path))) #! Alert
 
-    # ? Decrypt files
-
+    # ? Method to decrypt files
     @Utilities.timer_func
     def decrypt_files(self) -> None: 
         """
@@ -321,18 +320,18 @@ class SecurityFiles(Utilities):
                     print(Filename);
 
                     # * Read the files
-                    with open(self.__Folder_path + '/' + Filename, 'rb') as Encrypted_file: # open in readonly mode
+                    with open('{}/{}'.format(self.__Folder_path, Filename), 'rb') as Encrypted_file: # open in readonly mode
                         Encrypted = Encrypted_file.read();
                     
                     # * Decrypt the file sing the object created
                     Decrypted = Fernet_.decrypt(Encrypted);
 
                     # * Save the files decrypted already
-                    with open(self.__Folder_path + '/' + Filename, 'wb') as Decrypted_file:
+                    with open('{}/{}'.format(self.__Folder_path, Filename), 'wb') as Decrypted_file:
                         Decrypted_file.write(Decrypted);
 
                 # * Update the txt document showing the datatime when it was decrypted and with which key.
-                with open(Key_dir + '/' + Key_file + '.txt', "w") as text_file:
+                with open('{}/{}.txt'.format(Key_dir,  Key_file), "w") as text_file:
                         text_file.write('Key used. Datetime: {} '.format(Datetime));
 
             except OSError:
