@@ -1,3 +1,4 @@
+
 from typing import Any
 from Final_Code_0_0_Libraries import *
 
@@ -6,7 +7,6 @@ from Final_Code_1_General_Functions import FigureAdjust
 from Final_Code_1_General_Functions import FigurePlot
 
 # ? Configuration of the CNN
-
 class ConfigurationCNN(Utilities):
   """
     Utilities inheritance: 
@@ -50,7 +50,6 @@ class ConfigurationCNN(Utilities):
 
     #Dataframe_save = kwargs.get('df', None)
     self.__Enhancement_technique = kwargs.get('technique', None)
-
     self.__Class_labels = kwargs.get('labels', None)
     #Column_names = kwargs.get('columns', None)
 
@@ -62,7 +61,23 @@ class ConfigurationCNN(Utilities):
     self.__Batch_size = 32
     self.__Height_plot = 12
     self.__Width_plot  = 12
-  
+    
+    self.__Color_mode  = 'rgb'
+
+    # * Class problem definition
+    self.__Classes = len(self.__Class_labels)
+
+    # *
+    if self.__Classes == 2:
+      self.__Class_mode = "binary"
+      self.__Class_problem_prefix = 'Biclass'
+    elif self.__Classes >= 3:
+      self.__Class_mode = "categorical"
+      self.__Class_problem_prefix = 'Multiclass'
+    else:
+      raise TypeError("It can NOT be 1") #! Alert
+
+
   # * Class variables
   def __repr__(self):
         return f'[{self.__Folder}, {self.__Folder_models}, {self.__Folder_models_esp}, {self.__Folder_CSV}, {self.__Models}, {self.__Enhancement_technique}, {self.__Class_labels}, {self.__X_size}, {self.__Y_size}, {self.__Epochs}, {self.__Shape}, {self.__Batch_size}, {self.__Height_plot}, {self.__Width_plot}]';
@@ -92,6 +107,7 @@ class ConfigurationCNN(Utilities):
               'Batch size': str(self.__Batch_size),
               'Height (matplotlib)': str(self.__Height_plot),
               'Width (matplotlib)': str(self.__Width_plot),
+              'Color mode': str(self.__Color_mode),
               };
 
   # ? Method to update CSV
@@ -410,35 +426,30 @@ class ConfigurationCNN(Utilities):
   # ? Method to change settings of the model
   @Utilities.timer_func
   @Utilities.detect_GPU
-  def configuration_models_folder(self):
+  def configuration_models_folder_CNN(self):
       """
       _summary_
 
       """
 
       # *
-      Name_folder_training = self.__Folder + '/' + 'train'
-      Name_folder_val = self.__Folder + '/' + 'val'
-      Name_folder_test = self.__Folder + '/' + 'test'
+      Name_folder_training = '{}/train'.format(self.__Folder)
+      Name_folder_val = '{}/val'.format(self.__Folder)
+      Name_folder_test = '{}/test'.format(self.__Folder)
 
       # *
       train_datagen = ImageDataGenerator()
       val_datagen = ImageDataGenerator()
       test_datagen = ImageDataGenerator()
 
-      # *
-      if(len(self.__Class_labels) <= 2):
-        Class_mode = "binary"
-      else:
-        Class_mode = "categorical"
 
       # *
       Train_data = train_datagen.flow_from_directory(
           directory = Name_folder_training,
           target_size = self.__Shape,
-          color_mode = "rgb",
+          color_mode = self.__Color_mode,
           batch_size = self.__Batch_size,
-          class_mode = Class_mode,
+          class_mode = self.__Class_mode,
           shuffle = True,
           seed = 42
       )
@@ -447,9 +458,9 @@ class ConfigurationCNN(Utilities):
       Valid_data = val_datagen.flow_from_directory(
           directory = Name_folder_val,
           target_size = self.__Shape,
-          color_mode = "rgb",
+          color_mode = self.__Color_mode,
           batch_size = self.__Batch_size,
-          class_mode = Class_mode,
+          class_mode = self.__Class_mode,
           shuffle = False,
           seed = 42        
       )
@@ -458,9 +469,9 @@ class ConfigurationCNN(Utilities):
       Test_data = test_datagen.flow_from_directory(
           directory = Name_folder_test,
           target_size = self.__Shape,
-          color_mode = "rgb",
+          color_mode = self.__Color_mode,
           batch_size = self.__Batch_size,
-          class_mode = Class_mode,
+          class_mode = self.__Class_mode,
           shuffle = False,
           seed = 42
       )
@@ -479,15 +490,6 @@ class ConfigurationCNN(Utilities):
 
         # *
         Info_dic = {}
-        
-        # * Class problem definition
-        Class_problem = len(self.__Class_labels)
-
-        # *
-        if Class_problem == 2:
-          Class_problem_prefix = 'Biclass'
-        elif Class_problem > 2:
-          Class_problem_prefix = 'Multiclass'
 
         # * Parameters dic classification report
         Macro_avg_label = 'macro avg'
@@ -509,22 +511,22 @@ class ConfigurationCNN(Utilities):
         #Images_support_label = 'support'
 
         # * List
-        Pretrained_model_name, Pretrained_model_name_letters, Pretrained_model = self.Model_pretrained(self.__X_size, self.__Y_size, Class_problem, Model)
+        Pretrained_model_name, Pretrained_model_name_letters, Pretrained_model = self.Model_pretrained(self.__X_size, self.__Y_size, self.__Classes, Model)
 
         #Pretrained_model_name_technique = str(Pretrained_model_name_letters) + '_' + str(Enhancement_technique)
         Pretrained_model_name_technique = "{}_{}".format(Pretrained_model_name_letters, self.__Enhancement_technique)
 
         # *
-        Dir_name_csv = "{}_Folder_Data_Models_{}".format(Class_problem_prefix, self.__Enhancement_technique)
-        Dir_name_images = "{}_Folder_Images_Models_{}".format(Class_problem_prefix, self.__Enhancement_technique)
+        Dir_name_csv = "{}_Folder_Data_Models_{}".format(self.__Class_problem_prefix, self.__Enhancement_technique)
+        Dir_name_images = "{}_Folder_Images_Models_{}".format(self.__Class_problem_prefix, self.__Enhancement_technique)
 
         # *
-        Dir_name_csv_model = "{}_Folder_Data_Model_{}_{}".format(Class_problem_prefix, Pretrained_model_name_letters, self.__Enhancement_technique)
-        Dir_name_images_model = "{}_Folder_Images_Model_{}_{}".format(Class_problem_prefix, Pretrained_model_name_letters, self.__Enhancement_technique)
+        Dir_name_csv_model = "{}_Folder_Data_Model_{}_{}".format(self.__Class_problem_prefix, Pretrained_model_name_letters, self.__Enhancement_technique)
+        Dir_name_images_model = "{}_Folder_Images_Model_{}_{}".format(self.__Class_problem_prefix, Pretrained_model_name_letters, self.__Enhancement_technique)
 
         # *
-        Dir_data_csv = self.__Folder_CSV + '/' + Dir_name_csv
-        Dir_data_images = self.__Folder_CSV + '/' + Dir_name_images
+        Dir_data_csv = '{}/{}'.format(self.__Folder_CSV, Dir_name_csv)
+        Dir_data_images = '{}/{}'.format(self.__Folder_CSV, Dir_name_images)
 
         # *
         Exist_dir_csv = os.path.isdir(Dir_data_csv)
@@ -547,8 +549,8 @@ class ConfigurationCNN(Utilities):
           Folder_path_images = os.path.join(self.__Folder_CSV, Dir_name_images)
           print(Folder_path_images)
 
-        Dir_data_csv_model = Folder_path + '/' + Dir_name_csv_model
-        Dir_data_images_model = Folder_path_images + '/' + Dir_name_images_model
+        Dir_data_csv_model = '{}/{}'.format(Folder_path, Dir_name_csv_model)
+        Dir_data_images_model = '{}/{}'.format(Folder_path_images, Dir_name_images_model)
         
         Exist_dir_csv_model = os.path.isdir(Dir_data_csv_model)
         Exist_dir_images_model = os.path.isdir(Dir_data_images_model)
@@ -570,57 +572,57 @@ class ConfigurationCNN(Utilities):
           Folder_path_images_in = os.path.join(Folder_path_images, Dir_name_images_model)
           print(Folder_path_images_in)
 
-        # * Save dataframe in the folder given
 
         # * Saving all data models the user gave.
-        Dataframe_save_name = "{}_Dataframe_CNN_Folder_Data_{}_{}.csv".format(Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
+        Dataframe_save_name = "{}_Dataframe_CNN_Folder_Data_{}_{}.csv".format(self.__Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
         Dataframe_save_folder = os.path.join(Folder_path_in, Dataframe_save_name)
 
         # * Save best model weights for each model.
-        Best_model_name_weights = "{}_Best_Model_Weights_{}_{}.h5".format(Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
+        Best_model_name_weights = "{}_Best_Model_Weights_{}_{}.h5".format(self.__Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
         Best_model_folder_name_weights = os.path.join(Folder_path_in, Best_model_name_weights)
         
         # * Save dataframe CM for each model.
         #Confusion_matrix_dataframe_name = 'Dataframe_' + str(Class_problem_prefix) + str(Pretrained_model_name) + str(Enhancement_technique) + '.csv'
-        Confusion_matrix_dataframe_name = "{}_Dataframe_Confusion_Matrix_{}_{}.csv".format(Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
+        Confusion_matrix_dataframe_name = "{}_Dataframe_Confusion_Matrix_{}_{}.csv".format(self.__Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
         Confusion_matrix_dataframe_folder = os.path.join(Folder_path_in, Confusion_matrix_dataframe_name)
         
         # * Save dataframe Logger (data: Accuracy and loss) for each model.
         #CSV_logger_info = str(Class_problem_prefix) + str(Pretrained_model_name) + '_' + str(Enhancement_technique) + '.csv'
-        CSV_logger_info = "{}_Logger_{}_{}.csv".format(Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
+        CSV_logger_info = "{}_Dataframe_Logger_{}_{}.csv".format(self.__Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
         CSV_logger_info_folder = os.path.join(Folder_path_in, CSV_logger_info)
 
         # * Save dataframe ROC values for each model.
-        Dataframe_ROC_name = "{}_Dataframe_ROC_Curve_Values_{}_{}.csv".format(Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
+        Dataframe_ROC_name = "{}_Dataframe_ROC_Curve_Values_{}_{}.csv".format(self.__Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
         Dataframe_ROC_folder = os.path.join(Folder_path_in, Dataframe_ROC_name)
 
         # * Save metrics images for each model
         #Class_problem_name = str(Class_problem_prefix) + str(Pretrained_model_name) + str(Enhancement_technique) + '.png'
-        Class_problem_name = "{}_{}_{}.png".format(Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
-        Class_problem_folder = os.path.join(Folder_path_images_in, Class_problem_name)
+        Image_name = "{}_{}_{}.png".format(self.__Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique)
+        Image_folder = os.path.join(Folder_path_images_in, Image_name)
 
-        # * 
-        Model_reduce_lr = ReduceLROnPlateau(  monitor = 'val_loss', factor = 0.2,
-                                              patience = 2, min_lr = 0.00001)
+        # * Using ReduceLROnPlateau class.
+        Model_reduce_lr = ReduceLROnPlateau(monitor = 'val_loss', factor = 0.2,
+                                            patience = 2, min_lr = 0.00001)
 
-        # * 
-        Model_checkpoint_callback = ModelCheckpoint(  filepath = Best_model_folder_name_weights,
-                                                      save_weights_only = True,                     
-                                                      monitor = 'val_loss',
-                                                      mode = 'max',
-                                                      save_best_only = True )
+        # * Using ModelCheckpoint class.
+        Model_checkpoint_callback = ModelCheckpoint(filepath = Best_model_folder_name_weights,
+                                                    save_weights_only = True,                     
+                                                    monitor = 'val_loss',
+                                                    mode = 'max',
+                                                    save_best_only = True )
 
-        # * 
+        # * Using EarlyStopping class. 
         EarlyStopping_callback = EarlyStopping(patience = 2, monitor = 'val_loss')
 
-        # * 
+        # * Using CSVLogger class to extract each epoch. 
         Log_CSV = CSVLogger(CSV_logger_info_folder, separator = ',', append = False)
 
-        # * 
+        # * Save all callbacks to use them together
         Callbacks = [Model_checkpoint_callback, EarlyStopping_callback, Log_CSV]
 
         #################### * Training fit
 
+        # * Use the fit to train the model (We used a timer to obtain the total time of the training)
         Start_training_time = time.time()
 
         Pretrained_Model_History = Pretrained_model.fit(  Train_data,
@@ -637,6 +639,7 @@ class ConfigurationCNN(Utilities):
         
         #################### * Test evaluation
 
+        # * Use the evaluate (We used a timer to obtain the total time of the test)
         Start_testing_time = time.time()
 
         Loss_Test, Accuracy_Test = Pretrained_model.evaluate(Test_data)
@@ -646,7 +649,6 @@ class ConfigurationCNN(Utilities):
         #################### * Test evaluation
 
         # * Total time of training and testing
-
         Total_training_time = End_training_time - Start_training_time 
         Total_testing_time = End_testing_time - Start_testing_time
         
@@ -656,7 +658,7 @@ class ConfigurationCNN(Utilities):
                           "test images", "time training", "time testing", "technique used", "TN", "FP", "FN", "TP", "epochs", 
                           "precision", "recall", "f1_Score"]
 
-        if Class_problem == 2:
+        if self.__Classes == 2:
 
           Labels_biclass_number = []
 
@@ -687,9 +689,9 @@ class ConfigurationCNN(Utilities):
               
               # *
               Classification_report_names.append('{} {}'.format(Metric_labels, Report_labels))
+              Classification_report_values.append(Dict[Report_labels][Metric_labels])
               #print(Classification_report_names)
               #print(Dict[Report_labels][Metric_labels])
-              Classification_report_values.append(Dict[Report_labels][Metric_labels])
           print("\n")
 
           # *
@@ -754,7 +756,7 @@ class ConfigurationCNN(Utilities):
           Plot_model.figure_plot_loss()
           Plot_model.figure_plot_ROC_curve()
 
-        elif Class_problem >= 3:
+        elif self.__Classes >= 3:
           
           # * Dicts
           FPR = dict()
@@ -783,9 +785,9 @@ class ConfigurationCNN(Utilities):
               
               # *
               Classification_report_names.append('{} {}'.format(Metric_labels, Report_labels))
+              Classification_report_values.append(Dict[Report_labels][Metric_labels])
               #print(Classification_report_names)
               #print(Dict[Report_labels][Metric_labels])
-              Classification_report_values.append(Dict[Report_labels][Metric_labels])
           print("\n")
 
           # *
@@ -825,7 +827,7 @@ class ConfigurationCNN(Utilities):
           Confusion_matrix_dataframe.to_csv(Confusion_matrix_dataframe_folder, index = False)
 
           # *
-          for i in range(Class_problem):
+          for i in range(self.__Classes):
             FPR[i], TPR[i], _ = roc_curve(y_test_roc[:, i], y_pred_roc[:, i])
             Roc_auc[i] = auc(FPR[i], TPR[i])
 
@@ -843,7 +845,7 @@ class ConfigurationCNN(Utilities):
             Dict_roc_curve = {'FPR': ROC_curve_FPR[j], 'TPR': ROC_curve_TPR[j]}
             Dataframe_ROC = pd.DataFrame(Dict_roc_curve)
 
-            Dataframe_ROC_name = "{}_Dataframe_ROC_Curve_Values_{}_{}_{}.csv".format(Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique, j)
+            Dataframe_ROC_name = "{}_Dataframe_ROC_Curve_Values_{}_{}_{}.csv".format(self.__Class_problem_prefix, Pretrained_model_name, self.__Enhancement_technique, j)
             Dataframe_ROC_folder = os.path.join(Folder_path_in, Dataframe_ROC_name)
             Dataframe_ROC.to_csv(Dataframe_ROC_folder)
             Dataframe_ROCs.append(Dataframe_ROC_folder)
@@ -892,10 +894,10 @@ class ConfigurationCNN(Utilities):
         Info.append(Recall)
         Info.append(F1_score)
 
-        if Class_problem == 2:
+        if self.__Classes == 2:
           Info.append(Auc)
-        elif Class_problem > 2:
-          for i in range(Class_problem):
+        elif self.__Classes > 2:
+          for i in range(self.__Classes):
             Info.append(Roc_auc[i])
 
         for i, value in enumerate(Classification_report_values):

@@ -528,10 +528,11 @@ def ML_model_pretrained(Model_pretrained_value: int, X_train, y_train, X_test):
 
     1: Support Vector Machine
     2: Multi Support Vector Machine
-    3: Decision Tree
-    4: K Neighbors
-    5: Random Forest
-    6: Gradient Boostin Classifier
+    3: Multi Layer Perceptron
+    4: Decision Tree
+    5: K Neighbors
+    6: Random Forest
+    7: Gradient Boostin Classifier
 
     Args:
         X_size (int): X's size value.

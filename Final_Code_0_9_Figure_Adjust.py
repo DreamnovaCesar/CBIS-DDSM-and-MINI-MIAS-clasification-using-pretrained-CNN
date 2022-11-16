@@ -1,42 +1,18 @@
 
-from Final_Code_0_0_Libraries import os
-from Final_Code_0_0_Libraries import np
-from Final_Code_0_0_Libraries import pd
-from Final_Code_0_0_Libraries import plt
-
-
+from Final_Code_0_0_Libraries import *
 from Final_Code_0_1_Utilities import Utilities
 
 # ? Figure Adjust
 
 class FigureAdjust(Utilities):
     """
-    Utilities inheritance: A class used to do the pre-processing of the images given such as: resize, median filter, Contrast Limited Adaptive Histogram Equalization (CLAHE), unsharp masking, gamma correction.
+    Utilities inheritance: 
 
     Classes:
 
-        
+
     Methods:
         data_dic(): description
-
-        @staticmethod
-        gamma_correction(): description
-
-        resize_technique(): description
-
-        normalize_technique(): description
-
-        median_filter_technique(): description
-
-        CLAHE_technique(): description
-
-        histogram_equalization_technique(): description
-
-        unsharp_masking_technique(): description
-
-        contrast_stretching_technique(): description
-
-        gamma_correction_technique(): description
         
     """
 
@@ -44,7 +20,7 @@ class FigureAdjust(Utilities):
         """
         Keyword Args:
             folder (str): description 
-            newfolder (str): description
+            title (str): description
             severity (str): description
             label (int): description
             interpolation (int): description
@@ -81,17 +57,34 @@ class FigureAdjust(Utilities):
         #self.Annot_kws = kwargs.get('annot_kws', None)
         #self.Font = kwargs.get('font', None)
     
-    def __repr__(self) -> str:
+    # * Class variables
+    def __repr__(self):
+            return f'[]';
 
-            kwargs_info = ''
+    # * Class description
+    def __str__(self):
+        return  f'';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, Figure adjust destroyed.');
 
-            return kwargs_info
+    # * Get data from a dic
+    def data_dic(self):
 
-    def __str__(self) -> str:
-
-            Descripcion_class = ''
-            
-            return Descripcion_class
+        return {'Folder path': str(self.__Folder),
+                'New folder path': str(self.__New_folder),
+                'Severity': str(self.__Severity),
+                'Sampling': str(self.__Label),
+                'Interpolation': str(self.__Interpolation),
+                'X resize': str(self.__X_resize),
+                'Y resize': str(self.__Y_resize),
+                'Division': str(self.__Division),
+                'Clip limit': str(self.__Clip_limit),
+                'Radius': str(self.__Radius),
+                'Amount': str(self.__Amount),
+                'Gamma correction': str(self.__Gamma_correction),
+                };
 
     # * Folder_path attribute
     @property
@@ -168,10 +161,10 @@ class FigureAdjust(Utilities):
     def show_figure(Show_image: bool = False) -> None:
 
         if(Show_image == True):
-        plt.show()
+            plt.show()
         
         else: 
-        pass
+            pass
 
     # ? Decorator
     @staticmethod
@@ -186,8 +179,8 @@ class FigureAdjust(Utilities):
         else:
             pass
     
-    # ?
-    class BarChart(FigureAdjust):
+# ?
+class BarChart(FigureAdjust):
     """
     _summary_
 
@@ -205,7 +198,7 @@ class FigureAdjust(Utilities):
         self._Plot_reverse = kwargs.get('reverse', None)
 
         # * Read dataframe csv
-        self._Dataframe = pd.read_csv(self.CSV_path)
+        self._Dataframe = pd.read_csv(self._CSV_path)
 
         # *
         self._Colors = ('gray', 'red', 'blue', 'green', 'cyan', 'magenta', 'indigo', 'azure', 'tan', 'purple')
@@ -225,9 +218,9 @@ class FigureAdjust(Utilities):
 
         # * Chosing label
         if self._Num_classes == 2:
-        self._Label_class_name = 'Biclass'
+            self._Label_class_name = 'Biclass'
         elif self._Num_classes > 2:
-        self._Label_class_name = 'Multiclass'
+            self._Label_class_name = 'Multiclass'
 
     # * CSV_path attribute
     @property
@@ -539,10 +532,9 @@ class FigureAdjust(Utilities):
         self.save_figure(self._Save_figure, self._Title, Vertical, self._Folder_path)
         self.show_figure(self._Show_image)
 
-    # ? Create class folders
+# ? Create class folders
+class FigurePlot(FigureAdjust):
 
-    class FigurePlot(FigureAdjust):
-    
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
 
@@ -563,8 +555,9 @@ class FigureAdjust(Utilities):
         self._History_data_dataframe = pd.read_csv(self._History_dataframe)
         
         self._Roc_curve_dataframes = []
+
         for Dataframe in self._ROC_dataframe:
-        self._Roc_curve_dataframes.append(pd.read_csv(Dataframe))
+            self._Roc_curve_dataframes.append(pd.read_csv(Dataframe))
 
         # *
         self._Accuracy = self._History_data_dataframe.accuracy.to_list()
@@ -574,9 +567,10 @@ class FigureAdjust(Utilities):
 
         self._FPRs = []
         self._TPRs = []
+        
         for i in range(len(self._Roc_curve_dataframes)):
-        self._FPRs.append(self._Roc_curve_dataframes[i].FPR.to_list())
-        self._TPRs.append(self._Roc_curve_dataframes[i].TPR.to_list())
+            self._FPRs.append(self._Roc_curve_dataframes[i].FPR.to_list())
+            self._TPRs.append(self._Roc_curve_dataframes[i].TPR.to_list())
 
     # * CSV_path attribute
     @property
@@ -703,21 +697,99 @@ class FigureAdjust(Utilities):
         plt.xlabel('Epoch')
 
         # * FPR and TPR values for the ROC curve
-        for i in range(len(self.Roc_curve_dataframes)):
-        Roc_auc[i] = auc(self._FPRs[i], self._TPRs[i])
+        for i in range(len(self._Roc_curve_dataframes)):
+            Roc_auc[i] = auc(self._FPRs[i], self._TPRs[i])
 
         # * Plot ROC curve
         plt.subplot(self._X_size_figure_subplot, self._Y_size_figure_subplot, 3)
         plt.plot([0, 1], [0, 1], 'k--')
 
-        for i in range(len(self.Roc_curve_dataframes)):
-        plt.plot(self._FPRs[i], self._TPRs[i], color = Colors[i], label = 'ROC Curve of class {0} (area = {1:0.4f})'.format(self._Labels[i], Roc_auc[i]))
+        for i in range(len(self._Roc_curve_dataframes)):
+            plt.plot(self._FPRs[i], self._TPRs[i], color = Colors[i], label = 'ROC Curve of class {0} (area = {1:0.4f})'.format(self._Labels[i], Roc_auc[i]))
+            plt.xlabel('False positive rate')
+            plt.ylabel('True positive rate')
+            plt.title('ROC curve')
+            plt.legend(loc = 'lower right')
+        
+        self.save_figure(self._Save_figure, self._Title, Four_plot, self._Folder_path)
+        self.show_figure(self._Show_image)
+
+    @Utilities.timer_func
+    def figure_plot_two(self) -> None: 
+
+        # *
+        Two_plot = 'Two_plot'
+
+        # * Figure's size
+        plt.figure(figsize = (self._X_figure_size, self._Y_figure_size))
+        plt.suptitle(self._Title, fontsize = self._Font_size_title)
+        plt.subplot(self._X_size_figure_subplot, self._Y_size_figure_subplot, 1)
+
+        # * Confusion matrix heatmap
+        sns.set(font_scale = self._Font_size_general)
+
+        # *
+        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_general})
+        #ax.set_title('Seaborn Confusion Matrix with labels\n\n')
+        ax.set_xlabel('\nPredicted Values')
+        ax.set_ylabel('Actual Values')
+
+        # * FPR and TPR values for the ROC curve
+        Auc = auc(self._FPRs[0], self._TPRs[0])
+
+        # * Subplot ROC curve
+        plt.subplot(self._X_size_figure_subplot, self._Y_size_figure_subplot, 2)
+        plt.plot([0, 1], [0, 1], 'k--')
+        plt.plot(self._FPRs[0], self._TPRs[0], label = 'Test' + '(area = {:.4f})'.format(Auc))
         plt.xlabel('False positive rate')
         plt.ylabel('True positive rate')
         plt.title('ROC curve')
         plt.legend(loc = 'lower right')
         
-        self.save_figure(self._Save_figure, self._Title, Four_plot, self._Folder_path)
+        self.save_figure(self._Save_figure, self._Title, Two_plot, self._Folder_path)
+        self.show_figure(self._Show_image)
+
+    @Utilities.timer_func
+    def figure_plot_four_multiclass(self) -> None: 
+        
+        # * Colors for ROC curves
+        Colors = ['blue', 'red', 'green', 'brown', 'purple', 'pink', 'orange', 'black', 'yellow', 'cyan']
+        
+        # *
+        Two_plot = 'Two_plot'
+
+        Roc_auc = dict()
+
+        # * Figure's size
+        plt.figure(figsize = (self._X_figure_size, self._Y_figure_size))
+        plt.suptitle(self._Title, fontsize = self._Font_size_title)
+        plt.subplot(self._X_size_figure_subplot, self._Y_size_figure_subplot, 1)
+
+        # * Confusion matrix heatmap
+        sns.set(font_scale = self._Font_size_general)
+
+        # *
+        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_general})
+        #ax.set_title('Seaborn Confusion Matrix with labels\n\n')
+        ax.set_xlabel('\nPredicted Values')
+        ax.set_ylabel('Actual Values')
+
+        # * FPR and TPR values for the ROC curve
+        for i in range(len(self._Roc_curve_dataframes)):
+            Roc_auc[i] = auc(self._FPRs[i], self._TPRs[i])
+
+        # * Plot ROC curve
+        plt.subplot(self._X_size_figure_subplot, self._Y_size_figure_subplot, 2)
+        plt.plot([0, 1], [0, 1], 'k--')
+
+        for i in range(len(self._Roc_curve_dataframes)):
+            plt.plot(self._FPRs[i], self._TPRs[i], color = Colors[i], label = 'ROC Curve of class {0} (area = {1:0.4f})'.format(self._Labels[i], Roc_auc[i]))
+            plt.xlabel('False positive rate')
+            plt.ylabel('True positive rate')
+            plt.title('ROC curve')
+            plt.legend(loc = 'lower right')
+        
+        self.save_figure(self._Save_figure, self._Title, Two_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
     @Utilities.timer_func
@@ -824,18 +896,18 @@ class FigureAdjust(Utilities):
 
         # * FPR and TPR values for the ROC curve
         for i in range(len(self.Roc_curve_dataframes)):
-        Roc_auc[i] = auc(self._FPRs[i], self._TPRs[i])
+            Roc_auc[i] = auc(self._FPRs[i], self._TPRs[i])
 
         # * Plot ROC curve
         plt.plot([0, 1], [0, 1], 'k--')
 
         for i in range(len(self.Roc_curve_dataframes)):
-        plt.plot(self._FPRs[i], self._TPRs[i], color = Colors[i], label = 'ROC Curve of class {0} (area = {1:0.4f})'.format(self._Labels[i], Roc_auc[i]))
+            plt.plot(self._FPRs[i], self._TPRs[i], color = Colors[i], label = 'ROC Curve of class {0} (area = {1:0.4f})'.format(self._Labels[i], Roc_auc[i]))
 
-        plt.xlabel('False positive rate')
-        plt.ylabel('True positive rate')
-        plt.title('ROC curve')
-        plt.legend(loc = 'lower right')
+            plt.xlabel('False positive rate')
+            plt.ylabel('True positive rate')
+            plt.title('ROC curve')
+            plt.legend(loc = 'lower right')
 
         self.save_figure(self._Save_figure, self._Title, ROC_plot, self._Folder_path)
         self.show_figure(self._Show_image)

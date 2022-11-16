@@ -3,18 +3,35 @@ from Final_Code_0_0_Libraries import *
 from Final_Code_1_General_Functions_Classes import Utilities
 
 class Menu(Utilities):
+    """
+    Utilities inheritance: Menu to show the functions for this research
+
+    Methods:
+        data_dic(): description
+        
+    """
 
     def __init__(self, **kwargs) -> None:
         pass
 
+    # * Class variables
     def __repr__(self):
+            return f'[]';
 
-        kwargs_info = '';
-
-        return kwargs_info
-
+    # * Class description
     def __str__(self):
-        pass
+        return  f'';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, Menu class destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Folder path': str(),
+                'Folder model': str(),
+                };
  
  
     @Utilities.time_func  
