@@ -11,6 +11,26 @@ from Final_Code_0_1_Utilities import Utilities
 # ? Generate keys
 
 class SecurityFiles(Utilities):
+    """
+    Utilities inheritance
+
+    A class used to create keys and save the files with it
+
+    Keyword Args:
+        folder (str): description 
+        NK (int): description
+        KP (str): description
+        KsP (str): description
+        KC (str): description
+        KR (bool): description
+
+    Methods:
+        generate_key(): description
+
+        encrypt_files(): description
+
+        decrypt_files(): description
+    """
 
     def __init__(self, **kwargs) -> None:
         
@@ -24,7 +44,11 @@ class SecurityFiles(Utilities):
 
     @Utilities.timer_func
     def generate_key(self) -> None: 
-        
+        """
+        Method used to create random keys using self.__Number_keys for interation variable
+
+        """
+
         # *
         Names = [];
         Keys = [];
@@ -56,6 +80,10 @@ class SecurityFiles(Utilities):
 
     @Utilities.timer_func
     def encrypt_files(self) -> None:
+        """
+        Method used to encrypt files by choosing the key or get it randomly
+
+        """
 
         # * Folder attribute (ValueError, TypeError)
         if self.__Folder_path == None:
@@ -95,7 +123,7 @@ class SecurityFiles(Utilities):
                         with open(self.__Folder_path + '/' + Filename, 'wb') as Encrypted_file:
                             Encrypted_file.write(Encrypted_File) 
 
-                    with open(self.__Key_path_chosen + '/' + FilenameKey + '.txt', "w") as text_file:
+                    with open(self.__Key_path + '/' + FilenameKey + '.txt', "w") as text_file:
                         text_file.write('The key {} open the next documents {}'.format(FilenameKey, Filenames))   
 
                 except OSError:
@@ -131,7 +159,7 @@ class SecurityFiles(Utilities):
                         with open(self.__Folder_path + '/' + Filename, 'wb') as Encrypted_file:
                             Encrypted_file.write(Encrypted_File)
 
-                    with open(self.__Key_path_chosen + '/' + Name_key + '.txt', "w") as text_file:
+                    with open(self.__Key_path + '/' + Name_key + '.txt', "w") as text_file:
                         text_file.write('The key {} open the next documents {}'.format(Name_key, Filenames))  
 
                 except OSError:
@@ -141,7 +169,10 @@ class SecurityFiles(Utilities):
 
     @Utilities.timer_func
     def decrypt_files(self) -> None: 
+        """
+        Method used to decrypt files by using the fenet key
 
+        """
 
         # * Folder attribute (ValueError, TypeError)
         if self.__Folder_path == None:
