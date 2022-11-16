@@ -9,6 +9,7 @@ from Final_Code_1_General_Functions import FigurePlot
 
 class ConfigurationCNN(Utilities):
 
+  # * Initializing (Constructor)
   def __init__(self, **kwargs) -> None:
 
     # * Instance attributes
