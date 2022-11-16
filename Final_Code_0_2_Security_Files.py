@@ -14,14 +14,6 @@ class SecurityFiles(Utilities):
     """
     Utilities inheritance: A class used to create keys and save the files with it
 
-    Keyword Args:
-        folder (str): description 
-        NK (int): description
-        KP (str): description
-        KsP (str): description
-        KC (str): description
-        KR (bool): description
-
     Methods:
         generate_key(): description
 
@@ -29,8 +21,17 @@ class SecurityFiles(Utilities):
 
         decrypt_files(): description
     """
-    # *Initializing (Constructor)
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
+        """
+        Keyword Args:
+            folder (str): description 
+            NK (int): description
+            KP (str): description
+            KsP (str): description
+            KC (str): description
+            KR (bool): description
+        """
         
         # * Instance attributes (Private)
         self.__Folder_path = kwargs.get('folder', None);
@@ -40,16 +41,19 @@ class SecurityFiles(Utilities):
         self.__Key_chosen = kwargs.get('KC', None);
         self.__Key_random = kwargs.get('KR', None);
 
+    # * Class variables
     def __repr__(self):
         return f'[{self.__Folder_path}, {self.__Number_keys}, {self.__Key_path}, {self.__Keys_path}, {self.__Key_chosen}, {self.__Key_random}]';
 
+    # * Class description
     def __str__(self):
-        return  f'Utilities inheritance: A class used to create keys and save the files with it';
+        return  f'A class used to create keys and save the files with it';
     
     # * Deleting (Calling destructor)
     def __del__(self):
         print('Destructor called, Security files class destroyed.');
 
+    # * Get data from a dic
     def data_dic(self):
 
         return {'Folder path': str(self.__Folder_path),

@@ -206,12 +206,3 @@ from sklearn.multiclass import OneVsRestClassifier
 from imblearn.over_sampling import SMOTE
 
 from tensorflow.python.client import device_lib
-
-print(f"Tensor Flow Version: {tf.__version__}")
-print(f"Keras Version: {keras.__version__}")
-print()
-print(f"Python {sys.version}")
-print(f"Pandas {pd.__version__}")
-gpu = len(tf.config.list_physical_devices('GPU'))>0
-print("GPU is", "available" if gpu else "NOT AVAILABLE")
-print(device_lib.list_local_devices())

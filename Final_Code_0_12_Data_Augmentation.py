@@ -18,7 +18,7 @@ class DataAugmentation(Utilities):
         flip_vertical(Image_cropped: np.ndarray): Flip the input vertically around the x-axis.
 
         @staticmethod
-        rotation(Image_cropped: np.ndarray): Rotate the input inside the input's frame by an angle selected randomly from the uniform distribution.
+        rotation(Rotation: int, Image_cropped: np.ndarray): Rotate the input inside the input's frame by an angle selected randomly from the uniform distribution.
 
         data_augmentation(): Techniques used to increase the amount of data by adding slightly modified copies of already existing data 
         or newly created synthetic data from existing data (Saving the data in variables)
@@ -100,7 +100,7 @@ class DataAugmentation(Utilities):
   
   # * Deleting (Calling destructor)
   def __del__(self):
-      print('Destructor called, Data augmentation class destroyed.');
+      print('Destructor called, data augmentation class destroyed.');
 
   # * Get data from a dic
   def data_dic(self):
@@ -116,63 +116,63 @@ class DataAugmentation(Utilities):
   # * __Folder attribute
   @property
   def __Folder_property(self):
-      return self.__Folder
+      return self.__Folder;
 
   @__Folder_property.setter
   def __Folder_property(self, New_value):
-      self.__Folder = New_value
+      self.__Folder = New_value;
   
   @__Folder_property.deleter
   def __Folder_property(self):
-      print("Deleting folder...")
-      del self.__Folder
+      print("Deleting folder...");
+      del self.__Folder;
 
   # * __Folder_dest attribute
   @property
   def __Folder_dest_property(self):
-      return self.__Folder_dest
+      return self.__Folder_dest;
 
   @__Folder_dest_property.setter
   def __Folder_dest_property(self, New_value):
-      self.__Folder_dest = New_value
+      self.__Folder_dest = New_value;
   
   @__Folder_dest_property.deleter
   def __Folder_dest_property(self):
-      print("Deleting destination folder...")
-      del self.__Folder_dest
+      print("Deleting destination folder...");
+      del self.__Folder_dest;
 
   # * __Severity attribute
   @property
   def __Severity_property(self):
-      return self.__Severity
+      return self.__Severity;
 
   @__Severity_property.setter
   def __Severity_property(self, New_value):
-      self.__Severity = New_value
+      self.__Severity = New_value;
   
   @__Severity_property.deleter
   def __Severity_property(self):
-      print("Deleting severity...")
-      del self.__Severity
+      print("Deleting severity...");
+      del self.__Severity;
 
   # * __Sampling attribute
   @property
   def __Sampling_property(self):
-      return self.__Sampling
+      return self.__Sampling;
 
   @__Sampling_property.setter
   def __Sampling_property(self, New_value):
-    self.__Sampling = New_value
+    self.__Sampling = New_value;
   
   @__Sampling_property.deleter
   def __Sampling_property(self):
-      print("Deleting sampling...")
-      del self.__Sampling
+      print("Deleting sampling...");
+      del self.__Sampling;
 
   # * __Label attribute
   @property
   def __Label_property(self):
-      return self.__Label
+      return self.__Label;
 
   @__Label_property.setter
   def __Label_property(self, New_value):
@@ -180,24 +180,25 @@ class DataAugmentation(Utilities):
       raise ValueError("Value is out of the range must be less than 10 and more than 0") #! Alert
     if not isinstance(New_value, int):
       raise TypeError("Must be a enteger value") #! Alert
-    self.__Label = New_value
+    self.__Label = New_value;
   
   @__Label_property.deleter
   def __Label_property(self):
-      print("Deleting label...")
-      del self.__Label
+      print("Deleting label...");
+      del self.__Label;
 
   # * __Save_images attribute
   @property
   def __Save_images_property(self):
-      return self.__Save_images
+      return self.__Save_images;
 
   @__Save_images_property.setter
   def __Save_images_property(self, New_value):
     if not isinstance(New_value, bool):
       raise TypeError("Must be a bool value (True or False is required)") #! Alert
-    self.__Save_images = New_value
+    self.__Save_images = New_value;
   
+  # ? Static method to safe rotation using albumentation library
   @staticmethod
   def safe_rotation(Image_cropped: np.ndarray) -> np.ndarray:
     """
@@ -219,8 +220,7 @@ class DataAugmentation(Utilities):
 
     return Imagen_transformada
 
-  # ? Flip horizontal using albumentation library
-
+  # ? Static method to flip horizontal using albumentation library
   @staticmethod
   def flip_horizontal(Image_cropped: np.ndarray) -> np.ndarray:
     """
@@ -240,8 +240,7 @@ class DataAugmentation(Utilities):
 
     return Imagen_transformada
 
-  # ? Flip vertical using albumentation library
-
+  # ? Static method to flip vertical using albumentation library
   @staticmethod
   def flip_vertical(Image_cropped: np.ndarray) -> np.ndarray:
     """
@@ -261,10 +260,9 @@ class DataAugmentation(Utilities):
 
     return Imagen_transformada
 
-  # ? Rotation using albumentation library
-
+  # ? Static method to rotation using albumentation library
   @staticmethod
-  def rotation(Rotation:int, Image_cropped: np.ndarray) -> np.ndarray:
+  def rotation(Rotation: int, Image_cropped: np.ndarray) -> np.ndarray:
     """
     Rotate the input inside the input's frame by an angle selected randomly from the uniform distribution.
 
@@ -283,8 +281,7 @@ class DataAugmentation(Utilities):
 
     return Imagen_transformada
 
-  # ? shift rotation using albumentation library
-
+  # ? Method to apply data augmentation using the sampling variable
   @Utilities.timer_func
   def data_augmentation(self) -> tuple[list[np.ndarray], list[np.ndarray]]:
     """
@@ -296,45 +293,45 @@ class DataAugmentation(Utilities):
     # * Create a folder with each image and its transformations.
 
     #Name_dir:str = os.path.dirname(self.Folder)
-    Name_base:str = os.path.basename(self.__Folder)
+    Name_base:str = os.path.basename(self.__Folder);
 
     #Name_dir_dest:str = os.path.dirname(self.Folder_dest)
     #Name_base_dest:str = os.path.basename(self.Folder_dest)
     #print(self.Folder_dest + '/' + Name_base + '_DA')
 
-    Exist_dir:bool = os.path.isdir(self.__Folder_dest + '/' + Name_base + '_DA') 
+    Exist_dir:bool = os.path.isdir(self.__Folder_dest + '/' + Name_base + '_DA') ;
 
     if self.__Save_images == True:
       if Exist_dir == False:
-        New_folder_dest:str = self.__Folder_dest + '/' + Name_base + '_DA'
-        os.mkdir(New_folder_dest)
+        New_folder_dest:str = self.__Folder_dest + '/' + Name_base + '_DA';
+        os.mkdir(New_folder_dest);
       else:
-        New_folder_dest:str = self.__Folder +  '/' + Name_base + '_DA'
+        New_folder_dest:str = self.__Folder +  '/' + Name_base + '_DA';
 
     # * Lists to save the images and their respective labels
-    Images:list = [] 
-    Labels:list = [] 
+    Images:list = [];
+    Labels:list = [];
     
     # * Initial value to rotate (More information on the albumentation's web)
     Rotation_initial_value:int = -120
 
     # * Reading the folder
-    os.chdir(self.__Folder)
-    Count:int = 1
+    os.chdir(self.__Folder);
+    Count:int = 1;
 
     # * The number of images inside the folder
-    Total_images:int = len(os.listdir(self.__Folder))
+    Total_images:int = len(os.listdir(self.__Folder));
 
     # * Iteration of each image in the folder.
     for File in os.listdir():
 
-      Filename, Format  = os.path.splitext(File)
+      Filename, Format  = os.path.splitext(File);
 
       # * Read extension files
       if File.endswith(Format):
 
         print(f"Working with {Count} of {Total_images} images of {self.__Severity}")
-        Count += 1
+        Count += 1;
 
         # * Resize with the given values
         Path_file:str = os.path.join(self.__Folder, File)
@@ -345,101 +342,102 @@ class DataAugmentation(Utilities):
 
         # ? 1) Standard image
 
-        Images.append(Image)
-        Labels.append(self.__Label)
+        Images.append(Image);
+        Labels.append(self.__Label);
 
         # * if this parameter is true all images will be saved in a new folder
         if self.__Save_images == True:
           
-          Filename_and_label = '{}_Normal ✅'.format(Filename)
+          Filename_and_label = '{}_Normal ✅'.format(Filename);
           #Filename_and_label = Filename + '_Normal'
-          New_name_filename = Filename_and_label + Format
-          New_folder = os.path.join(New_folder_dest, New_name_filename)
+          New_name_filename = Filename_and_label + Format;
+          New_folder = os.path.join(New_folder_dest, New_name_filename);
 
-          io.imsave(New_folder, Image)
+          io.imsave(New_folder, Image);
           
         # ? 1.A) Flip horizontal 
 
         Image_flip_horizontal = self.flip_horizontal(Image)
 
-        Images.append(Image_flip_horizontal)
-        Labels.append(self.__Label)
+        Images.append(Image_flip_horizontal);
+        Labels.append(self.__Label);
 
         # * if this parameter is true all images will be saved in a new folder
         if self.__Save_images == True:
           
-          Filename_and_label = '{}_FlipHorizontal_Augmentation ✅'.format(Filename)
+          Filename_and_label = '{}_FlipHorizontal_Augmentation ✅'.format(Filename);
           #Filename_and_label = Filename + '_FlipHorizontal' + '_Augmentation'
-          New_name_filename = Filename_and_label + Format
-          New_folder = os.path.join(New_folder_dest, New_name_filename)
+          New_name_filename = Filename_and_label + Format;
+          New_folder = os.path.join(New_folder_dest, New_name_filename);
 
-          io.imsave(New_folder, Image_flip_horizontal)
+          io.imsave(New_folder, Image_flip_horizontal);
 
         # ? 1.B) Rotation
 
         # * this 'for' increments the rotation angles of each image
         for i in range(self.__Sampling):
 
-          Image_rotation = self.rotation(Rotation_initial_value, Image)
+          Image_rotation = self.rotation(Rotation_initial_value, Image);
 
-          Rotation_initial_value += 10
+          Rotation_initial_value += 10;
 
-          Images.append(Image_rotation)
-          Labels.append(self.__Label)
+          Images.append(Image_rotation);
+          Labels.append(self.__Label);
 
           # * if this parameter is true all images will be saved in a new folder
           if self.__Save_images == True:
             
-            Filename_and_label = '{}_{}_Rotation_Augmentation ✅'.format(Filename, str(i))
+            Filename_and_label = '{}_{}_Rotation_Augmentation ✅'.format(Filename, str(i));
             #Filename_and_label = Filename + '_' + str(i) + '_Rotation' + '_Augmentation'
-            New_name_filename = Filename_and_label + Format
-            New_folder = os.path.join(New_folder_dest, New_name_filename)
+            New_name_filename = Filename_and_label + Format;
+            New_folder = os.path.join(New_folder_dest, New_name_filename);
 
-            io.imsave(New_folder, Image_rotation)
+            io.imsave(New_folder, Image_rotation);
 
         # ? 2.A) Flip vertical
 
-        Image_flip_vertical = self.flip_vertical(Image)
+        Image_flip_vertical = self.flip_vertical(Image);
 
-        Images.append(Image_flip_vertical)
-        Labels.append(self.__Label)
+        Images.append(Image_flip_vertical);
+        Labels.append(self.__Label);
 
         # * if this parameter is true all images will be saved in a new folder
         if self.__Save_images == True:
 
-          Filename_and_label = '{}_FlipVertical_Augmentation ✅'.format(Filename)
+          Filename_and_label = '{}_FlipVertical_Augmentation ✅'.format(Filename);
           #Filename_and_label = Filename + '_FlipVertical' + '_Augmentation'
-          New_name_filename = Filename_and_label + Format
-          New_folder = os.path.join(New_folder_dest, New_name_filename)
+          New_name_filename = Filename_and_label + Format;
+          New_folder = os.path.join(New_folder_dest, New_name_filename);
 
-          io.imsave(New_folder, Image_flip_vertical)
+          io.imsave(New_folder, Image_flip_vertical);
         
         # ? 2.B) Rotation
 
         # * this 'for' increments the rotation angles of each image
         for i in range(self.__Sampling):
 
-          Image_flip_vertical_rotation = self.rotation(Rotation_initial_value, Image_flip_vertical)
+          Image_flip_vertical_rotation = self.rotation(Rotation_initial_value, Image_flip_vertical);
 
-          Rotation_initial_value += 10
+          Rotation_initial_value += 10;
 
-          Images.append(Image_flip_vertical_rotation)
-          Labels.append(self.__Label)
+          Images.append(Image_flip_vertical_rotation);
+          Labels.append(self.__Label);
 
           # * if this parameter is true all images will be saved in a new folder
           if self.__Save_images == True:
 
-            Filename_and_label = '{}_{}_Rotation_FlipVertical_Augmentation ✅'.format(Filename, str(i))
+            Filename_and_label = '{}_{}_Rotation_FlipVertical_Augmentation ✅'.format(Filename, str(i));
             #Filename_and_label = Filename + '_' + str(i) + '_Rotation' + '_FlipVertical' + '_Augmentation'
-            New_name_filename = Filename_and_label + Format
-            New_folder = os.path.join(New_folder_dest, New_name_filename)
+            New_name_filename = Filename_and_label + Format;
+            New_folder = os.path.join(New_folder_dest, New_name_filename);
 
-            io.imsave(New_folder, Image_flip_vertical_rotation)
+            io.imsave(New_folder, Image_flip_vertical_rotation);
 
-    Labels = np.array(Labels)
+    Labels = np.array(Labels);
     
-    return Images, Labels
+    return Images, Labels;
   
+  # ? Method to apply data augmentation using the sampling variable saving them inside the folder
   @Utilities.timer_func
   def data_augmentation_same_folder(self) -> tuple[list[np.ndarray], list[np.ndarray]]:
     """
@@ -450,7 +448,7 @@ class DataAugmentation(Utilities):
     # * Create a folder with each image and its transformations.
 
     #Name_dir:str = os.path.dirname(self.Folder)
-    Name_base:str = os.path.basename(self.__Folder)
+    Name_base:str = os.path.basename(self.__Folder);
 
     #Name_dir_dest:str = os.path.dirname(self.Folder_dest)
     #Name_base_dest:str = os.path.basename(self.Folder_dest)
@@ -469,134 +467,135 @@ class DataAugmentation(Utilities):
     """
 
     # * Lists to save the images and their respective labels
-    Images:list = [] 
-    Labels:list = [] 
+    Images:list = [];
+    Labels:list = [];
     
     # * Initial value to rotate (More information on the albumentation's web)
-    Rotation_initial_value:int = -120
+    Rotation_initial_value:int = -120;
 
     # * Reading the folder
-    os.chdir(self.__Folder)
-    Count:int = 1
+    os.chdir(self.__Folder);
+    Count:int = 1;
 
     # * The number of images inside the folder
-    Total_images:int = len(os.listdir(self.__Folder))
+    Total_images:int = len(os.listdir(self.__Folder));
 
     # * Iteration of each image in the folder.
     for File in os.listdir():
 
-      Filename, Format  = os.path.splitext(File)
+      Filename, Format  = os.path.splitext(File);
 
       # * Read extension files
       if File.endswith(Format):
 
-        print(f"Working with {Count} of {Total_images} images of {self.__Severity}")
-        Count += 1
+        print(f"Working with {Count} of {Total_images} images of {self.__Severity}");
+        Count += 1;
 
         # * Resize with the given values
-        Path_file:str = os.path.join(self.__Folder, File)
-        Image:ndarray = cv2.imread(Path_file)
+        Path_file:str = os.path.join(self.__Folder, File);
+        Image:ndarray = cv2.imread(Path_file);
 
         #Image = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
         #Imagen = cv2.resize(Resize_Imagen, dim, interpolation = cv2.INTER_CUBIC)
 
         # ? 1) Standard image
 
-        Images.append(Image)
-        Labels.append(self.__Label)
+        Images.append(Image);
+        Labels.append(self.__Label);
 
         # * if this parameter is true all images will be saved in a new folder
         if self.__Save_images == True:
           
-          Filename_and_label = '{}_Normal ✅'.format(Filename)
+          Filename_and_label = '{}_Normal ✅'.format(Filename);
           #Filename_and_label = Filename + '_Normal'
-          New_name_filename = Filename_and_label + Format
-          New_folder = os.path.join(self.__Folder, New_name_filename)
+          New_name_filename = Filename_and_label + Format;
+          New_folder = os.path.join(self.__Folder, New_name_filename);
 
-          io.imsave(New_folder, Image)
+          io.imsave(New_folder, Image);
           
         # ? 1.A) Flip horizontal 
 
-        Image_flip_horizontal = self.flip_horizontal(Image)
+        Image_flip_horizontal = self.flip_horizontal(Image);
 
-        Images.append(Image_flip_horizontal)
-        Labels.append(self.__Label)
+        Images.append(Image_flip_horizontal);
+        Labels.append(self.__Label);
 
         # * if this parameter is true all images will be saved in a new folder
         if self.__Save_images == True:
           
-          Filename_and_label = '{}_FlipHorizontal_Augmentation ✅'.format(Filename)
+          Filename_and_label = '{}_FlipHorizontal_Augmentation ✅'.format(Filename);
           #Filename_and_label = Filename + '_FlipHorizontal' + '_Augmentation'
-          New_name_filename = Filename_and_label + Format
-          New_folder = os.path.join(self.__Folder, New_name_filename)
+          New_name_filename = Filename_and_label + Format;
+          New_folder = os.path.join(self.__Folder, New_name_filename);
 
-          io.imsave(New_folder, Image_flip_horizontal)
+          io.imsave(New_folder, Image_flip_horizontal);
 
         # ? 1.B) Rotation
 
         # * this 'for' increments the rotation angles of each image
         for i in range(self.__Sampling):
 
-          Image_rotation = self.rotation(Rotation_initial_value, Image)
+          Image_rotation = self.rotation(Rotation_initial_value, Image);
 
-          Rotation_initial_value += 10
+          Rotation_initial_value += 10;
 
-          Images.append(Image_rotation)
-          Labels.append(self.__Label)
+          Images.append(Image_rotation);
+          Labels.append(self.__Label);
 
           # * if this parameter is true all images will be saved in a new folder
           if self.__Save_images == True:
             
-            Filename_and_label = '{}_{}_Rotation_Augmentation ✅'.format(Filename, str(i))
+            Filename_and_label = '{}_{}_Rotation_Augmentation ✅'.format(Filename, str(i));
             #Filename_and_label = Filename + '_' + str(i) + '_Rotation' + '_Augmentation'
-            New_name_filename = Filename_and_label + Format
-            New_folder = os.path.join(self.__Folder, New_name_filename)
+            New_name_filename = Filename_and_label + Format;
+            New_folder = os.path.join(self.__Folder, New_name_filename);
 
-            io.imsave(New_folder, Image_rotation)
+            io.imsave(New_folder, Image_rotation);
 
         # ? 2.A) Flip vertical
 
-        Image_flip_vertical = self.flip_vertical(Image)
+        Image_flip_vertical = self.flip_vertical(Image);
 
-        Images.append(Image_flip_vertical)
-        Labels.append(self.__Label)
+        Images.append(Image_flip_vertical);
+        Labels.append(self.__Label);
 
         # * if this parameter is true all images will be saved in a new folder
         if self.__Save_images == True:
 
-          Filename_and_label = '{}_FlipVertical_Augmentation ✅'.format(Filename)
+          Filename_and_label = '{}_FlipVertical_Augmentation ✅'.format(Filename);
           #Filename_and_label = Filename + '_FlipVertical' + '_Augmentation'
-          New_name_filename = Filename_and_label + Format
-          New_folder = os.path.join(self.__Folder, New_name_filename)
+          New_name_filename = Filename_and_label + Format;
+          New_folder = os.path.join(self.__Folder, New_name_filename);
 
-          io.imsave(New_folder, Image_flip_vertical)
+          io.imsave(New_folder, Image_flip_vertical);
         
         # ? 2.B) Rotation
 
         # * this 'for' increments the rotation angles of each image
         for i in range(self.__Sampling):
 
-          Image_flip_vertical_rotation = self.rotation(Rotation_initial_value, Image_flip_vertical)
+          Image_flip_vertical_rotation = self.rotation(Rotation_initial_value, Image_flip_vertical);
 
-          Rotation_initial_value += 10
+          Rotation_initial_value += 10;
 
-          Images.append(Image_flip_vertical_rotation)
-          Labels.append(self.__Label)
+          Images.append(Image_flip_vertical_rotation);
+          Labels.append(self.__Label);
 
           # * if this parameter is true all images will be saved in a new folder
           if self.__Save_images == True:
 
-            Filename_and_label = '{}_{}_Rotation_FlipVertical_Augmentation ✅'.format(Filename, str(i))
+            Filename_and_label = '{}_{}_Rotation_FlipVertical_Augmentation ✅'.format(Filename, str(i));
             #Filename_and_label = Filename + '_' + str(i) + '_Rotation' + '_FlipVertical' + '_Augmentation'
-            New_name_filename = Filename_and_label + Format
-            New_folder = os.path.join(self.__Folder, New_name_filename)
+            New_name_filename = Filename_and_label + Format;
+            New_folder = os.path.join(self.__Folder, New_name_filename);
 
-            io.imsave(New_folder, Image_flip_vertical_rotation)
+            io.imsave(New_folder, Image_flip_vertical_rotation);
 
     Labels = np.array(Labels)
     
     return Images, Labels
 
+  # ? Method to apply data augmentation and get the number of images augmented
   @Utilities.timer_func
   def data_augmentation_number_test_images(self) -> int:
     """
@@ -608,57 +607,57 @@ class DataAugmentation(Utilities):
     """
     
     # * init count variable
-    Total_images_count = 0
+    Total_images_count = 0;
   
     # * Reading the folder
-    os.chdir(self.__Folder)
-    Count = 1
+    os.chdir(self.__Folder);
+    Count = 1;
 
     # * The number of images inside the folder
-    Total_images = len(os.listdir(self.__Folder))
+    Total_images = len(os.listdir(self.__Folder));
 
     # * Iteration of each image in the folder.
     for File in os.listdir():
 
-      Filename, Format  = os.path.splitext(File)
+      Filename, Format  = os.path.splitext(File);
 
       # * Read extension files
       if File.endswith(Format):
 
-        print(f"Working with {Count} of {Total_images} images of {self.__Severity}")
-        Count += 1
+        print(f"Working with {Count} of {Total_images} images of {self.__Severity}");
+        Count += 1;
 
         # * Resize with the given values
-        Path_file = os.path.join(self.__Folder, File)
-        Image = cv2.imread(Path_file)
+        Path_file = os.path.join(self.__Folder, File);
+        Image = cv2.imread(Path_file);
 
         #Image = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
         #Imagen = cv2.resize(Resize_Imagen, dim, interpolation = cv2.INTER_CUBIC)
 
         # ? 1) Standard image
 
-        Total_images_count += 1
+        Total_images_count += 1;
 
         # ? 1.A) Flip horizontal 
 
-        Total_images_count += 1
+        Total_images_count += 1;
 
         # ? 1.B) Rotation
 
         # * this 'for' increments the rotation angles of each image
         for _ in range(self.__Sampling):
 
-          Total_images_count += 1
+          Total_images_count += 1;
 
         # ? 2.A) Flip vertical
 
-        Total_images_count += 1
+        Total_images_count += 1;
         
         # ? 2.B) Rotation
 
         # * this 'for' increments the rotation angles of each image
         for _ in range(self.__Sampling):
 
-          Total_images_count += 1
+          Total_images_count += 1;
 
-    return Total_images_count
+    return Total_images_count;

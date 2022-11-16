@@ -1,4 +1,5 @@
 from Final_Code_0_0_Libraries import *
+from Final_Code_1_General_Functions_Classes import Utilities
 
 from Final_Code_1_General_Functions import sort_images
 
@@ -72,10 +73,35 @@ def fos(f, mask):
 
 # class for features extraction using first order statistic and GLCM.
 
-class FeatureExtraction():
+class FeatureExtraction(Utilities):
+  """
+    Utilities inheritance: A class used to extract the features using descriptores such as: Gray-Level Co-occurrence Matrix (GLCM), First Order Features (FOF) 
+    and Gray Level Run Length Matrix (GLRLM)
 
+    Methods:
+        textures_Feature_first_order_from_folder(): description
+
+        textures_Feature_GLRLM_from_folder(): description
+
+        textures_Feature_GLCM_from_folder(): description
+
+        textures_Feature_first_order_from_images(): description
+
+        textures_Feature_first_order_from_images(): description
+
+        textures_Feature_first_order_from_images(): description
+        
+    """
+
+  # * Initializing (Constructor)
   def __init__(self, **kwargs) -> None:
-    
+    """
+    Keyword Args:
+        Folder (str): description 
+        Images (str): description
+        Labels (str): description
+    """
+
     # * General parameters
     self.__Folder = kwargs.get('Folder', None)
     self.__Images = kwargs.get('Images', None)
@@ -100,6 +126,68 @@ class FeatureExtraction():
     #if not isinstance(self.Images, int):
       #raise TypeError("Label must be a int") #! Alert
 
+  # * Class variables
+  def __repr__(self):
+        return f'[{self.__Folder}, {self.__Images}, {self.__Label}]';
+
+  # * Class description
+  def __str__(self):
+      return  f'A class used to extract the features using descriptores such as: Gray-Level Co-occurrence Matrix (GLCM), First Order Features (FOF) and Gray Level Run Length Matrix (GLRLM)';
+  
+  # * Deleting (Calling destructor)
+  def __del__(self):
+      print('Destructor called, feature extraction class destroyed.');
+
+  # * Get data from a dic
+  def data_dic(self):
+
+      return {'Folder path': str(self.__Folder),
+              'Images': str(self.__Images),
+              'Labels': str(self.__Label),
+              };
+  
+  # * __Folder attribute
+  @property
+  def __Folder_property(self):
+      return self.__Folder;
+
+  @__Folder_property.setter
+  def __Folder_property(self, New_value):
+      self.__Folder = New_value;
+  
+  @__Folder_property.deleter
+  def __Folder_property(self):
+      print("Deleting folder...");
+      del self.__Folder;
+
+  # * __Images attribute
+  @property
+  def __Images_property(self):
+      return self.__Images;
+
+  @__Images_property.setter
+  def __Images_property(self, New_value):
+      self.__Images = New_value;
+  
+  @__Images_property.deleter
+  def __Images_property(self):
+      print("Deleting images...");
+      del self.__Images;
+
+  # * __Label attribute
+  @property
+  def __Label_property(self):
+      return self.__Label;
+
+  @__Label_property.setter
+  def __Label_property(self, New_value):
+      self.__Label = New_value;
+  
+  @__Label_property.deleter
+  def __Label_property(self):
+      print("Deleting labels...");
+      del self.__Label;
+
   # ? FOF features folder
 
   def textures_Feature_first_order_from_folder(self):
@@ -110,7 +198,7 @@ class FeatureExtraction():
     All_filename = [] 
 
     # * First order tag
-    Fof = 'First Order Features'
+    FOF_ = 'First Order Features'
     
     # * Lists for the statistics
     Mean = []
@@ -191,7 +279,7 @@ class FeatureExtraction():
     Y = Dataframe.iloc[:, 0].values
 
     # * Return the three dataframes
-    return Dataframe, X, Y, Fof
+    return Dataframe, X, Y, FOF_
 
   # ? GLRLM features folder
 
@@ -203,7 +291,7 @@ class FeatureExtraction():
     All_filename = [] 
 
     # * GLRLM tag
-    Glrlm = 'Gray-Level Run Length Matrix'
+    GLRLM_ = 'Gray-Level Run Length Matrix'
 
     # * Lists for the statistics
     SRE = []  # Short Run Emphasis
@@ -261,7 +349,7 @@ class FeatureExtraction():
     Y = Dataset.iloc[:, -1].values
 
     # * Return the three dataframes
-    return Dataset, X, Y, Glrlm
+    return Dataset, X, Y, GLRLM_
 
   # ? GLCM features folder
 
@@ -273,7 +361,7 @@ class FeatureExtraction():
     All_filename = [] 
 
     # * GLCM tag
-    Glcm = 'Gray-Level Co-Occurance Matrix'
+    GLCM_ = 'Gray-Level Co-Occurance Matrix'
 
     # * Lists for the statistics
     Dissimilarity = []
@@ -330,7 +418,7 @@ class FeatureExtraction():
     Y = Dataset.iloc[:, 0].values
 
     # * Return the three dataframes
-    return Dataset, X, Y, Glcm
+    return Dataset, X, Y, GLCM_
 
   # ? FOF features images
 
@@ -340,7 +428,7 @@ class FeatureExtraction():
     Labels = []
 
     # * First order tag
-    Fof = 'First Order Features'
+    FOF_ = 'First Order Features'
 
     # * Lists for the statistics
     Mean = []
@@ -392,7 +480,7 @@ class FeatureExtraction():
     Y = Dataset.iloc[:, -1].values
 
     # * Return the three dataframes
-    return Dataset, X, Y, Fof
+    return Dataset, X, Y, FOF_
 
   # ? GLRLM features images
 
@@ -402,7 +490,7 @@ class FeatureExtraction():
     Labels = []
 
     # * GLRLM tag
-    Glrlm = 'Gray-Level Run Length Matrix'
+    GLRLM_ = 'Gray-Level Run Length Matrix'
 
     # * Lists for the statistics
     SRE = []  # Short Run Emphasis
@@ -450,7 +538,7 @@ class FeatureExtraction():
     Y = Dataset.iloc[:, -1].values
 
     # * Return the three dataframes
-    return Dataset, X, Y, Glrlm
+    return Dataset, X, Y, GLRLM_
 
   # ? GLCM features images
 
@@ -460,7 +548,7 @@ class FeatureExtraction():
     Labels = []
 
     # * GLCM tag
-    Glcm = 'Gray-Level Co-Occurance Matrix'
+    GLCM_ = 'Gray-Level Co-Occurance Matrix'
 
     # * Create empty dataframe
     DataFrame = pd.DataFrame()
@@ -564,4 +652,4 @@ class FeatureExtraction():
     Y = DataFrame.iloc[:, -1].values
 
     # * Return the three dataframes
-    return DataFrame, X, Y, Glcm
+    return DataFrame, X, Y, GLCM_

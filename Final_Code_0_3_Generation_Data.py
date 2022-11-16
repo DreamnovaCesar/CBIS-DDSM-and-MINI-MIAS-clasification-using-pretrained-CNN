@@ -20,6 +20,7 @@ class Generator(Utilities):
 
     """
 
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
         """
         Keyword Args:
@@ -34,9 +35,11 @@ class Generator(Utilities):
         self.__Iteration = kwargs.get('iter', None);
         self.__Save_dataframe = kwargs.get('SD', None);
 
+    # * Class variables
     def __repr__(self):
         return f'[{self.__Folder_path}, {self.__Folders_name}, {self.__Iteration}, {self.__Save_dataframe}]';
 
+    # * Class description
     def __str__(self):
         return  f'A class used to generate folders and data from students';
     
@@ -44,6 +47,7 @@ class Generator(Utilities):
     def __del__(self):
         print('Destructor called, Generator class destroyed.');
 
+    # * Get data from a dic
     def data_dic(self):
 
         return {'Folder path': str(self.__Folder_path),

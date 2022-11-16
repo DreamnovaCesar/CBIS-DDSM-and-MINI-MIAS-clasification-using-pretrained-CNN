@@ -9,11 +9,7 @@ from Final_Code_1_General_Functions import sort_images
 from Final_Code_0_1_Utilities import Utilities
 
 class CropImages(Utilities):
-    """
-    _summary_
-
-    _extended_summary_
-    """
+   
     def __init__(self, **kwargs) -> None:
     
         """
