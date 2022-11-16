@@ -4,18 +4,52 @@ from Final_Code_1_General_Functions_Classes import Utilities
 # Data Augmentation function
 
 class DataAugmentation(Utilities):
-  
-  @Utilities.timer_func
+  """
+    Utilities inheritance: A class used to increase the number of images synthetically using albumentation library
+
+    Methods:
+        @staticmethod
+        safe_rotation(Image_cropped: np.ndarray): Rotate the input by an angle selected randomly from the uniform distribution.
+
+        @staticmethod
+        flip_horizontal(Image_cropped: np.ndarray): Flip the input horizontally around the y-axis.
+
+        @staticmethod
+        flip_vertical(Image_cropped: np.ndarray): Flip the input vertically around the x-axis.
+
+        @staticmethod
+        rotation(Image_cropped: np.ndarray): Rotate the input inside the input's frame by an angle selected randomly from the uniform distribution.
+
+        data_augmentation(): Techniques used to increase the amount of data by adding slightly modified copies of already existing data 
+        or newly created synthetic data from existing data (Saving the data in variables)
+
+        data_augmentation_same_folder(): Techniques used to increase the amount of data by adding slightly modified copies of already existing data 
+        or newly created synthetic data from existing data (Saving the data in a folder)
+
+        data_augmentation_number_test_images(): Just show the number of images created with a int
+    """
+
+  # * Initializing (Constructor)
   def __init__(self, **kwargs) -> None:
-    
-    # * Instance attributes
-    self.__Folder: str = kwargs.get('Folder', None)
-    self.__Folder_dest: str = kwargs.get('NewFolder', None)
-    self.__Severity: str = kwargs.get('Severity', None)
-    self.__Sampling: int = kwargs.get('Sampling', 3)
-    self.__Label: int = kwargs.get('Label', None)
+    """
+    Keyword Args:
+        folder (str): description 
+        newfolder (str): description
+        severity (str): description
+        sampling (int): description
+        label (int): description
+        SI (bool): description
+    """
+
+    # * Instance attributes (kwargs)
+    self.__Folder: str = kwargs.get('folder', None)
+    self.__Folder_dest: str = kwargs.get('newfolder', None)
+    self.__Severity: str = kwargs.get('severity', None)
+    self.__Sampling: int = kwargs.get('sampling', 3)
+    self.__Label: int = kwargs.get('label', None)
     self.__Save_images: bool = kwargs.get('SI', False)
 
+    """
     # * Folder attribute (ValueError, TypeError)
     if (self.__Folder == None):
       raise ValueError("Folder does not exist") #! Alert
@@ -54,108 +88,112 @@ class DataAugmentation(Utilities):
     # * Save images attribute (ValueError, TypeError)
     if not isinstance(self.__Save_images, bool):
       raise TypeError("Save images attribute must be a bool value (True or False is required)") #! Alert
+    """
 
+  # * Class variables
   def __repr__(self):
+        return f'[{self.__Folder}, {self.__Folder_dest}, {self.__Severity}, {self.__Sampling}, {self.__Label}, {self.__Save_images}]';
 
-        kwargs_info = "Folder: {} , Folder_dest: {}, Severity: {}, Sampling: {}, Label: {}, Save_images: {}".format(  self.__Folder, self.__Folder_dest, self.__Severity,
-                                                                                                                      self.__Sampling, self.__Label, self.__Save_images)
-        return kwargs_info
-
+  # * Class description
   def __str__(self):
-
-        Descripcion_class = ''
-        
-        return Descripcion_class
+      return  f'A class used to increase the number of images synthetically using albumentation library';
   
-  # * Folder attribute
+  # * Deleting (Calling destructor)
+  def __del__(self):
+      print('Destructor called, Data augmentation class destroyed.');
+
+  # * Get data from a dic
+  def data_dic(self):
+
+      return {'Folder path': str(self.__Folder),
+              'New folder path': str(self.__Folder_dest),
+              'Severity': str(self.__Severity),
+              'Sampling': str(self.__Sampling),
+              'Labels': str(self.__Label),
+              'Save images': str(self.__Save_images),
+              };
+  
+  # * __Folder attribute
   @property
-  def Folder_property(self):
+  def __Folder_property(self):
       return self.__Folder
 
-  @Folder_property.setter
-  def Folder_property(self, New_value):
-      if not isinstance(New_value, str):
-        raise TypeError("Folder must be a string") #! Alert
+  @__Folder_property.setter
+  def __Folder_property(self, New_value):
       self.__Folder = New_value
   
-  @Folder_property.deleter
-  def Folder_property(self):
+  @__Folder_property.deleter
+  def __Folder_property(self):
       print("Deleting folder...")
       del self.__Folder
 
-  # * Folder destination attribute
+  # * __Folder_dest attribute
   @property
-  def Folder_dest_property(self):
+  def __Folder_dest_property(self):
       return self.__Folder_dest
 
-  @Folder_dest_property.setter
-  def Folder_dest_property(self, New_value):
-      if not isinstance(New_value, str):
-        raise TypeError("Folder dest must be a string") #! Alert
+  @__Folder_dest_property.setter
+  def __Folder_dest_property(self, New_value):
       self.__Folder_dest = New_value
   
-  @Folder_dest_property.deleter
-  def Folder_dest_property(self):
+  @__Folder_dest_property.deleter
+  def __Folder_dest_property(self):
       print("Deleting destination folder...")
       del self.__Folder_dest
 
-  # * Severity attribute
+  # * __Severity attribute
   @property
-  def Severity_property(self):
+  def __Severity_property(self):
       return self.__Severity
 
-  @Severity_property.setter
-  def Severity_property(self, New_value):
-      if not isinstance(New_value, str):
-        raise TypeError("Severity must be a string") #! Alert
+  @__Severity_property.setter
+  def __Severity_property(self, New_value):
       self.__Severity = New_value
   
-  @Severity_property.deleter
-  def Severity_property(self):
+  @__Severity_property.deleter
+  def __Severity_property(self):
       print("Deleting severity...")
       del self.__Severity
 
-  # * Sampling attribute
+  # * __Sampling attribute
   @property
-  def Sampling_property(self):
+  def __Sampling_property(self):
       return self.__Sampling
 
-  @Sampling_property.setter
-  def Sampling_property(self, New_value):
-    if not isinstance(New_value, int):
-      raise TypeError("Must be a integer value ") #! Alert
+  @__Sampling_property.setter
+  def __Sampling_property(self, New_value):
     self.__Sampling = New_value
   
-  @Sampling_property.deleter
-  def Sampling_property(self):
+  @__Sampling_property.deleter
+  def __Sampling_property(self):
       print("Deleting sampling...")
       del self.__Sampling
 
-  # * Label attribute
+  # * __Label attribute
   @property
-  def Label_property(self):
+  def __Label_property(self):
       return self.__Label
 
-  @Label_property.setter
-  def Label_property(self, New_value):
+  @__Label_property.setter
+  def __Label_property(self, New_value):
     if (New_value > 10 or New_value < 0):
       raise ValueError("Value is out of the range must be less than 10 and more than 0") #! Alert
     if not isinstance(New_value, int):
       raise TypeError("Must be a enteger value") #! Alert
     self.__Label = New_value
   
-  @Label_property.deleter
-  def Label_property(self):
+  @__Label_property.deleter
+  def __Label_property(self):
       print("Deleting label...")
       del self.__Label
 
-  # * Save_images attribute
+  # * __Save_images attribute
   @property
-  def Save_images_property(self):
+  def __Save_images_property(self):
       return self.__Save_images
 
-  @Save_images_property.setter
-  def Save_images_property(self, New_value):
+  @__Save_images_property.setter
+  def __Save_images_property(self, New_value):
     if not isinstance(New_value, bool):
       raise TypeError("Must be a bool value (True or False is required)") #! Alert
     self.__Save_images = New_value
@@ -251,15 +289,10 @@ class DataAugmentation(Utilities):
   def data_augmentation(self) -> tuple[list[np.ndarray], list[np.ndarray]]:
     """
     Techniques used to increase the amount of data by adding slightly modified copies of already existing data 
-    or newly created synthetic data from existing data
+    or newly created synthetic data from existing data (Saving the data in variables)
 
-    Args:
-        self (_type_): _description_
-        ndarray (_type_): _description_
-
-    Returns:
-        _type_: _description_
     """
+
     # * Create a folder with each image and its transformations.
 
     #Name_dir:str = os.path.dirname(self.Folder)
@@ -411,14 +444,8 @@ class DataAugmentation(Utilities):
   def data_augmentation_same_folder(self) -> tuple[list[np.ndarray], list[np.ndarray]]:
     """
     Techniques used to increase the amount of data by adding slightly modified copies of already existing data 
-    or newly created synthetic data from existing data
+    or newly created synthetic data from existing data (Saving the data in a folder)
 
-    Args:
-        self (_type_): _description_
-        ndarray (_type_): _description_
-
-    Returns:
-        _type_: _description_
     """
     # * Create a folder with each image and its transformations.
 
@@ -574,27 +601,13 @@ class DataAugmentation(Utilities):
   def data_augmentation_number_test_images(self) -> int:
     """
     Techniques used to increase the amount of data by adding slightly modified copies of already existing data 
-    or newly created synthetic data from existing data. (Just the number of images).
+    or newly created synthetic data from existing data (Saving the data in a folder).
 
-    Args:
-        ndarray (_type_): _description_
-
-    Returns:
-        _type_: _description_
-
-    Applying data augmentation different transformations.
-
-    Parameters:
-    argument1 (folder): Folder chosen.
-    argument2 (str): Severity of each image.
-    argument3 (int): Amount of transformation applied for each image, using only rotation.
-    argument4 (str): Label for each image.
-
-    Returns:
-    list:Returning images like 'X' value
-    list:Returning labels like 'Y' value
+    Just show the number of images created with a int
+    
     """
     
+    # * init count variable
     Total_images_count = 0
   
     # * Reading the folder
