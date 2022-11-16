@@ -4,11 +4,18 @@ from Final_Code_1_General_Functions_Classes import Utilities
 from Final_Code_1_General_Functions import sort_images
 from Final_Code_1_General_Functions import remove_all_files
 
+# ? Image processing
+
 class ImageProcessing(Utilities):
   """
     Utilities inheritance: A class used to do the pre-processing of the images given such as: resize, median filter, Contrast Limited Adaptive Histogram Equalization (CLAHE), unsharp masking, gamma correction.
 
     Methods:
+        data_dic(): description
+
+        @staticmethod
+        gamma_correction(): description
+
         resize_technique(): description
 
         normalize_technique(): description
@@ -31,21 +38,30 @@ class ImageProcessing(Utilities):
   def __init__(self, **kwargs) -> None:
     """
     Keyword Args:
-        Folder (str): description 
-        Images (str): description
-        Labels (str): description
+        folder (str): description 
+        newfolder (str): description
+        severity (str): description
+        label (int): description
+        interpolation (int): description
+        X (int): description
+        Y (int): description
+        division (int): description
+        cliplimit (float): description
+        radius (int): description
+        amount (int): description
+        GC (float): Gamma correction
     """
 
     # * General parameters
-    self.__Folder = kwargs.get('Folder', None);
-    self.__New_folder = kwargs.get('Newfolder', None);
-    self.__Severity = kwargs.get('Severity', None);
-    self.__Label = kwargs.get('Label', None);
+    self.__Folder = kwargs.get('folder', None);
+    self.__New_folder = kwargs.get('newfolder', None);
+    self.__Severity = kwargs.get('severity', None);
+    self.__Label = kwargs.get('label', None);
 
     # * Parameters for resizing
-    self.__Interpolation = kwargs.get('Interpolation', cv2.INTER_CUBIC);
-    self.__X_resize = kwargs.get('Xresize', 224);
-    self.__Y_resize = kwargs.get('Yresize', 224);
+    self.__Interpolation = kwargs.get('interpolation', cv2.INTER_CUBIC);
+    self.__X_resize = kwargs.get('X', 224);
+    self.__Y_resize = kwargs.get('Y', 224);
 
     # * Parameters for median filter
     self.__Division = kwargs.get('division', 3);
@@ -262,7 +278,7 @@ class ImageProcessing(Utilities):
     self.__Division = New_value
   
   @__Division_property.deleter
-  def __ivision_property(self):
+  def __Division_property(self):
       print("Deleting division...")
       del self.__Division
 

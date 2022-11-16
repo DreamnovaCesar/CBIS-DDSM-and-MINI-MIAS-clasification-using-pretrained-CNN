@@ -1,13 +1,15 @@
 from Final_Code_0_0_Libraries import *
 from Final_Code_1_General_Functions_Classes import Utilities
 
-# Data Augmentation function
+# ? Data augmentation
 
 class DataAugmentation(Utilities):
   """
     Utilities inheritance: A class used to increase the number of images synthetically using albumentation library
 
     Methods:
+        data_dic(): description
+
         @staticmethod
         safe_rotation(Image_cropped: np.ndarray): Rotate the input by an angle selected randomly from the uniform distribution.
 

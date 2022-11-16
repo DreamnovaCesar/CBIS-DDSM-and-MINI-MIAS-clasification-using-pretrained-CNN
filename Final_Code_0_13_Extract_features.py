@@ -3,7 +3,7 @@ from Final_Code_1_General_Functions_Classes import Utilities
 
 from Final_Code_1_General_Functions import sort_images
 
-# First Order features from https://github.com/giakou4/pyfeats/blob/main/pyfeats/textural/fos.py
+# ? First Order features from https://github.com/giakou4/pyfeats/blob/main/pyfeats/textural/fos.py
 
 def fos(f, mask):
     '''
@@ -71,7 +71,7 @@ def fos(f, mask):
     
     return features, labels
 
-# class for features extraction using first order statistic and GLCM.
+# ? Feature extraction
 
 class FeatureExtraction(Utilities):
   """
@@ -79,6 +79,8 @@ class FeatureExtraction(Utilities):
     and Gray Level Run Length Matrix (GLRLM)
 
     Methods:
+        data_dic(): description
+
         textures_Feature_first_order_from_folder(): description
 
         textures_Feature_GLRLM_from_folder(): description

@@ -5,12 +5,40 @@ from Final_Code_1_General_Functions_Classes import Utilities
 from Final_Code_1_General_Functions import FigureAdjust
 from Final_Code_1_General_Functions import FigurePlot
 
-##################################################################################################################################################################
+# ? Configuration of the CNN
 
 class ConfigurationCNN(Utilities):
+  """
+    Utilities inheritance: 
+
+    Methods:
+        data_dic(): description
+
+        @staticmethod
+        overwrite_dic_CSV_folder(): description
+
+        @staticmethod
+        Model_pretrained(): description
+
+        configuration_models_folder(): description
+        
+  """
 
   # * Initializing (Constructor)
   def __init__(self, **kwargs) -> None:
+    """
+    Keyword Args:
+        folder (str): description 
+        foldermodels (str): description
+        foldermodelsesp (str): description
+        foldercsv (str): description
+        models (tuple(int)): description
+        technique (str): description
+        labels (list[str]): description
+        X (int): description
+        Y (int): description
+        epochs (int): description
+    """
 
     # * Instance attributes
     self.__Folder = kwargs.get('folder', None)
@@ -30,39 +58,66 @@ class ConfigurationCNN(Utilities):
     self.__Y_size = kwargs.get('Y', None)
     self.__Epochs = kwargs.get('epochs', None)
 
-    self.__Batch_size = 32
     self.__Shape = (self.__X_size, self.__Y_size)
-
+    self.__Batch_size = 32
     self.__Height_plot = 12
     self.__Width_plot  = 12
   
-  # ? Folder Update CSV changing value
+  # * Class variables
+  def __repr__(self):
+        return f'[{self.__Folder}, {self.__Folder_models}, {self.__Folder_models_esp}, {self.__Folder_CSV}, {self.__Models}, {self.__Enhancement_technique}, {self.__Class_labels}, {self.__X_size}, {self.__Y_size}, {self.__Epochs}, {self.__Shape}, {self.__Batch_size}, {self.__Height_plot}, {self.__Width_plot}]';
+
+  # * Class description
+  def __str__(self):
+      return  f'';
+  
+  # * Deleting (Calling destructor)
+  def __del__(self):
+      print('Destructor called, Configuration CNN class destroyed.');
+
+  # * Get data from a dic
+  def data_dic(self):
+
+      return {'Folder path': str(self.__Folder),
+              'Folder model': str(self.__Folder_models),
+              'Folder model spanish': str(self.__Folder_models_esp),
+              'Folder CSV': str(self.__Folder_CSV),
+              'Models': str(self.__Models),
+              'Enhancement technique': str(self.__Enhancement_technique),
+              'Class labels': str(self.__Class_labels),
+              'X size': str(self.__X_size),
+              'Y size': str(self.__Y_size),
+              'Epochs': str(self.__Epochs),
+              'Shape': str(self.__Shape),
+              'Batch size': str(self.__Batch_size),
+              'Height (matplotlib)': str(self.__Height_plot),
+              'Width (matplotlib)': str(self.__Width_plot),
+              };
+
+  # ? Method to update CSV
   @staticmethod
   def overwrite_dic_CSV_folder(Dataframe: pd.DataFrame, Folder_path: str, Column_names: list[str], Column_values: list[str]):
-
       """
-      Updates final CSV dataframe to see all values
+      Update the dataframe.
 
-      Parameters:
-      argument1 (list): All values.
-      argument2 (dataframe): dataframe that will be updated
-      argument3 (list): Names of each column
-      argument4 (folder): Folder path to save the dataframe
-      argument5 (int): The index.
+      Args:
+          Dataframe (pd.DataFrame): Get the dataframe prepared to be update
+          Folder_path (str): Folder path to save the dataframe
+          Column_names (list[str]): Dataframe's headers
+          Column_values (list[str]): Dataframe's values
 
       Returns:
-      void
-      
+          None
       """
 
       Row = dict(zip(Column_names, Column_values))
       Dataframe = Dataframe.append(Row, ignore_index = True)
     
       Dataframe.to_csv(Folder_path, index = False)
-    
+  
       print(Dataframe)
 
-  # ? Model function
+  # ? Method to choose the CNN model
   @staticmethod
   def Model_pretrained(X_size: int, Y_size: int, Num_classes: int, Model_pretrained_value: int):
     """
@@ -101,9 +156,10 @@ class ConfigurationCNN(Utilities):
         Model_pretrained_value (int): Index of the model.
 
     Returns:
-        _type_: _description_
-        string: Returning Model.
-        string: Returning Model Name.
+        string: Returning Model name.
+        string: Returning Model name letters.
+        Model: Returning the Model
+
     """
     # * Folder attribute (ValueError, TypeError)
 
@@ -351,32 +407,13 @@ class ConfigurationCNN(Utilities):
 
     return Model_name, Model_name_letters, Model_CNN
 
-  # ? Folder Configuration of each DCNN model
+  # ? Method to change settings of the model
   @Utilities.timer_func
   @Utilities.detect_GPU
   def configuration_models_folder(self):
       """
       _summary_
 
-      Args:
-          Train_data (_type_): __
-          Valid_data (_type_): __
-          Test_data (_type_): __
-
-          Folder_models (str): __
-          Folder_model_esp (str): __
-          Folder_CSV (str): __
-          Pretrained_model_index (int): __
-          Dataframe_save (str): __
-          Enhancement_technique (str): __
-          Class_labels (list[str]): __
-          X_size (int): __ 
-          Y_size (int): __
-          Epochs (int): __
-          Index (int): __
-
-      Returns:
-          None
       """
 
       # *
@@ -869,10 +906,8 @@ class ConfigurationCNN(Utilities):
         #Dataframe_save = pd.read_csv(Dataframe_save_folder)
         self.overwrite_dic_CSV_folder(Dataframe_save, Dataframe_save_folder, Column_names_, Info)
       
-##################################################################################################################################################################
 
-# ? Custom AlexNet12
-
+# ? Function (Custom AlexNet12)
 def CustomCNNAlexNet12_Model(X_size: int, Y_size: int, Num_classes: int):
     """
     CustomCNNAlexNet12 configuration.
@@ -945,8 +980,7 @@ def CustomCNNAlexNet12_Model(X_size: int, Y_size: int, Num_classes: int):
 
     return CustomLeNet5_model, Model_name, Model_name_letters
 
-# ? Custom AlexNet12 Tunner
-
+# ? Function (Custom AlexNet12 Tunner)
 def CustomCNNAlexNet12Tunner_Model(X_size: int, Y_size: int, Num_classes: int, hp):
     """
     CustomCNNAlexNet12 configuration.
