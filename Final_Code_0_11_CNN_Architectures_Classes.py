@@ -59,8 +59,8 @@ class ConfigurationCNN(Utilities):
 
     self.__Shape = (self.__X_size, self.__Y_size)
     self.__Batch_size = 32
-    self.__Height_plot = 12
-    self.__Width_plot  = 12
+    #self.__Height_plot = 12
+    #self.__Width_plot  = 12
     
     self.__Color_mode  = 'rgb'
 
@@ -746,8 +746,8 @@ class ConfigurationCNN(Utilities):
 
           # *
           Plot_model = FigurePlot(folder = Folder_path_images_in, title = Pretrained_model_name, 
-                                    SI = False, SF = True, height = self.__Height_plot, width = self.__Width_plot, CMdf = Confusion_matrix_dataframe_folder, 
-                                    Hdf = CSV_logger_info_folder, ROCdf = [Dataframe_ROC_folder], labels = self.__Class_labels)
+                                    SI = False, SF = True, CMdf = Confusion_matrix_dataframe_folder, 
+                                      Hdf = CSV_logger_info_folder, ROCdf = [Dataframe_ROC_folder], labels = self.__Class_labels)
 
           # *
           Plot_model.figure_plot_four()
@@ -858,8 +858,8 @@ class ConfigurationCNN(Utilities):
 
           # *
           Plot_model = FigurePlot(folder = Folder_path_images_in, title = Pretrained_model_name, 
-                                    SI = False, SF = True, height = self.__Height_plot, width = self.__Width_plot, CMdf = Confusion_matrix_dataframe_folder, 
-                                    Hdf = CSV_logger_info_folder, ROCdf = [i for i in Dataframe_ROCs], labels = self.__Class_labels)
+                                      SI = False, SF = True, CMdf = Confusion_matrix_dataframe_folder, 
+                                        Hdf = CSV_logger_info_folder, ROCdf = [i for i in Dataframe_ROCs], labels = self.__Class_labels)
 
           # *
           Plot_model.figure_plot_four_multiclass()

@@ -5,6 +5,9 @@ from Final_Code_1_General_Functions import split_folders_train_test_val
 
 from Final_Code_5_CNN_Architectures import *
 
+from Final_Code_0_11_CNN_Architectures_Classes import ConfigurationCNN
+from Final_Code_ML_Functions_Class import ConfigurationML
+
 from Final_Code_CBIS_DDSM_4_Data_Augmentation import preprocessing_DataAugmentation_Folder
 
 #Model_CNN = (Model_pretrained, Model_pretrained)
@@ -101,7 +104,7 @@ def main():
     #plot_data_ML()
     #Testing_CNN_Models_Biclass_From_Folder(Model_CNN, 'D:\Mini-MIAS\Mini_MIAS_NO_Cropped_Images_Biclass' + '_Split', 'TEST')
 
-    Model_CNN = (13, 14)
+    Model_CNN = [1, 4, 5]
 
     #Bic = 'D:\Mini-MIAS\Mini_MIAS_NO_Cropped_Images_Biclass'
     #Multic = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass"
@@ -110,10 +113,25 @@ def main():
 
     #preprocessing_DataAugmentation_Folder(MulticSplit, ['A', 'B', 'C'], [1, 1, 22])
 
-    configuration_models_folder(folder = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass" + '_Split', foldermodels = 'D:\Test',
-                                    foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', 
-                                        models = Model_CNN, technique = 'TEST', 
-                                            labels = ['A', 'B', 'C'], X = 224, Y = 224, epochs = 2)
+    #configuration_models_folder(folder = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass" + '_Split', foldermodels = 'D:\Test',
+    #                                foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', 
+    #                                    models = Model_CNN, technique = 'TEST', labels = ['A', 'B', 'C'], X = 224, Y = 224, epochs = 2)
+
+    """
+    CNN = ConfigurationCNN(folder = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass" + '_Split', foldermodels = 'D:\Test',
+                        foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', models = Model_CNN, technique = 'TEST', labels = ['A', 'B', 'C'], 
+                            X = 224, Y = 224, epochs = 2)
+    
+    CNN.configuration_models_folder_CNN()
+    """
+
+    CLAHE_test = r"D:\CBIS-DDSM\CBIS-DDSM Final\2_Biclass_DataCSV\Biclass_Dataframe_Gray-Level Co-Occurance Matrix_CLAHE.csv"
+
+    ML = ConfigurationML(folder = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Biclass" + '_Split', foldermodels = 'D:\Test',
+                            foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', models = Model_CNN, technique = 'TEST', labels = ['A', 'B'], 
+                                dataframe = CLAHE_test)
+
+    ML.configuration_models_folder_ML()
     
 
 if __name__ == "__main__":

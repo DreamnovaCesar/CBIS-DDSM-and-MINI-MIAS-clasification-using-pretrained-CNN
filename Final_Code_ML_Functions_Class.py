@@ -3,8 +3,7 @@ from Final_Code_0_0_Libraries import *
 from typing import Any
 
 from Final_Code_1_General_Functions_Classes import Utilities
-from Final_Code_1_General_Functions import FigureAdjust
-from Final_Code_1_General_Functions import FigurePlot
+from Final_Code_0_9_Figure_Adjust import FigurePlot
 
 # ? Configuration of the CNN
 class ConfigurationML(Utilities):
@@ -65,8 +64,8 @@ class ConfigurationML(Utilities):
 
         #self.__Shape = (self.__X_size, self.__Y_size)
         self.__Batch_size = 32
-        self.__Height_plot = 12
-        self.__Width_plot  = 12
+        #self.__Height_plot = 12
+        #self.__Width_plot  = 12
 
         self.__sm = SMOTE()
         self.__sc = StandardScaler()
@@ -80,6 +79,9 @@ class ConfigurationML(Utilities):
             self.__Class_problem_prefix = 'Multiclass'
         else:
             raise TypeError("It can NOT be 1") #! Alert
+
+        if isinstance(self.__Dataframe, str):
+            self.__Dataframe = pd.read_csv(self.__Dataframe)
 
     # * Class variables
     def __repr__(self):
@@ -247,7 +249,6 @@ class ConfigurationML(Utilities):
 
     # ? Method to change settings of the model
     @Utilities.timer_func
-    @Utilities.detect_GPU
     def configuration_models_folder_ML(self):
 
         for Index, Model in enumerate(self.__Models):
@@ -282,8 +283,8 @@ class ConfigurationML(Utilities):
             X_total = self.__Dataframe.iloc[:, 0:Dataframe_len_columns - 1].values
             Y_total = self.__Dataframe.iloc[:, -1].values
 
-            #print(X_total)
-            #print(Y_total)
+            print(X_total)
+            print(Y_total)
 
             #pd.set_option('display.max_rows', Dataframe.shape[0] + 1)
             #print(Dataframe)
@@ -308,11 +309,11 @@ class ConfigurationML(Utilities):
 
             # * 
             #Dir_name = str(Class_problem_prefix) + 'Model_s' + str(Enhancement_technique) + '_dir'
-            Dir_name_csv = "{}_Folder_Data_Models_{}".format(self.__Class_problem_prefix, self.__Enhancement_technique)
-            Dir_name_images = "{}_Folder_Images_Models_{}".format(self.__Class_problem_prefix, self.__Enhancement_technique)
+            Dir_name_csv = "{}_Folder_Data_Models_ML_{}".format(self.__Class_problem_prefix, self.__Enhancement_technique)
+            Dir_name_images = "{}_Folder_Images_Models_ML_{}".format(self.__Class_problem_prefix, self.__Enhancement_technique)
                 
-            Dir_name_csv_model = "{}_Folder_Data_Model_{}_{}".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
-            Dir_name_images_model = "{}_Folder_Images_Model_{}_{}".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
+            Dir_name_csv_model = "{}_Folder_Data_Model_ML_{}_{}".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
+            Dir_name_images_model = "{}_Folder_Images_Model_ML_{}_{}".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
             #print(Folder_CSV + '/' + Dir_name)
             #print('\n')
 
@@ -366,7 +367,7 @@ class ConfigurationML(Utilities):
             # * Save dataframe in the folder given
             #Dataframe_save_name = 'Biclass' + '_Dataframe_' + 'FOF_' + str(Enhancement_technique)  + '.csv'
             Dataframe_save_name = "{}_Dataframe_Folder_Data_Models_{}.csv".format(self.__Class_problem_prefix, self.__Enhancement_technique)
-            Dataframe_save_folder = os.path.join(self.__Folder_CSV, Dataframe_save_name)
+            Dataframe_save_folder = os.path.join(Folder_path_in, Dataframe_save_name)
 
             # *
             #Confusion_matrix_dataframe_name = 'Dataframe_' + str(Class_problem_prefix) + str(Pretrained_model_name) + str(Enhancement_technique) + '.csv'
@@ -407,7 +408,7 @@ class ConfigurationML(Utilities):
                         Classification_report_names.append('{} {}'.format(Metric_labels, Report_labels))
                         Classification_report_values.append(Dict[Report_labels][Metric_labels])
                         #print(Dict[Report_labels][Metric_labels])
-                        print("\n")
+                print("\n")
                 
                 # *
                 Column_names_.extend(self.__Class_labels)
@@ -433,7 +434,7 @@ class ConfigurationML(Utilities):
 
                 # * F1-score
                 F1_score = f1_score(y_test, Y_pred)
-                print(f"F1: {round(F1_Score, Digits)}")
+                print(f"F1: {round(F1_score, Digits)}")
                 print("\n")
 
                 Confusion_matrix_dataframe = pd.DataFrame(Confusion_matrix, range(len(Confusion_matrix)), range(len(Confusion_matrix[0])))
@@ -457,13 +458,13 @@ class ConfigurationML(Utilities):
 
                 # *
                 Plot_model = FigurePlot(folder = Folder_path_images_in, title = Model_name, 
-                                        SI = False, SF = True, height = self.__Height_plot, width = self.__Width_plot, 
-                                        CMdf = Confusion_matrix_dataframe_folder, ROCdf = [Dataframe_ROC_folder], labels = self.__Class_labels)
+                                            SI = False, SF = True, CMdf = Confusion_matrix_dataframe_folder, 
+                                                ROCdf = [Dataframe_ROC_folder], labels = self.__Class_labels)
 
                 # *
-                Plot_model.figure_plot_four()
-                Plot_model.figure_plot_CM()
+                Plot_model.figure_plot_two()
                 Plot_model.figure_plot_ROC_curve()
+                Plot_model.figure_plot_CM()
 
             elif self.__Classes >= 3:
                 
@@ -497,7 +498,7 @@ class ConfigurationML(Utilities):
                     for _, Metric_labels in enumerate(Classification_report_metrics_labels):
                         Classification_report_names.append('{} {}'.format(Metric_labels, Report_labels))
                         Classification_report_values.append(Dict[Report_labels][Metric_labels])
-                        print(Dict[Report_labels][Metric_labels])
+                        #print(Dict[Report_labels][Metric_labels])
                 print("\n")
 
                 # *
@@ -559,15 +560,14 @@ class ConfigurationML(Utilities):
 
                 # *
                 Plot_model = FigurePlot(folder = Folder_path_images_in, title = Model_name, 
-                                        SI = False, SF = True, height = self.__Height_plot, width = self.__Width_plot, 
-                                        CMdf = Confusion_matrix_dataframe_folder, ROCdf = [i for i in Dataframe_ROCs], labels = self.__Class_labels)
+                                            SI = False, SF = True, CMdf = Confusion_matrix_dataframe_folder, 
+                                                ROCdf = [i for i in Dataframe_ROCs], labels = self.__Class_labels)
 
                 # *
-                Plot_model.figure_plot_four_multiclass()
+                Plot_model.figure_plot_two_multiclass()
                 Plot_model.figure_plot_ROC_curve_multiclass()
                 Plot_model.figure_plot_CM()
 
-            
             Info.append(Model_name_technique)
             Info.append(Model_name)
 
@@ -597,5 +597,3 @@ class ConfigurationML(Utilities):
                 Info.append(value)
 
             self.overwrite_dic_CSV_folder(Dataframe_save, Dataframe_save_folder, Column_names_, Info)
-
-            return Info

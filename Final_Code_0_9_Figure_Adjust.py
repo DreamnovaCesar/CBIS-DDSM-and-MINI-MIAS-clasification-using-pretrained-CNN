@@ -49,9 +49,10 @@ class FigureAdjust(Utilities):
         self._Y_figure_size = 12
 
         # * General parameters
-        self._Font_size_title = self._X_figure_size * 1.2
-        self._Font_size_general = self._X_figure_size * 0.8
-        self._Font_size_ticks = (self._X_figure_size * self._Y_figure_size) * 0.05
+        self._Font_size_title = self._X_figure_size * 0.1
+        self._Font_size_general = self._X_figure_size * 0.1
+        self._Font_size_confusion = self._X_figure_size * 0.8
+        self._Font_size_ticks = self._X_figure_size  * 0.1
 
         # * 
         #self.Annot_kws = kwargs.get('annot_kws', None)
@@ -550,20 +551,24 @@ class FigurePlot(FigureAdjust):
         self._X_size_figure_subplot = 2
         self._Y_size_figure_subplot = 2
 
-        # *
-        self._Confusion_matrix_dataframe = pd.read_csv(self._CM_dataframe)
-        self._History_data_dataframe = pd.read_csv(self._History_dataframe)
-        
         self._Roc_curve_dataframes = []
 
-        for Dataframe in self._ROC_dataframe:
-            self._Roc_curve_dataframes.append(pd.read_csv(Dataframe))
 
         # *
-        self._Accuracy = self._History_data_dataframe.accuracy.to_list()
-        self._Loss = self._History_data_dataframe.loss.to_list()
-        self._Val_accuracy = self._History_data_dataframe.val_accuracy.to_list()
-        self._Val_loss = self._History_data_dataframe.val_loss.to_list()
+        if isinstance(self._CM_dataframe, str):
+            self._Confusion_matrix_dataframe = pd.read_csv(self._CM_dataframe)
+        
+        if isinstance(self._History_dataframe, str):
+            self._History_data_dataframe = pd.read_csv(self._History_dataframe)
+
+            self._Accuracy = self._History_data_dataframe.accuracy.to_list()
+            self._Loss = self._History_data_dataframe.loss.to_list()
+            self._Val_accuracy = self._History_data_dataframe.val_accuracy.to_list()
+            self._Val_loss = self._History_data_dataframe.val_loss.to_list()
+
+        if isinstance(self._ROC_dataframe, list):
+            for Dataframe in self._ROC_dataframe:
+                self._Roc_curve_dataframes.append(pd.read_csv(Dataframe))
 
         self._FPRs = []
         self._TPRs = []
@@ -615,7 +620,7 @@ class FigurePlot(FigureAdjust):
         sns.set(font_scale = self._Font_size_general)
 
         # *
-        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_general})
+        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_confusion})
         #ax.set_title('Seaborn Confusion Matrix with labels\n\n')
         ax.set_xlabel('\nPredicted Values')
         ax.set_ylabel('Actual Values')
@@ -673,7 +678,7 @@ class FigurePlot(FigureAdjust):
         sns.set(font_scale = self._Font_size_general)
 
         # *
-        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_general})
+        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_confusion})
         #ax.set_title('Seaborn Confusion Matrix with labels\n\n')
         ax.set_xlabel('\nPredicted Values')
         ax.set_ylabel('Actual Values')
@@ -729,7 +734,7 @@ class FigurePlot(FigureAdjust):
         sns.set(font_scale = self._Font_size_general)
 
         # *
-        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_general})
+        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_confusion})
         #ax.set_title('Seaborn Confusion Matrix with labels\n\n')
         ax.set_xlabel('\nPredicted Values')
         ax.set_ylabel('Actual Values')
@@ -750,11 +755,11 @@ class FigurePlot(FigureAdjust):
         self.show_figure(self._Show_image)
 
     @Utilities.timer_func
-    def figure_plot_four_multiclass(self) -> None: 
+    def figure_plot_two_multiclass(self) -> None: 
         
         # * Colors for ROC curves
         Colors = ['blue', 'red', 'green', 'brown', 'purple', 'pink', 'orange', 'black', 'yellow', 'cyan']
-        
+
         # *
         Two_plot = 'Two_plot'
 
@@ -769,7 +774,7 @@ class FigurePlot(FigureAdjust):
         sns.set(font_scale = self._Font_size_general)
 
         # *
-        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_general})
+        ax = sns.heatmap(self._Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_confusion})
         #ax.set_title('Seaborn Confusion Matrix with labels\n\n')
         ax.set_xlabel('\nPredicted Values')
         ax.set_ylabel('Actual Values')
@@ -809,7 +814,7 @@ class FigurePlot(FigureAdjust):
         sns.set(font_scale = self._Font_size_general)
 
         # *
-        ax = sns.heatmap(Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_general})
+        ax = sns.heatmap(Confusion_matrix_dataframe, annot = True, fmt = 'd', annot_kws = {"size": self._Font_size_confusion})
         #ax.set_title('Seaborn Confusion Matrix with labels\n\n')
         ax.set_xlabel('\nPredicted Values')
         ax.set_ylabel('Actual Values')
@@ -866,7 +871,7 @@ class FigurePlot(FigureAdjust):
 
         # * Figure's size
         plt.figure(figsize = (self._X_figure_size / 2, self._Y_figure_size / 2))
-        plt.title('ROC curve Loss with {}'.format(self.Title))
+        plt.title('ROC curve Loss with {}'.format(self._Title))
 
         # * FPR and TPR values for the ROC curve
         AUC = auc(self._FPRs[0], self._TPRs[0])
@@ -895,13 +900,13 @@ class FigurePlot(FigureAdjust):
         plt.title(self._Title, fontsize = self._Font_size_title)
 
         # * FPR and TPR values for the ROC curve
-        for i in range(len(self.Roc_curve_dataframes)):
+        for i in range(len(self._Roc_curve_dataframes)):
             Roc_auc[i] = auc(self._FPRs[i], self._TPRs[i])
 
         # * Plot ROC curve
         plt.plot([0, 1], [0, 1], 'k--')
 
-        for i in range(len(self.Roc_curve_dataframes)):
+        for i in range(len(self._Roc_curve_dataframes)):
             plt.plot(self._FPRs[i], self._TPRs[i], color = Colors[i], label = 'ROC Curve of class {0} (area = {1:0.4f})'.format(self._Labels[i], Roc_auc[i]))
 
             plt.xlabel('False positive rate')
