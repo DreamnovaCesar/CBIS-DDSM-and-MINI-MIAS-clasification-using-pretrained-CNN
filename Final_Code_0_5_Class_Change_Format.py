@@ -4,15 +4,15 @@ from Final_Code_0_0_Libraries import wraps
 from Final_Code_0_0_Libraries import os
 from Final_Code_0_0_Libraries import cv2
 
-from Final_Code_1_General_Functions import sort_images
+from Final_Code_0_0_Template_General_Functions import sort_images
 
-from Final_Code_0_1_Utilities import Utilities
+from Final_Code_0_1_Class_Utilities import Utilities
 
 class ChangeFormat(Utilities):
     """
     Utilities inheritance
 
-    A class used to change the format to another
+    A class used to change the format to another.
 
     Methods:
         data_dic(): description
@@ -23,9 +23,16 @@ class ChangeFormat(Utilities):
 
     # * Initializing (Constructor)
     def __init__(self, **kwargs):
-        
+        """
+        Keyword Args:
+            folder (str): description 
+            Newfolder (str): description
+            severity (str): description
+            Newformat (str):description
+        """
+
         # * General parameters
-        self.__Folder = kwargs.get('Folder', None)
+        self.__Folder = kwargs.get('folder', None)
         self.__New_folder = kwargs.get('Newfolder', None)
         self.__Format = kwargs.get('Format', None)
         self.__New_format = kwargs.get('Newformat', None)
@@ -51,67 +58,80 @@ class ChangeFormat(Utilities):
         if not isinstance(self.__New_format, str):
             raise TypeError("Current format must be a string") #! Alert
 
+    # * Class variables
+    def __repr__(self):
+            return f'[{self.__Folder}, {self.__New_folder}, {self.__Format}, {self.__New_format}]';
+
+    # * Class description
+    def __str__(self):
+        return  f'A class used to change the format to another.';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, change format class destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Folder path': str(self.__Folder),
+                'New folder path': str(self.__New_folder),
+                'Format': str(self.__Format),
+                'New format': str(self.__New_format),
+                };
+
     # * Folder attribute
     @property
-    def Folder_property(self):
+    def __Folder_property(self):
         return self.__Folder
 
-    @Folder_property.setter
-    def Folder_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Folder must be a string") #! Alert
+    @__Folder_property.setter
+    def __Folder_property(self, New_value):
         self.__Folder = New_value
     
-    @Folder_property.deleter
-    def Folder_property(self):
+    @__Folder_property.deleter
+    def __Folder_property(self):
         print("Deleting folder...")
         del self.__Folder
 
     # * New folder attribute
     @property
-    def New_folder_property(self):
+    def __New_folder_property(self):
         return self.__New_folder
 
-    @New_folder_property.setter
-    def New_folder_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Folder must be a string") #! Alert
+    @__New_folder_property.setter
+    def __New_folder_property(self, New_value):
         self.__New_folder = New_value
     
-    @New_folder_property.deleter
-    def New_folder_property(self):
+    @__New_folder_property.deleter
+    def __New_folder_property(self):
         print("Deleting folder...")
         del self.__New_folder
 
     # * Format attribute
     @property
-    def Format_property(self):
+    def __Format_property(self):
         return self.__Format
 
-    @Format_property.setter
-    def Format_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Format must be a string") #! Alert
+    @__Format_property.setter
+    def __Format_property(self, New_value):
         self.__Format = New_value
     
-    @Format_property.deleter
-    def New_folder_property(self):
+    @__Format_property.deleter
+    def __New_folder_property(self):
         print("Deleting folder...")
         del self.__Format
 
     # * New Format attribute
     @property
-    def New_format_property(self):
+    def __New_format_property(self):
         return self.__New_format
 
-    @New_format_property.setter
-    def New_format_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("New format must be a string") #! Alert
+    @__New_format_property.setter
+    def __New_format_property(self, New_value):
         self.__New_format = New_value
     
-    @New_format_property.deleter
-    def New_format_property(self):
+    @__New_format_property.deleter
+    def __New_format_property(self):
         print("Deleting new format...")
         del self.__New_format
 

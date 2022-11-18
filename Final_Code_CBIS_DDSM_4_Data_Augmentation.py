@@ -1,6 +1,6 @@
 
 from Final_Code_0_0_Libraries import *
-from Final_Code_0_12_Data_Augmentation import DataAugmentation
+from Final_Code_0_12_Class_Data_Augmentation import DataAugmentation
 
 # ? Data augmentation for CNN using RAM
 def Data_augmentation_stage(Folder_path: str, Labels: list[str], Numbers_iter: list[int]) -> None:

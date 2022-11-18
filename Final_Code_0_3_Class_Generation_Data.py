@@ -5,7 +5,7 @@ from Final_Code_0_0_Libraries import pd
 from Final_Code_0_0_Libraries import random
 from Final_Code_0_0_Libraries import randint
 
-from Final_Code_0_1_Utilities import Utilities
+from Final_Code_0_1_Class_Utilities import Utilities
 
 class Generator(Utilities):
     """

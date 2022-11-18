@@ -1,7 +1,7 @@
 from Final_Code_0_0_Libraries import *
 
-from Final_Code_1_General_Functions import FigureAdjust
-from Final_Code_1_General_Functions import FigurePlot
+from Final_Code_0_0_Template_General_Functions import FigureAdjust
+from Final_Code_0_0_Template_General_Functions import FigurePlot
 
 ##################################################################################################################################################################
 

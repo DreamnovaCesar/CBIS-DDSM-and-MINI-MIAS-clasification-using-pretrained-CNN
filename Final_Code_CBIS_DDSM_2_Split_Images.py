@@ -1,7 +1,7 @@
 
 
-from Final_Code_1_General_Functions import CBIS_DDSM_CSV_severity_labeled
-from Final_Code_1_General_Functions import CBIS_DDSM_split_data
+from Final_Code_0_0_Template_General_Functions import CBIS_DDSM_CSV_severity_labeled
+from Final_Code_0_0_Template_General_Functions import CBIS_DDSM_split_data
 
 def preprocessing_Split_Calc_Mass() -> None:
 

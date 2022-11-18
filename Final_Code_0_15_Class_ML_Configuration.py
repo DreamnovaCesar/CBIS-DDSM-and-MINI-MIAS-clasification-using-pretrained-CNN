@@ -2,8 +2,8 @@ from Final_Code_0_0_Libraries import *
 
 from typing import Any
 
-from Final_Code_1_General_Functions_Classes import Utilities
-from Final_Code_0_9_Figure_Adjust import FigurePlot
+from Final_Code_0_0_Template_General_Functions_Classes import Utilities
+from Final_Code_0_9_Class_Figure_Adjust import FigurePlot
 
 # ? Configuration of the CNN
 class ConfigurationML(Utilities):

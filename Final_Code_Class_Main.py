@@ -1,12 +1,12 @@
 from Final_Code_0_0_Libraries import *
 
-from Final_Code_1_General_Functions import BarChart
-from Final_Code_1_General_Functions import split_folders_train_test_val
+from Final_Code_0_0_Template_General_Functions import BarChart
+from Final_Code_0_0_Template_General_Functions import split_folders_train_test_val
 
-from Final_Code_5_CNN_Architectures import *
+from Final_Code_0_0_Template_CNN_Architectures import *
 
-from Final_Code_0_11_CNN_Architectures_Classes import ConfigurationCNN
-from Final_Code_ML_Functions_Class import ConfigurationML
+from Final_Code_0_11_Class_CNN_Architectures import ConfigurationCNN
+from Final_Code_0_15_Class_ML_Configuration import ConfigurationML
 
 from Final_Code_CBIS_DDSM_4_Data_Augmentation import preprocessing_DataAugmentation_Folder
 

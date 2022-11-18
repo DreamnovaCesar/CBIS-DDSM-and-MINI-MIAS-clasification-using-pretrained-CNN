@@ -1,28 +1,45 @@
-# ? .
 
+from Final_Code_0_0_Libraries import *
 
-from Final_Code_0_0_Libraries import os
-from Final_Code_0_0_Libraries import cv2
-
-
-from Final_Code_0_1_Utilities import Utilities
+from Final_Code_0_1_Class_Utilities import Utilities
 
 class DCM_format(Utilities):
+    """
+    Utilities inheritance
 
+    A class used to change the format DCM to png.
+
+    Methods:
+        data_dic(): description
+
+        DCM_change_format(): description
+
+    """
+    # * Initializing (Constructor)
     def __init__(self, **kwargs: str) -> None:
-        
+        """
+        Keyword Args:
+            folder (str): description 
+            AF (str): description
+            PF (str): description
+            PRF (str): description
+            PRNF (str): description
+            Severity (str): description
+            Phase (str): description
+
+        """
         # * This algorithm outputs crop values for images based on the coordinates of the CSV file.
 
         # * Instance attributes folders
         self.__Folder = kwargs.get('folder', None)
-        self.__Folder_all = kwargs.get('allfolder', None)
-        self.__Folder_patches = kwargs.get('patchesfolder', None)
-        self.__Folder_resize = kwargs.get('resizefolder', None)
-        self.__Folder_resize_normalize = kwargs.get('normalizefolder', None)
+        self.__Folder_all = kwargs.get('AF', None)
+        self.__Folder_patches = kwargs.get('PF', None)
+        self.__Folder_resize = kwargs.get('PRF', None)
+        self.__Folder_resize_normalize = kwargs.get('PRNF', None)
 
         # * Instance attributes labels
         self.__Severity = kwargs.get('Severity', None)
-        self.__Stage = kwargs.get('Phase', None)
+        self.__Phase = kwargs.get('Phase', None)
 
         # * Folder attribute (ValueError, TypeError)
         if self.__Folder == None:
@@ -66,142 +83,134 @@ class DCM_format(Utilities):
         if not isinstance(self.__Stage, str):
             raise TypeError("Phase must be a string") #! Alert
 
-    def __repr__(self) -> str:
+    # * Class variables
+    def __repr__(self):
+            return f'[{self.__Folder}, {self.__Folder_all}, {self.__Folder_patches}, {self.__Folder_resize}, {self.__Folder_resize_normalize}, {self.__Severity}, {self.__Phase}]';
 
-            kwargs_info = "Folder: {} , Folder_all: {}, Folder_normal: {}, Folder_resize: {}, Folder_resize_normalize: {}, Severity: {}, Phase: {}".format( self.__Folder, 
-                                                                                                                                                            self.__Folder_all, self.__Folder_patches,
-                                                                                                                                                            self.__Folder_resize, self.__Folder_resize_normalize, 
-                                                                                                                                                            self.__Severity, self.__Stage )
-            return kwargs_info
+    # * Class description
+    def __str__(self):
+        return  f'A class used to change the format DCM to png.';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, DCM format class destroyed.');
 
-    def __str__(self) -> str:
+    # * Get data from a dic
+    def data_dic(self):
 
-            Descripcion_class = ""
-            
-            return Descripcion_class
+        return {'Folder path': str(self.__Folder),
+                'Folder all path': str(self.__Folder_all),
+                'Folder patches': str(self.__Folder_patches),
+                'Folder resize': str(self.__Folder_resize),
+                'Folder normalise': str(self.__Folder_resize_normalize),
+                'Severity': str(self.__Severity),
+                'Phase': str(self.__Phase),
+                };
 
-    # * Folder attribute
+    # * __Folder attribute
     @property
-    def Folder_property(self):
+    def __Folder_property(self):
         return self.__Folder
 
-    @Folder_property.setter
-    def Folder_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Folder must be a string") #! Alert
+    @__Folder_property.setter
+    def __Folder_property(self, New_value):
         self.__Folder = New_value
     
-    @Folder_property.deleter
-    def Folder_property(self):
+    @__Folder_property.deleter
+    def __Folder_property(self):
         print("Deleting folder...")
         del self.__Folder
 
-    # * Folder all images attribute
+    # * __Folder all images attribute
     @property
-    def Folder_all_property(self):
+    def __Folder_all_property(self):
         return self.__Folder_all
 
-    @Folder_all_property.setter
-    def Folder_all_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Folder all must be a string") #! Alert
+    @__Folder_all_property.setter
+    def __Folder_all_property(self, New_value):
         self.__Folder_all = New_value
     
-    @Folder_all_property.deleter
-    def Folder_all_property(self):
+    @__Folder_all_property.deleter
+    def __Folder_all_property(self):
         print("Deleting all folder...")
         del self.__Folder_all
 
-    # * Folder patches images attribute
+    # * __Folder patches images attribute
     @property
-    def Folder_patches_property(self):
+    def __Folder_patches_property(self):
         return self.__Folder_patches
 
-    @Folder_patches_property.setter
-    def Folder_patches_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Folder patches must be a string") #! Alert
+    @__Folder_patches_property.setter
+    def __Folder_patches_property(self, New_value):
         self.__Folder_patches = New_value
     
-    @Folder_patches_property.deleter
-    def Folder_patches_property(self):
+    @__Folder_patches_property.deleter
+    def __Folder_patches_property(self):
         print("Deleting patches folder...")
         del self.__Folder_patches
 
-    # * Folder resize images attribute
+    # * __Folder resize images attribute
     @property
-    def Folder_resize_property(self):
+    def __Folder_resize_property(self):
         return self.__Folder_resize
 
-    @Folder_resize_property.setter
-    def Folder_resize_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Folder resize must be a string") #! Alert
+    @__Folder_resize_property.setter
+    def __Folder_resize_property(self, New_value):
         self.__Folder_resize = New_value
     
-    @Folder_resize_property.deleter
-    def Folder_resize_property(self):
+    @__Folder_resize_property.deleter
+    def __Folder_resize_property(self):
         print("Deleting resize folder...")
         del self.__Folder_resize
 
-    # * Folder resize normalize images attribute
+    # * __Folder resize normalize images attribute
     @property
-    def Folder_resize_normalize_property(self):
+    def __Folder_resize_normalize_property(self):
         return self.__Folder_resize_normalize
 
-    @Folder_resize_normalize_property.setter
-    def Folder_resize_normalize_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Folder resize normalize must be a string") #! Alert
+    @__Folder_resize_normalize_property.setter
+    def __Folder_resize_normalize_property(self, New_value):
         self.__Folder_resize_normalize = New_value
     
-    @Folder_resize_normalize_property.deleter
+    @__Folder_resize_normalize_property.deleter
     def Folder_resize_normalize_property(self):
         print("Deleting resize normalize folder...")
         del self.__Folder_resize_normalize
 
-    # * Severity attribute
+    # * __Severity attribute
     @property
-    def Severity_property(self):
+    def __Severity_property(self):
         return self.__Severity
 
-    @Severity_property.setter
-    def Severity_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Severity must be a string") #! Alert
+    @__Severity_property.setter
+    def __Severity_property(self, New_value):
         self.__Severity = New_value
     
-    @Severity_property.deleter
-    def Severity_property(self):
+    @__Severity_property.deleter
+    def __Severity_property(self):
         print("Deleting severity...")
         del self.__Severity
     
-    # * Stage
+    # * __Stage
     @property
-    def Stage_property(self):
+    def __Stage_property(self):
         return self.__Stage
 
-    @Stage_property.setter
-    def Stage_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Stage must be a string") #! Alert
+    @__Stage_property.setter
+    def __Stage_property(self, New_value):
         self.__Stage = New_value
     
-    @Stage_property.deleter
+    @__Stage_property.deleter
     def Stage_property(self):
         print("Deleting stage...")
         del self.__Stage
 
+    # ? Method to change the DCM format
     @Utilities.timer_func
     def DCM_change_format(self) -> None:
         """
-        Printing amount of images with data augmentation
+        Method to change DCM format to a PNG format. 
 
-        Args:
-            Folder_path (str): Folder's dataset for distribution
-
-        Returns:
-            None
         """
 
         # * Format DCM and PNG variables
@@ -235,9 +244,9 @@ class DCM_format(Utilities):
 
         # * Search for each dir and file inside the folder given
         for Root, Dirs, Files in os.walk(self.__Folder, True):
-            print("root:%s"% Root)
-            print("dirs:%s"% Dirs)
-            print("files:%s"% Files)
+            print("Root: {}".format(Root))
+            print("Dirs: {}".format(Dirs))
+            print("Files: {}".format(Files))
             print("-------------------------------")
 
         for Root, Dirs, Files in os.walk(self.__Folder):

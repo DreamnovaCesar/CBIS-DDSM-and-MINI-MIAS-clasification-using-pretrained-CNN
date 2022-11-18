@@ -1,9 +1,9 @@
 from Final_Code_0_0_Libraries import *
 
-from Final_Code_1_General_Functions import concat_dataframe
-from Final_Code_ML_Functions import Machine_learning_config
+from Final_Code_0_0_Template_General_Functions import concat_dataframe
+from Final_Code_0_0_Template_ML_Functions import Machine_learning_config
 
-from Final_Code_0_13_Extract_features import FeatureExtraction
+from Final_Code_0_13_Class_Extract_features import FeatureExtraction
 
 def Testing_ML_Models_Biclass_FOF(Model, Technique, All_images, All_labels):
 

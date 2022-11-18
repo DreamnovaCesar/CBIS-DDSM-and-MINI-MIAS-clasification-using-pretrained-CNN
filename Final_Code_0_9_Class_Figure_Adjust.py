@@ -1,18 +1,21 @@
 
 from Final_Code_0_0_Libraries import *
-from Final_Code_0_1_Utilities import Utilities
+from Final_Code_0_1_Class_Utilities import Utilities
 
 # ? Figure Adjust
 
 class FigureAdjust(Utilities):
     """
-    Utilities inheritance: 
+    Utilities inheritance.
 
-    Classes:
-
+    A class to set up the initial values of each statistic plot
 
     Methods:
         data_dic(): description
+
+        show_figure(): description
+
+        save_figure(): description
         
     """
 
@@ -60,100 +63,95 @@ class FigureAdjust(Utilities):
     
     # * Class variables
     def __repr__(self):
-            return f'[]';
+            return f'[{self._Folder_path}, {self._Title}, {self._Show_image}, {self._Save_figure}, {self._Num_classes}, {self._X_figure_size}, {self._Y_figure_size}]';
 
     # * Class description
     def __str__(self):
-        return  f'';
+        return  f'A class to set up the initial values of each statistic plot';
     
     # * Deleting (Calling destructor)
     def __del__(self):
-        print('Destructor called, Figure adjust destroyed.');
+        print('Destructor called, figure adjust destroyed.');
 
     # * Get data from a dic
     def data_dic(self):
 
-        return {'Folder path': str(self.__Folder),
-                'New folder path': str(self.__New_folder),
-                'Severity': str(self.__Severity),
-                'Sampling': str(self.__Label),
-                'Interpolation': str(self.__Interpolation),
-                'X resize': str(self.__X_resize),
-                'Y resize': str(self.__Y_resize),
-                'Division': str(self.__Division),
-                'Clip limit': str(self.__Clip_limit),
-                'Radius': str(self.__Radius),
-                'Amount': str(self.__Amount),
-                'Gamma correction': str(self.__Gamma_correction),
+        return {'Folder path': str(self._Folder_path),
+                'Title': str(self._Title),
+                'Show image': str(self._Show_image),
+                'Save figure': str(self._Save_figure),
+                'Number of classes': str(self._Num_classes),
+                "figure's height": str(self._X_figure_size),
+                "figure's width": str(self._Y_figure_size),
                 };
 
-    # * Folder_path attribute
+    # * _Folder_path attribute
     @property
-    def Folder_path_property(self):
+    def _Folder_path_property(self):
         return self._Folder_path
 
-    @Folder_path_property.setter
-    def Folder_path_property(self, New_value):
+    @_Folder_path_property.setter
+    def _Folder_path_property(self, New_value):
         self._Folder_path = New_value
     
-    @Folder_path_property.deleter
-    def Folder_path_property(self):
+    @_Folder_path_property.deleter
+    def _Folder_path_property(self):
         print("Deleting Folder_path...")
         del self._Folder_path
 
     # * Title attribute
     @property
-    def Title_property(self):
+    def _Title_property(self):
         return self._Title
 
-    @Title_property.setter
-    def Title_property(self, New_value):
+    @_Title_property.setter
+    def _Title_property(self, New_value):
         self._Title = New_value
     
-    @Title_property.deleter
-    def Title_property(self):
+    @_Title_property.deleter
+    def _Title_property(self):
         print("Deleting Title...")
         del self._Title
 
     # * Show_image attribute
     @property
-    def Show_image_property(self):
+    def _Show_image_property(self):
         return self._Show_image
 
-    @Show_image_property.setter
-    def Show_image_property(self, New_value):
+    @_Show_image_property.setter
+    def _Show_image_property(self, New_value):
         self._Show_image = New_value
     
-    @Show_image_property.deleter
-    def Show_image_property(self):
+    @_Show_image_property.deleter
+    def _Show_image_property(self):
         print("Deleting Show_image...")
         del self._Show_image
 
     # * Save_figure attribute
     @property
-    def Save_figure_property(self):
+    def _Save_figure_property(self):
         return self._Save_figure
 
-    @Save_figure_property.setter
-    def Save_figure_property(self, New_value):
+    @_Save_figure_property.setter
+    def _Save_figure_property(self, New_value):
         self._Save_figure = New_value
     
-    @Save_figure_property.deleter
-    def Save_figure_property(self):
+    @_Save_figure_property.deleter
+    def _Save_figure_property(self):
         print("Deleting Save_figure...")
         del self._Save_figure
 
     # * Num_classes attribute
     @property
-    def Num_classes_property(self):
+    def _Num_classes_property(self):
         return self._Num_classes
 
-    @Num_classes_property.setter
-    def Num_classes_property(self, New_value):
+    @_Num_classes_property.setter
+    def _Num_classes_property(self, New_value):
         self._Num_classes = New_value
     
-    @Num_classes_property.deleter
-    def Num_classes_property(self):
+    @_Num_classes_property.deleter
+    def _Num_classes_property(self):
         print("Deleting Num_classes...")
         del self._Num_classes
 
@@ -183,10 +181,19 @@ class FigureAdjust(Utilities):
 # ?
 class BarChart(FigureAdjust):
     """
-    _summary_
+    FigureAdjust inheritance.
 
-    _extended_summary_
+    A class to set up the barchart using a dataframe. 
+
+    Methods:
+        data_dic(): description
+
+        show_figure(): description
+
+        save_figure(): description
+        
     """
+
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
 
@@ -223,6 +230,30 @@ class BarChart(FigureAdjust):
         elif self._Num_classes > 2:
             self._Label_class_name = 'Multiclass'
 
+    # * Class variables
+    def __repr__(self):
+            return f'[{self._Folder_path}, {self._Title}, {self._Show_image}, {self._Save_figure}, {self._Num_classes}, {self._X_figure_size}, {self._Y_figure_size}]';
+
+    # * Class description
+    def __str__(self):
+        return  f'A class to set up the initial values of each statistic plot';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, figure adjust destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Folder path': str(self._Folder_path),
+                'Title': str(self._Title),
+                'Show image': str(self._Show_image),
+                'Save figure': str(self._Save_figure),
+                'Number of classes': str(self._Num_classes),
+                "figure's height": str(self._X_figure_size),
+                "figure's width": str(self._Y_figure_size),
+                };
+                
     # * CSV_path attribute
     @property
     def CSV_path_property(self):

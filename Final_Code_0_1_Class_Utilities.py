@@ -7,12 +7,12 @@ from Final_Code_0_0_Libraries import wraps
 
 class Utilities(object):
     """
-    Decorators.
+    Class used to store decorators.
 
     Methods:
-        timer_func(func): This function saves the time it takes for the function to finish its process.
+        timer_func(func): This function saves the time it takes for the function to finish its process (Decorator).
 
-        detect_GPU(func): This function analyzes if there is a gpu in the system for its use.
+        detect_GPU(func): This function analyzes if there is a gpu in the system for its use (Decorator).
     """
 
     # ? Get the execution time of each function

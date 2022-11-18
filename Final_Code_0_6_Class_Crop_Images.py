@@ -4,9 +4,9 @@ from Final_Code_0_0_Libraries import os
 from Final_Code_0_0_Libraries import cv2
 from Final_Code_0_0_Libraries import pd
 
-from Final_Code_1_General_Functions import sort_images
+from Final_Code_0_0_Template_General_Functions import sort_images
 
-from Final_Code_0_1_Utilities import Utilities
+from Final_Code_0_1_Class_Utilities import Utilities
 
 class CropImages(Utilities):
     """

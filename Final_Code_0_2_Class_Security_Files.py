@@ -6,7 +6,7 @@ from Final_Code_0_0_Libraries import random
 from Final_Code_0_0_Libraries import shutil
 from Final_Code_0_0_Libraries import datetime
 
-from Final_Code_0_1_Utilities import Utilities
+from Final_Code_0_1_Class_Utilities import Utilities
 
 # ? Generate keys
 
@@ -15,11 +15,11 @@ class SecurityFiles(Utilities):
     Utilities inheritance: A class used to create keys and save the files with it
 
     Methods:
-        generate_key(): description
+        generate_key(): Method used to create random keys using self.__Number_keys for interation variable
 
-        encrypt_files(): description
+        encrypt_files(): Method used to encrypt files by choosing the key or get it randomly
 
-        decrypt_files(): description
+        decrypt_files(): Method used to decrypt files by using the fenet key
     """
     # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
