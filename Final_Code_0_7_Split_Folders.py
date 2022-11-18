@@ -4,9 +4,19 @@ from Final_Code_0_0_Libraries import splitfolders
 from Final_Code_0_1_Utilities import Utilities
 
 class SplitDataFolder(Utilities):
+    """
+    Utilities inheritance
 
-    # * Change the format of one image to another 
+    A class used to split data into three stages: training, validation and test.
 
+    Methods:
+        data_dic(): description
+
+        CropMIAS(): description
+
+    """
+
+    # * Initializing (Constructor)
     def __init__(self, **kwargs):
 
         # * General parameters
@@ -31,12 +41,6 @@ class SplitDataFolder(Utilities):
         """
         Create a new folder with the folders of the class problem and its distribution of training, test and validation.
         If there is a validation set, it'll be 80, 10, and 10.
-
-        Args:
-            Folder_path (str): Folder's dataset for distribution
-
-        Returns:
-            None
         """
         # * General parameters
 
@@ -62,16 +66,10 @@ class SplitDataFolder(Utilities):
         return New_Folder_name
 
     def split_folders_train_test(self) -> str:
-
         """
         Create a new folder with the folders of the class problem and its distribution of training and test.
         The split is 80 and 20.
 
-        Args:
-            Folder_path (str): Folder's dataset for distribution
-
-        Returns:
-            None
         """
         # * General parameters
 

@@ -10,38 +10,20 @@ from Final_Code_0_1_Utilities import Utilities
 
 class ChangeFormat(Utilities):
     """
-    _summary_
+    Utilities inheritance
 
-    _extended_summary_
+    A class used to change the format to another
 
-    Raises:
-        ValueError: _description_
-        TypeError: _description_
-        ValueError: _description_
-        TypeError: _description_
-        ValueError: _description_
-        TypeError: _description_
-        ValueError: _description_
-        TypeError: _description_
+    Methods:
+        data_dic(): description
+
+        CropMIAS(): description
+
     """
-    # * Change the format of one image to another 
 
+    # * Initializing (Constructor)
     def __init__(self, **kwargs):
-        """
-        _summary_
-
-        _extended_summary_
-
-        Raises:
-            ValueError: _description_
-            TypeError: _description_
-            ValueError: _description_
-            TypeError: _description_
-            ValueError: _description_
-            TypeError: _description_
-            ValueError: _description_
-            TypeError: _description_
-        """
+        
         # * General parameters
         self.__Folder = kwargs.get('Folder', None)
         self.__New_folder = kwargs.get('Newfolder', None)
@@ -133,12 +115,11 @@ class ChangeFormat(Utilities):
         print("Deleting new format...")
         del self.__New_format
 
+    # ? Method to change the format, for instance it could be png to jpg
     @Utilities.timer_func
     def ChangeFormat(self):
         """
-        _summary_
-
-        _extended_summary_
+        Method to change the format.
         """
         # * Changes the current working directory to the given path
         os.chdir(self.__Folder)

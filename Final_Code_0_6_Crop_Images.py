@@ -9,31 +9,40 @@ from Final_Code_1_General_Functions import sort_images
 from Final_Code_0_1_Utilities import Utilities
 
 class CropImages(Utilities):
-   
+    """
+    Utilities inheritance
+
+    A class used to crop Mini-MIAS images using the coordinates from the website.
+
+    Methods:
+        data_dic(): description
+
+        CropMIAS(): description
+
+    """
+
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
-    
         """
-        _summary_
-
-        _extended_summary_
-
-        Raises:
-            ValueError: _description_
-            ValueError: _description_
-            ValueError: _description_
-            ValueError: _description_
-            ValueError: _description_
-            ValueError: _description_
-            ValueError: _description_
-            ValueError: _description_
+        Keyword Args:
+            folder (str): description 
+            NF (str): (Normal folder)
+            TF (str): (Tumor folder)
+            BF (str): (Benign folder)
+            MF (str): (Malignant folder)
+            Dataframe (pd.dataframe): description
+            Shapes (int): description
+            X mean (int): description
+            Y mean (int): description
         """
+
         # * This algorithm outputs crop values for images based on the coordinates of the CSV file.
         # * General parameters
-        self.__Folder: str = kwargs.get('Folder', None)
-        self.__Normalfolder: str = kwargs.get('Normalfolder', None)
-        self.__Tumorfolder: str = kwargs.get('Tumorfolder', None)
-        self.__Benignfolder: str = kwargs.get('Benignfolder', None)
-        self.__Malignantfolder: str = kwargs.get('Malignantfolder', None)
+        self.__Folder: str = kwargs.get('folder', None)
+        self.__Normalfolder: str = kwargs.get('NF', None)
+        self.__Tumorfolder: str = kwargs.get('TF', None)
+        self.__Benignfolder: str = kwargs.get('BF', None)
+        self.__Malignantfolder: str = kwargs.get('MF', None)
 
         # * CSV to extract data
         self.__Dataframe: pd.DataFrame = kwargs.get('Dataframe', None)
@@ -80,8 +89,161 @@ class CropImages(Utilities):
         elif self.__Y_mean == None:
             raise ValueError("Y_mean is required") #! Alert
 
+    # * Class variables
+    def __repr__(self):
+            return f'[{self.__Folder}, {self.__Normalfolder}, {self.__Tumorfolder}, {self.__Benignfolder}, {self.__Malignantfolder}, {self.__Dataframe}, {self.__Shapes}, {self.__X_mean}, {self.__Y_mean}]';
+
+    # * Class description
+    def __str__(self):
+        return  f'A class used to crop Mini-MIAS images using the coordinates from the website';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, crop images class destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Folder path': str(self.__Folder),
+                'Normal folder path': str(self.__Normalfolder),
+                'Tumor folder path': str(self.__Tumorfolder),
+                'Benign folder path': str(self.__Benignfolder),
+                'Malignant folder path': str(self.__Malignantfolder),
+                'Dataframe': str(self.__Dataframe),
+                'Shapes': str(self.__Shapes),
+                'X mean': str(self.__X_mean),
+                'Y mean': str(self.__Y_mean),
+                };
+
+    # * __Folder attribute
+    @property
+    def __Folder_property(self):
+        return self.__Folder
+
+    @__Folder_property.setter
+    def __Folder_property(self, New_value):
+        self.__Folder = New_value
+    
+    @__Folder_property.deleter
+    def __Folder_property(self):
+        print("Deleting folder...")
+        del self.__Folder
+
+    # * __Normalfolder attribute
+    @property
+    def __Normalfolder_property(self):
+        return self.__Normalfolder
+
+    @__Normalfolder_property.setter
+    def __Normalfolder_property(self, New_value):
+        self.__Normalfolder = New_value
+    
+    @__Normalfolder_property.deleter
+    def __Normalfolder_property(self):
+        print("Deleting normal folder...")
+        del self.__Normalfolder
+
+    # * __Tumorfolder attribute
+    @property
+    def __Tumorfolder_property(self):
+        return self.__Tumorfolder
+
+    @__Tumorfolder_property.setter
+    def __Tumorfolder_property(self, New_value):
+        self.__Tumorfolder = New_value
+    
+    @__Tumorfolder_property.deleter
+    def __Tumorfolder_property(self):
+        print("Deleting tumor folder...")
+        del self.__Tumorfolder
+
+    # * __Benignfolder attribute
+    @property
+    def __Benignfolder_property(self):
+        return self.__Benignfolder
+
+    @__Benignfolder_property.setter
+    def __Benignfolder_property(self, New_value):
+        self.__Benignfolder = New_value
+    
+    @__Benignfolder_property.deleter
+    def __Benignfolder_property(self):
+        print("Deleting benign folder...")
+        del self.__Benignfolder
+
+    # * __Malignantfolder attribute
+    @property
+    def __Malignantfolder_property(self):
+        return self.__Malignantfolder
+
+    @__Malignantfolder_property.setter
+    def __Malignantfolder_property(self, New_value):
+        self.__Malignantfolder = New_value
+    
+    @__Malignantfolder_property.deleter
+    def __Malignantfolder_property(self):
+        print("Deleting malignant folder...")
+        del self.__Malignantfolder
+
+    # * __Dataframe attribute
+    @property
+    def __Dataframe_property(self):
+        return self.__Dataframe
+
+    @__Dataframe_property.setter
+    def __Dataframe_property(self, New_value):
+        self.__Dataframe = New_value
+    
+    @__Dataframe_property.deleter
+    def __Dataframe_property(self):
+        print("Deleting dataframe...")
+        del self.__Dataframe
+
+    # * __Shapes attribute
+    @property
+    def __Shapes_property(self):
+        return self.__Shapes
+
+    @__Shapes_property.setter
+    def __Shapes_property(self, New_value):
+        self.__Shapes = New_value
+    
+    @__Shapes_property.deleter
+    def __Shapes_property(self):
+        print("Deleting shapes...")
+        del self.__Shapes
+
+    # * __X_mean attribute
+    @property
+    def __X_mean_property(self):
+        return self.__X_mean
+
+    @__X_mean_property.setter
+    def __X_mean_property(self, New_value):
+        self.__X_mean = New_value
+    
+    @__X_mean_property.deleter
+    def __X_mean_property(self):
+        print("Deleting X mean...")
+        del self.__X_mean
+
+    # * __Y_mean attribute
+    @property
+    def __Y_mean_property(self):
+        return self.__Y_mean
+
+    @__Y_mean_property.setter
+    def __Y_mean_property(self, New_value):
+        self.__Y_mean = New_value
+    
+    @__Y_mean_property.deleter
+    def __Y_mean_property(self):
+        print("Deleting Y mean...")
+        del self.__Y_mean
+
+    # ? Method to crop Mini-MIAS images.
     @Utilities.timer_func
-    def CropMIAS(self):
+    def CropMIAS(self) -> None:
         
         #Images = []
 
