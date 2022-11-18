@@ -19,21 +19,15 @@ class FigureAdjust(Utilities):
         
     """
 
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
         """
         Keyword Args:
             folder (str): description 
             title (str): description
-            severity (str): description
-            label (int): description
-            interpolation (int): description
-            X (int): description
-            Y (int): description
-            division (int): description
-            cliplimit (float): description
-            radius (int): description
-            amount (int): description
-            GC (float): Gamma correction
+            SI (bool): description
+            SF (bool): description
+            classes (int): description
         """
 
         # *
@@ -155,7 +149,7 @@ class FigureAdjust(Utilities):
         print("Deleting Num_classes...")
         del self._Num_classes
 
-    # ? Decorator
+    # ? Static method to show the image.
     @staticmethod
     def show_figure(Show_image: bool = False) -> None:
 
@@ -165,7 +159,7 @@ class FigureAdjust(Utilities):
         else: 
             pass
 
-    # ? Decorator
+    # ? Static method to save the figure.
     @staticmethod
     def save_figure(Save_figure: bool, Title: int, Func_: str, Folder: str) -> None:
 
@@ -188,14 +182,27 @@ class BarChart(FigureAdjust):
     Methods:
         data_dic(): description
 
-        show_figure(): description
+        barchart_horizontal(): description
 
-        save_figure(): description
+        barchart_vertical(): description
         
     """
 
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
+        """
+        Keyword Args:
+            folder (str): description 
+            title (str): description
+            SI (bool): description
+            SF (bool): description
+            classes (int): description
+            csv (str): description
+            label (str): description
+            column (int): description
+            reverse (bool): description
+        """
 
         # *
         self._CSV_path = kwargs.get('csv', None)
@@ -232,15 +239,15 @@ class BarChart(FigureAdjust):
 
     # * Class variables
     def __repr__(self):
-            return f'[{self._Folder_path}, {self._Title}, {self._Show_image}, {self._Save_figure}, {self._Num_classes}, {self._X_figure_size}, {self._Y_figure_size}]';
+            return f'[{self._Folder_path}, {self._Title}, {self._Show_image}, {self._Save_figure}, {self._Num_classes}, {self._X_figure_size}, {self._Y_figure_size}, {self._CSV_path}, {self._Plot_x_label}, {self._Plot_column}, {self._Plot_reverse}]';
 
     # * Class description
     def __str__(self):
-        return  f'A class to set up the initial values of each statistic plot';
+        return  f'A class to set up the barchart using a dataframe';
     
     # * Deleting (Calling destructor)
     def __del__(self):
-        print('Destructor called, figure adjust destroyed.');
+        print('Destructor called, barchart destroyed.');
 
     # * Get data from a dic
     def data_dic(self):
@@ -252,95 +259,88 @@ class BarChart(FigureAdjust):
                 'Number of classes': str(self._Num_classes),
                 "figure's height": str(self._X_figure_size),
                 "figure's width": str(self._Y_figure_size),
+                'Folder CSV path': str(self._CSV_path),
+                'Plot_x_label': str(self._Plot_x_label),
+                "Plot_column": str(self._Plot_column),
+                "Plot_reverse": str(self._Plot_reverse),
                 };
-                
-    # * CSV_path attribute
+
+    # * _CSV_path attribute
     @property
-    def CSV_path_property(self):
+    def _CSV_path_property(self):
         return self._CSV_path
 
-    @CSV_path_property.setter
-    def CSV_path_property(self, New_value):
+    @_CSV_path_property.setter
+    def _CSV_path_property(self, New_value):
         self._CSV_path = New_value
     
-    @CSV_path_property.deleter
-    def CSV_path_property(self):
+    @_CSV_path_property.deleter
+    def _CSV_path_property(self):
         print("Deleting CSV_path...")
         del self._CSV_path
 
     # * Plot_x_label attribute
     @property
-    def Plot_x_label_property(self):
+    def _Plot_x_label_property(self):
         return self._Plot_x_label
 
-    @Plot_x_label_property.setter
-    def Plot_x_label_property(self, New_value):
+    @_Plot_x_label_property.setter
+    def _Plot_x_label_property(self, New_value):
         self._Plot_x_label = New_value
     
-    @Plot_x_label_property.deleter
-    def Plot_x_label_property(self):
+    @_Plot_x_label_property.deleter
+    def _Plot_x_label_property(self):
         print("Deleting Plot_x_label...")
         del self._Plot_x_label
 
     # * Plot_column attribute
     @property
-    def Plot_column_property(self):
+    def _Plot_column_property(self):
         return self._Plot_column
 
-    @Plot_column_property.setter
-    def Plot_column_property(self, New_value):
+    @_Plot_column_property.setter
+    def _Plot_column_property(self, New_value):
         self._Plot_column = New_value
     
-    @Plot_column_property.deleter
-    def Plot_column_property(self):
+    @_Plot_column_property.deleter
+    def _Plot_column_property(self):
         print("Deleting Plot_column...")
         del self._Plot_column
 
     # * Plot_reverse attribute
     @property
-    def Plot_reverse_property(self):
+    def _Plot_reverse_property(self):
         return self._Plot_reverse
 
-    @Plot_reverse_property.setter
-    def Plot_reverse_property(self, New_value):
+    @_Plot_reverse_property.setter
+    def _Plot_reverse_property(self, New_value):
         self._Plot_reverse = New_value
     
-    @Plot_reverse_property.deleter
-    def Plot_reverse_property(self):
+    @_Plot_reverse_property.deleter
+    def _Plot_reverse_property(self):
         print("Deleting Plot_reverse...")
         del self._Plot_reverse
 
-    # * Name attribute
+    # * _Name attribute
     @property
-    def Name_property(self):
+    def _Name_property(self):
         return self._Name
 
-    @Name_property.setter
-    def Name_property(self, New_value):
+    @_Name_property.setter
+    def _Name_property(self, New_value):
         self._Name = New_value
     
-    @Name_property.deleter
-    def Name_property(self):
+    @_Name_property.deleter
+    def _Name_property(self):
         print("Deleting Name...")
         del self._Name
 
-    
+    # ? Method to plot horizontal barcharts.
     @Utilities.timer_func
     def barchart_horizontal(self) -> None:
         """
-        Show CSV's barchar of all models
+        Method to plot horizontal barcharts.
 
-        Parameters:
-        argument1 (folder): CSV that will be used.
-        argument2 (str): Title name.
-        argument3 (str): Xlabel name.
-        argument1 (dataframe): Dataframe that will be used.
-        argument2 (bool): if the value is false, higher values mean better, if the value is false higher values mean worse.
-        argument3 (folder): Folder to save the images.
-        argument3 (int): What kind of problem the function will classify
-
-        Returns:
-        void
         """
 
         # *
@@ -444,23 +444,11 @@ class BarChart(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, Horizontal, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to plot Vertical barcharts.
     @Utilities.timer_func
     def barchart_vertical(self) -> None:  
-
         """
-        Show CSV's barchar of all models
-
-        Parameters:
-        argument1 (folder): CSV that will be used.
-        argument2 (str): Title name.
-        argument3 (str): Xlabel name.
-        argument1 (dataframe): Dataframe that will be used.
-        argument2 (bool): if the value is false, higher values mean better, if the value is false higher values mean worse.
-        argument3 (folder): Folder to save the images.
-        argument3 (int): What kind of problem the function will classify
-
-        Returns:
-        void
+        Method to plot Vertical barcharts.
         """
 
         # *
@@ -487,7 +475,7 @@ class BarChart(FigureAdjust):
                     self._Y_slow_list_values.append(k)
 
             for Index, (i, k) in enumerate(zip(self._X_fast_list_values, self._Y_fast_list_values)):
-                if k == np.min(self.Y_fast_list_values):
+                if k == np.min(self._Y_fast_list_values):
                     self._X_fastest_list_value.append(i)
                     self._Y_fastest_list_value.append(k)
                     #print(X_fastest_list_value)
@@ -608,36 +596,67 @@ class FigurePlot(FigureAdjust):
             self._FPRs.append(self._Roc_curve_dataframes[i].FPR.to_list())
             self._TPRs.append(self._Roc_curve_dataframes[i].TPR.to_list())
 
-    # * CSV_path attribute
+    # * Class variables
+    def __repr__(self):
+            return f'[{self._Folder_path}, {self._Title}, {self._Show_image}, {self._Save_figure}, {self._Num_classes}, {self._X_figure_size}, {self._Y_figure_size}, {self._CSV_path}, {self._Plot_x_label}, {self._Plot_column}, {self._Plot_reverse}]';
+
+    # * Class description
+    def __str__(self):
+        return  f'A class to set up the barchart using a dataframe';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, barchart destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Folder path': str(self._Folder_path),
+                'Title': str(self._Title),
+                'Show image': str(self._Show_image),
+                'Save figure': str(self._Save_figure),
+                'Number of classes': str(self._Num_classes),
+                "figure's height": str(self._X_figure_size),
+                "figure's width": str(self._Y_figure_size),
+                'Folder CSV path': str(self._CSV_path),
+                'Plot_x_label': str(self._Plot_x_label),
+                "Plot_column": str(self._Plot_column),
+                "Plot_reverse": str(self._Plot_reverse),
+                };
+
+    # * _CSV_path attribute
     @property
-    def CSV_path_property(self):
+    def _CSV_path_property(self):
         return self._CSV_path
 
-    @CSV_path_property.setter
-    def CSV_path_property(self, New_value):
+    @_CSV_path_property.setter
+    def _CSV_path_property(self, New_value):
         self._CSV_path = New_value
     
-    @CSV_path_property.deleter
-    def CSV_path_property(self):
+    @_CSV_path_property.deleter
+    def _CSV_path_property(self):
         print("Deleting CSV_path...")
         del self._CSV_path
 
-    # * Roc_curve_dataframe attribute
+    # * _Roc_curve_dataframe attribute
     @property
-    def Roc_curve_dataframe_property(self):
+    def _Roc_curve_dataframe_property(self):
         return self._Roc_curve_dataframe
 
-    @Roc_curve_dataframe_property.setter
-    def Roc_curve_dataframe_property(self, New_value):
+    @_Roc_curve_dataframe_property.setter
+    def _Roc_curve_dataframe_property(self, New_value):
         self._Roc_curve_dataframe = New_value
     
-    @Roc_curve_dataframe_property.deleter
-    def Roc_curve_dataframe_property(self):
+    @_Roc_curve_dataframe_property.deleter
+    def _Roc_curve_dataframe_property(self):
         print("Deleting Roc_curve_dataframe...")
         del self._Roc_curve_dataframe
 
+    # ? Method to plot four images in a figure (accuracy, loss, confusion matrix, and ROC curve)
     @Utilities.timer_func
     def figure_plot_four(self) -> None: 
+        """_summary_
+        """
 
         # *
         Four_plot = 'Four_plot'
@@ -689,9 +708,12 @@ class FigurePlot(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, Four_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to plot four images in a figure (accuracy, loss, confusion matrix, and ROC curve multiclass)
     @Utilities.timer_func
     def figure_plot_four_multiclass(self) -> None: 
-        
+        """_summary_
+        """
+
         # * Colors for ROC curves
         Colors = ['blue', 'red', 'green', 'brown', 'purple', 'pink', 'orange', 'black', 'yellow', 'cyan']
 
@@ -750,8 +772,11 @@ class FigurePlot(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, Four_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to plot two images in a figure (confusion matrix, and ROC curve). Special for machine learning algorithms.
     @Utilities.timer_func
     def figure_plot_two(self) -> None: 
+        """_summary_
+        """
 
         # *
         Two_plot = 'Two_plot'
@@ -785,9 +810,12 @@ class FigurePlot(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, Two_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to plot two images in a figure (confusion matrix, and ROC curve multiclass). Special for machine learning algorithms.
     @Utilities.timer_func
     def figure_plot_two_multiclass(self) -> None: 
-        
+        """_summary_
+        """
+
         # * Colors for ROC curves
         Colors = ['blue', 'red', 'green', 'brown', 'purple', 'pink', 'orange', 'black', 'yellow', 'cyan']
 
@@ -828,8 +856,11 @@ class FigurePlot(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, Two_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to plot confusion matrix.
     @Utilities.timer_func
     def figure_plot_CM(self) -> None:
+        """_summary_
+        """
         
         # *
         CM_plot = 'CM_plot'
@@ -853,9 +884,12 @@ class FigurePlot(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, CM_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to plot accuracy.
     @Utilities.timer_func
     def figure_plot_acc(self) -> None:
-
+        """_summary_
+        """
+        
         # *
         ACC_plot = 'ACC_plot'
 
@@ -873,8 +907,11 @@ class FigurePlot(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, ACC_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to plot loss.
     @Utilities.timer_func
     def figure_plot_loss(self) -> None:
+        """_summary_
+        """
 
         # *
         Loss_plot = 'Loss_plot'
@@ -894,9 +931,12 @@ class FigurePlot(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, Loss_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to ROC curve.
     @Utilities.timer_func
     def figure_plot_ROC_curve(self) -> None:
-        
+        """_summary_
+        """
+
         # *
         ROC_plot = 'ROC_plot'
 
@@ -917,8 +957,11 @@ class FigurePlot(FigureAdjust):
         self.save_figure(self._Save_figure, self._Title, ROC_plot, self._Folder_path)
         self.show_figure(self._Show_image)
 
+    # ? Method to ROC curve multiclass.
+    @Utilities.timer_func
     def figure_plot_ROC_curve_multiclass(self) -> None:
-
+        """_summary_
+        """
         # * Colors for ROC curves
         Colors = ['blue', 'red', 'green', 'brown', 'purple', 'pink', 'orange', 'black', 'yellow', 'cyan']
 
