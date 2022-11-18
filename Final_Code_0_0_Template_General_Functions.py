@@ -2025,7 +2025,7 @@ def CBIS_DDSM_CSV_severity_labeled(Folder_CSV: str, Column: int, Severity: int)-
 
 # ? Concat multiple dataframes
 @timer_func
-def concat_dataframe(*dfs: pd.DataFrame, **kwargs: str) -> pd.DataFrame:
+def concat_dataframe(dfs: list[pd.DataFrame], **kwargs: str) -> pd.DataFrame:
   """
   Concat multiple dataframes and name it using technique and the class problem
 
@@ -2072,9 +2072,9 @@ def concat_dataframe(*dfs: pd.DataFrame, **kwargs: str) -> pd.DataFrame:
     raise TypeError("Class problem must be a string") #! Alert
 
   # * Concatenate each dataframe
-  ALL_dataframes = [df for df in dfs]
-  print(len(ALL_dataframes))
-  Final_dataframe = pd.concat(ALL_dataframes, ignore_index = True, sort = False)
+  #ALL_dataframes = [df for df in dfs]
+  #print(len(ALL_dataframes))
+  Final_dataframe = pd.concat(dfs, ignore_index = True, sort = False)
       
   #pd.set_option('display.max_rows', Final_dataframe.shape[0] + 1)
   #print(DataFrame)

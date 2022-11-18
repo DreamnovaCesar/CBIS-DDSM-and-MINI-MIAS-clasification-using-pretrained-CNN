@@ -105,9 +105,9 @@ class FeatureExtraction(Utilities):
     """
 
     # * General parameters
-    self.__Folder = kwargs.get('Folder', None)
-    self.__Images = kwargs.get('Images', None)
-    self.__Label = kwargs.get('Label', None)
+    self.__Folder = kwargs.get('folder', None)
+    self.__Images = kwargs.get('images', None)
+    self.__Label = kwargs.get('label', None)
 
     #self.newfolder = kwargs.get('newfolder', None)
     #self.Format = kwargs.get('Format', None)
@@ -190,10 +190,11 @@ class FeatureExtraction(Utilities):
       print("Deleting labels...");
       del self.__Label;
 
-  # ? FOF features folder
-
+  # ? Method to extract First Order Statistic Features (FOF) from a folder.
   def textures_Feature_first_order_from_folder(self):
-    
+    """_summary_
+    """
+
     # * General lists
     #Images = []
     Labels = []
@@ -283,10 +284,11 @@ class FeatureExtraction(Utilities):
     # * Return the three dataframes
     return Dataframe, X, Y, FOF_
 
-  # ? GLRLM features folder
-
+  # ? Method to extract Gray-Level Run Length Matrix Features (GLRLM) from a folder. 
   def textures_Feature_GLRLM_from_folder(self):
-    
+    """_summary_
+    """
+
     # * General lists
     #Images = []
     Labels = []
@@ -353,10 +355,11 @@ class FeatureExtraction(Utilities):
     # * Return the three dataframes
     return Dataset, X, Y, GLRLM_
 
-  # ? GLCM features folder
-
+  # ? Method to extract Gray-Level Co-Occurance Matrix (GLCM) from a folder. 
   def textures_Feature_GLCM_from_folder(self):
-    
+    """_summary_
+    """
+
     # * General lists
     #Images = []
     Labels = []
@@ -422,10 +425,11 @@ class FeatureExtraction(Utilities):
     # * Return the three dataframes
     return Dataset, X, Y, GLCM_
 
-  # ? FOF features images
-
+  # ? Method to extract First Order Statistic Features (FOF) from images.  
   def textures_Feature_first_order_from_images(self):
-    
+    """_summary_
+    """
+
     # * General lists
     Labels = []
 
@@ -484,9 +488,10 @@ class FeatureExtraction(Utilities):
     # * Return the three dataframes
     return Dataset, X, Y, FOF_
 
-  # ? GLRLM features images
-
+  # ? Method to extract Gray-Level Run Length Matrix Features (GLRLM) from images.   
   def textures_Feature_GLRLM_from_images(self):
+    """_summary_
+    """
 
     # * General lists
     Labels = []
@@ -542,9 +547,10 @@ class FeatureExtraction(Utilities):
     # * Return the three dataframes
     return Dataset, X, Y, GLRLM_
 
-  # ? GLCM features images
-
+  # ? Method to extract Gray-Level Co-Occurance Matrix (GLCM) from images.  
   def textures_Feature_GLCM_from_images(self):
+    """_summary_
+    """
 
     # * General lists
     Labels = []

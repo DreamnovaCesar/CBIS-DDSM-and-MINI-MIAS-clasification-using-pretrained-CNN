@@ -4,7 +4,17 @@ from Final_Code_0_0_Template_General_Functions_Classes import Utilities
 # ? define the standalone discriminator model
 
 class ConfigurationGAN(Utilities):
+    """
+    Utilities inheritance: A class used to create image using a GAN.
 
+    Methods:
+        data_dic(): description
+
+        define_discriminator(): description
+        
+    """
+
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
         """
         _summary_
@@ -15,19 +25,32 @@ class ConfigurationGAN(Utilities):
         self.__Folder_path = kwargs.get('folder', None);
         self.__Input_shape = kwargs.get('input_shape ', (224, 224, 3));
 
+    # * Class variables
+    def __repr__(self):
+            return f'[{self.__Folder_path}, {self.__Input_shape}]';
+
+    # * Class description
+    def __str__(self):
+        return  f'A class used to create image using a GAN.';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, GAN class destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Folder path': str(self.__Folder_path),
+                'Input shape': str(self.__Input_shape),
+                };
+
+    # ? Method to define the GAN's discriminator
     @Utilities.timer_func
     @Utilities.detect_GPU
     def define_discriminator(self):
         """
         _summary_
-
-        _extended_summary_
-
-        Args:
-            Input_shape (tuple, optional): _description_. Defaults to (224, 224, 3).
-
-        Returns:
-            _type_: _description_
+        
         """
         model = Sequential()
         model.add(Conv2D(256, (3, 3), strides = (2, 2), padding = 'same', input_shape = self.__Input_shape))

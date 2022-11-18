@@ -127,9 +127,9 @@ def main():
 
     CLAHE_test = r"D:\CBIS-DDSM\CBIS-DDSM Final\2_Biclass_DataCSV\Biclass_Dataframe_Gray-Level Co-Occurance Matrix_CLAHE.csv"
 
-    ML = ConfigurationML(folder = 'D:\Test', dataframe = CLAHE_test, models = Model_CNN, technique = 'TEST', labels = ['A', 'B'])
+    ML = ConfigurationML(folder = 'D:\Test', FE = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Biclass", dataframe = CLAHE_test, models = Model_CNN, technique = 'TEST', labels = ['A', 'B'])
 
-    ML.configuration_models_folder_ML()
+    ML.Features_extraction_ML()
     
 
 if __name__ == "__main__":

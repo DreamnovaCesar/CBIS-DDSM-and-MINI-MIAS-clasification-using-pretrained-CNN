@@ -1,4 +1,7 @@
 from Final_Code_0_0_Libraries import *
+from Final_Code_0_13_Class_Extract_features import FeatureExtraction
+from Final_Code_0_0_Template_General_Functions import sort_images
+from Final_Code_0_0_Template_General_Functions import concat_dataframe
 
 from typing import Any
 
@@ -42,6 +45,7 @@ class ConfigurationML(Utilities):
 
         # * Instance attributes
         self.__Folder = kwargs.get('folder', None)
+        self.__Folder_Extraction = kwargs.get('FE', None)
         #self.__Folder_models = kwargs.get('foldermodels', None)
         #self.__Folder_models_esp = kwargs.get('foldermodelsesp', None)
         #self.__Folder_CSV = kwargs.get('foldercsv', None)
@@ -242,6 +246,36 @@ class ConfigurationML(Utilities):
 
         return Model_name, Model_name_letters, Total_time_training, Y_pred
 
+    # ? Method to choose the CNN model
+    @Utilities.timer_func
+    def Features_extraction_ML(self):
+        
+        os.chdir(self.__Folder_Extraction)
+
+        Files = 0
+        Folders = 0
+
+        Root_list = []
+        Folders_list = []
+        Dataframes = []
+
+        for Root, Dirnames, Filenames in os.walk(self.__Folder_Extraction):
+            Files += len(Filenames)
+            Folders += len(Dirnames)
+
+            Folders_list.append(Dirnames)
+            Root_list.append(Root)
+
+        print("{:,} files, {:,} folders".format(Files, Folders))
+        
+        for i, Folder in enumerate(Folders_list[0]):
+   
+            Object_FeatureExtraction = FeatureExtraction(folder = Root_list[i + 1], label = i)
+            Dataframe, X_data, Y_data, Technique = Object_FeatureExtraction.textures_Feature_first_order_from_folder()
+            Dataframes.append(Dataframe)
+
+        Dataframe_complete = concat_dataframe(Dataframes, folder = self.__Folder, classp = self.__Class_problem_prefix, technique = Technique, savefile = True)
+
     # ? Method to change settings of the model
     @Utilities.timer_func
     def configuration_models_folder_ML(self):
@@ -379,7 +413,7 @@ class ConfigurationML(Utilities):
             Class_problem_folder = os.path.join(Folder_path_images_in, Class_problem_name)
 
             # * Create dataframe and define the headers
-            Column_names_ = [ 'name model', "model used", "accuracy training FE", "accuracy training LE", 
+            Column_names_ = ['name model', "model used", "accuracy training FE", "accuracy training LE", 
                             "accuracy testing", "loss train", "loss test", "training images", "validation images", 
                             "test images", "time training", "time testing", "technique used", "TN", "FP", "FN", "TP", "epochs", 
                             "precision", "recall", "f1_Score"]
