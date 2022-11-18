@@ -42,13 +42,13 @@ class ConfigurationML(Utilities):
 
         # * Instance attributes
         self.__Folder = kwargs.get('folder', None)
-        self.__Folder_models = kwargs.get('foldermodels', None)
-        self.__Folder_models_esp = kwargs.get('foldermodelsesp', None)
-        self.__Folder_CSV = kwargs.get('foldercsv', None)
+        #self.__Folder_models = kwargs.get('foldermodels', None)
+        #self.__Folder_models_esp = kwargs.get('foldermodelsesp', None)
+        #self.__Folder_CSV = kwargs.get('foldercsv', None)
 
 
         self.__Dataframe = kwargs.get('dataframe', None)
-        self.__Dataframe_save = kwargs.get('dataframesave', None)
+        #self.__Dataframe_save = kwargs.get('dataframesave', None)
         self.__Models = kwargs.get('models', None)
 
         #Dataframe_save = kwargs.get('df', None)
@@ -85,7 +85,7 @@ class ConfigurationML(Utilities):
 
     # * Class variables
     def __repr__(self):
-            return f'[{self.__Folder}, {self.__Folder_models}, {self.__Folder_models_esp}, {self.__Folder_CSV}, {self.__Models}, {self.__Extract_feature_technique}, {self.__Enhancement_technique}, {self.__Class_labels}, {self.__Batch_size}, {self.__Height_plot}, {self.__Width_plot}]';
+            return f'[{self.__Folder}, {self.__Models}, {self.__Extract_feature_technique}, {self.__Enhancement_technique}, {self.__Class_labels}, {self.__Batch_size}, {self.__Height_plot}, {self.__Width_plot}]';
 
     # * Class description
     def __str__(self):
@@ -99,16 +99,11 @@ class ConfigurationML(Utilities):
     def data_dic(self):
 
         return {'Folder path': str(self.__Folder),
-                'Folder model': str(self.__Folder_models),
-                'Folder model spanish': str(self.__Folder_models_esp),
-                'Folder CSV': str(self.__Folder_CSV),
                 'Models': str(self.__Models),
                 'Extract features technique': str(self.__Extract_feature_technique),
                 'Enhancement technique': str(self.__Enhancement_technique),
                 'Class labels': str(self.__Class_labels),
                 'Batch size': str(self.__Batch_size),
-                'Height (matplotlib)': str(self.__Height_plot),
-                'Width (matplotlib)': str(self.__Width_plot),
                 };
 
     # ? Method to update CSV
@@ -318,27 +313,27 @@ class ConfigurationML(Utilities):
             #print('\n')
 
             # *
-            Dir_data_csv = '{}/{}'.format(self.__Folder_CSV, Dir_name_csv)
-            Dir_data_images = '{}/{}'.format(self.__Folder_CSV, Dir_name_images)
+            Dir_data_csv = '{}/{}'.format(self.__Folder, Dir_name_csv)
+            Dir_data_images = '{}/{}'.format(self.__Folder, Dir_name_images)
 
             Exist_dir_csv = os.path.isdir(Dir_data_csv)
             Exist_dir_images = os.path.isdir(Dir_data_images)
 
             # *
             if Exist_dir_csv == False:
-                Folder_path = os.path.join(self.__Folder_CSV, Dir_name_csv)
+                Folder_path = os.path.join(self.__Folder, Dir_name_csv)
                 os.mkdir(Folder_path)
                 print(Folder_path)
             else:
-                Folder_path = os.path.join(self.__Folder_CSV, Dir_name_csv)
+                Folder_path = os.path.join(self.__Folder, Dir_name_csv)
                 print(Folder_path)
 
             if Exist_dir_images == False:
-                Folder_path_images = os.path.join(self.__Folder_CSV, Dir_name_images)
+                Folder_path_images = os.path.join(self.__Folder, Dir_name_images)
                 os.mkdir(Folder_path_images)
                 print(Folder_path_images)
             else:
-                Folder_path_images = os.path.join(self.__Folder_CSV, Dir_name_images)
+                Folder_path_images = os.path.join(self.__Folder, Dir_name_images)
                 print(Folder_path_images)
 
             Dir_data_csv_model = '{}/{}'.format(Folder_path, Dir_name_csv_model)
