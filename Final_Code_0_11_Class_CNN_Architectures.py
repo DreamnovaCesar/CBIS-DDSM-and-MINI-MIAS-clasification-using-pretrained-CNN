@@ -59,8 +59,8 @@ class ConfigurationCNN(Utilities):
 
     self.__Shape = (self.__X_size, self.__Y_size)
     self.__Batch_size = 32
-    #self.__Height_plot = 12
-    #self.__Width_plot  = 12
+    self.__Height_plot = 12
+    self.__Width_plot  = 12
     
     self.__Color_mode  = 'rgb'
 

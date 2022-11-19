@@ -1,16 +1,25 @@
 
-from Final_Code_0_0_Libraries import wraps
-
-from Final_Code_0_0_Libraries import os
-from Final_Code_0_0_Libraries import sample
-
+from Final_Code_0_0_Libraries import *
 from Final_Code_0_1_Class_Utilities import Utilities
 
 # ? Random remove all files in folder
 
 class RemoveFiles(Utilities):
+    """
+    Utilities inheritance
 
-    # ? Remove all files inside a dir
+    A class used to remove files inside a folder.
+
+    Methods:
+        data_dic(): description
+
+        remove_all_files(): description
+
+        remove_random_files(): description
+
+    """
+
+    # ? Decorator to remove all files inside a dir
     @staticmethod
     @Utilities.timer_func 
     def remove_all_files(func):  
@@ -28,64 +37,74 @@ class RemoveFiles(Utilities):
             return result
         return wrapper
 
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
+        """
+        Keyword Args:
+            folder (str): description 
+            NFR (int): description
+        """
 
         # * Instance attributes (Protected)
         self._Folder_path = kwargs.get('folder', None);
         self._Number_Files_to_remove = kwargs.get('NFR', None);
 
+
+    # * Class variables
     def __repr__(self):
+            return f'[{self._Folder_path}, {self._Number_Files_to_remove}]';
 
-        kwargs_info = "[{}, {}]".format(self._Folder_path, self._Number_Files_to_remove);
-
-        return kwargs_info
-
+    # * Class description
     def __str__(self):
-        pass
+        return  f'A class used to remove files inside a folder.';
     
-    # * Folder_path attribute
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, change format class destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Folder path': str(self._Folder_path),
+                'Number of files to remove': str(self._Number_Files_to_remove),
+                };
+    
+    # * _Folder_path attribute
     @property
-    def Folder_path_property(self):
+    def _Folder_path_property(self):
         return self._Folder_path
 
-    @Folder_path_property.setter
-    def Folder_path_property(self, New_value):
-        if not isinstance(New_value, str):
-            raise TypeError("Folder_path must be a string") #! Alert
+    @_Folder_path_property.setter
+    def _Folder_path_property(self, New_value):
         self._Folder_path = New_value;
     
-    @Folder_path_property.deleter
-    def Folder_path_property(self):
+    @_Folder_path_property.deleter
+    def _Folder_path_property(self):
         print("Deleting Folder_path...");
         del self._Folder_path
 
-    # * Files_to_remove attribute
+    # * _Files_to_remove attribute
     @property
-    def Files_to_remove_property(self):
+    def _Files_to_remove_property(self):
         return self._Files_to_remove
 
-    @Files_to_remove_property.setter
-    def Files_to_remove_property(self, New_value):
+    @_Files_to_remove_property.setter
+    def _Files_to_remove_property(self, New_value):
         if not isinstance(New_value, int):
             raise TypeError("Files_to_remove must be a integer") #! Alert
         self._Files_to_remove = New_value;
     
-    @Files_to_remove_property.deleter
-    def Files_to_remove_property(self):
+    @_Files_to_remove_property.deleter
+    def _Files_to_remove_property(self):
         print("Deleting Files_to_remove...");
         del self._Files_to_remove
 
-    # ? Remove all files inside a dir
+    # ? Method to remove all the files inside the dir
     @Utilities.timer_func
     def remove_all_files(self) -> None:
         """
-        Remove all files inside the folder path obtained.
+        Remove all the files inside the dir
 
-        Args:
-            Folder_path (str): Folder path obtained.
-
-        Returns:
-            None
         """
         
         # * Folder attribute (ValueError, TypeError)
@@ -100,18 +119,16 @@ class RemoveFiles(Utilities):
             print('Removing: {} . {} ✅'.format(Filename, Format));
             os.remove(os.path.join(self._Folder_path, File));
 
-    # ? Remove all files inside a dir
+    # ? Method to files randomly inside a dir
     @Utilities.timer_func
     def remove_random_files(self) -> None:
         """
-        Remove all files inside the folder path obtained.
+        Remove files randomly inside the folder path.
 
-        Args:
-            Folder_path (str): Folder path obtained.
-
-        Returns:
-            None
         """
+
+        if(self._Number_Files_to_remove == None and ):
+            warnings.warn("Warning...........Message")
 
         # * This function will remove all the files inside a folder
         Files = os.listdir(self._Folder_path);
