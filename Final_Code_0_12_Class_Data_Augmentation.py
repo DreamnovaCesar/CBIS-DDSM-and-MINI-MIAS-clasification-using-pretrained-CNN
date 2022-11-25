@@ -450,7 +450,7 @@ class DataAugmentation(Utilities):
     # * Create a folder with each image and its transformations.
 
     #Name_dir:str = os.path.dirname(self.Folder)
-    Name_base:str = os.path.basename(self.__Folder);
+    #Name_base:str = os.path.basename(self.__Folder);
 
     #Name_dir_dest:str = os.path.dirname(self.Folder_dest)
     #Name_base_dest:str = os.path.basename(self.Folder_dest)

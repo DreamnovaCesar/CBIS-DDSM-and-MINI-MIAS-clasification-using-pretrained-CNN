@@ -44,19 +44,19 @@ def Data_augmentation_stage(Folder_path: str, Labels: list[str], Numbers_iter: l
         print(Folder_path_classes[Index])
 
     for i in range(len(Folder_path_classes)):
-        Object_DA.append(DataAugmentation(Folder = Folder_path_classes[i], NewFolder = Folder_path_classes[i], 
-                                            Severity = Labels[i], Sampling = Numbers_iter[i], Label = i, SI = True))
+        Object_DA.append(DataAugmentation(folder = Folder_path_classes[i], newfolder = Folder_path_classes[i], 
+                                            severity = Labels[i], sampling = Numbers_iter[i], label = i, SI = True))
 
     # *
     for i in range(len(Object_DA)):
 
         Images_, Labels_ = Object_DA[i].data_augmentation_same_folder() 
 
-        Total_images += len(Images_)
-        Total_labels += len(Labels_)
+        #Total_images += len(Images_)
+        #Total_labels += len(Labels_)
 
-    print(len(Total_images))
-    print(len(Total_labels))
+    #print(len(Total_images))
+    #print(len(Total_labels))
 
 # ? Data augmentation for CNN using RAM
 def preprocessing_DataAugmentation_Folder(Folder_path: str, Labels: list[str], Numbers_iter: list[int], DA_T: bool = False, DA_V: bool = False) -> None:

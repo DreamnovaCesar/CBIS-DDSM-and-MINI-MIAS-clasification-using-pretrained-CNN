@@ -682,7 +682,7 @@ class ConfigurationCNN(Utilities):
           
           # *
           #Report = classification_report(Test_data.classes, y_pred, target_names = self.__Class_labels)
-          Dict = classification_report(Test_data.classes, y_pred, target_names = self.__Class_labels, output_dict = True)
+          Dict = classification_report(Test_data.classes, y_pred_class, target_names = self.__Class_labels, output_dict = True)
 
           for i, Report_labels in enumerate(Classification_report_labels):
             for i, Metric_labels in enumerate(Classification_report_metrics_labels):

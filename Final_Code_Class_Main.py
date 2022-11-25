@@ -104,25 +104,20 @@ def main():
     #plot_data_ML()
     #Testing_CNN_Models_Biclass_From_Folder(Model_CNN, 'D:\Mini-MIAS\Mini_MIAS_NO_Cropped_Images_Biclass' + '_Split', 'TEST')
 
-    Model_CNN = [1, 4, 5]
+    Model_CNN = [1, 9]
 
-    #Bic = 'D:\Mini-MIAS\Mini_MIAS_NO_Cropped_Images_Biclass'
-    #Multic = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass"
+    Bic = "D:\CBIS-DDSM\CBIS-DDSM Final\CBIS_DDSM_CLAHE_CANCER_WC_Images_Biclass"
+    Multic = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass"
     
-    #MulticSplit = split_folders_train_test_val(Multic, False)
+    BicSplit = split_folders_train_test_val(Bic, False)
 
-    #preprocessing_DataAugmentation_Folder(MulticSplit, ['A', 'B', 'C'], [1, 1, 22])
+    preprocessing_DataAugmentation_Folder(BicSplit, ['Benign', 'Malignant'], [2, 1])
 
-    #configuration_models_folder(folder = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass" + '_Split', foldermodels = 'D:\Test',
-    #                                foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', 
-    #                                    models = Model_CNN, technique = 'TEST', labels = ['A', 'B', 'C'], X = 224, Y = 224, epochs = 2)
-
-    """
-    CNN = ConfigurationCNN(folder = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass" + '_Split', foldermodels = 'D:\Test',
-                        foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', models = Model_CNN, technique = 'TEST', labels = ['A', 'B', 'C'], 
-                            X = 224, Y = 224, epochs = 2)
+    CNN = ConfigurationCNN(folder = BicSplit, foldermodels = 'D:\Test', foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', 
+                            models = Model_CNN, technique = 'TEST', labels = ['Benign', 'Malignant'], X = 224, Y = 224, epochs = 5)
     
     CNN.configuration_models_folder_CNN()
+
     """
 
     CLAHE_test = r"D:\CBIS-DDSM\CBIS-DDSM Final\2_Biclass_DataCSV\Biclass_Dataframe_Gray-Level Co-Occurance Matrix_CLAHE.csv"
@@ -130,6 +125,8 @@ def main():
     ML = ConfigurationML(folder = 'D:\Test', FE = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Biclass", dataframe = CLAHE_test, models = Model_CNN, technique = 'TEST', labels = ['A', 'B'])
 
     ML.Features_extraction_ML()
+
+    """
     
 
 if __name__ == "__main__":

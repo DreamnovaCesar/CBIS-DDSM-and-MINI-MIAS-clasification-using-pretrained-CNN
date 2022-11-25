@@ -1231,12 +1231,6 @@ def CBIS_DDSM_split_data(**kwargs) -> pd.DataFrame:
     if not isinstance(Folder_malignant, str):
       raise TypeError("Folder malignant must be a string") #! Alert
 
-    # * Dataframe (ValueError, TypeError)
-    if Dataframe == None:
-      raise ValueError("Dataframe does not exist") #! Alert
-    if not isinstance(Dataframe, pd.DataFrame):
-      raise TypeError("Dataframe must be a dataframe") #! Alert
-
     # * Severity (ValueError, TypeError)
     if Severity == None:
       raise ValueError("Severity label does not exist") #! Alert
