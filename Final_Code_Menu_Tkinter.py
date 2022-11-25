@@ -6,6 +6,8 @@ from tkinter import filedialog
 
 from Final_Code_0_0_Libraries import *
 from Final_Code_0_0_Template_General_Functions_Classes import Utilities
+from Final_Code_0_3_Class_Generation_Data import Generator
+from Final_Code_0_5_Class_Change_Format import ChangeFormat
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -18,7 +20,7 @@ class MenuTkinter(Utilities):
     """
     """
 
-    @Utilities.time_func  
+    @Utilities.timer_func  
     def menu(self):
 
         app = App();
@@ -70,39 +72,16 @@ class App(customtkinter.CTk):
 
         # * 1 button left frame
         self.button_C2DI = customtkinter.CTkButton( master = self.frame_left,
-                                                    text = "Create 2D images",
-                                                    command = self.button_change_menu_create_objects_2D);
+                                                    text = "Create folders",
+                                                    command = self.button_change_menu_create_folders);
         self.button_C2DI.grid(row = 2, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 2 button left frame
-        self.button_C3DI = customtkinter.CTkButton( master = self.frame_left,
-                                                    text = "Create 3D images",
-                                                    command = self.button_change_menu_create_objects_3D);
-        self.button_C3DI.grid(row = 3, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        self.button_CFI = customtkinter.CTkButton( master = self.frame_left,
+                                                    text = "Change format",
+                                                    command = self.button_change_menu_create_folders);
+        self.button_CFI.grid(row = 2, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
-        # * 3 button left frame
-        self.button_T2DM = customtkinter.CTkButton( master = self.frame_left,
-                                                    text = "Training 2D model",
-                                                    command = self.button_change_menu_train_models_2D);
-        self.button_T2DM.grid(row = 4, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
-
-        # * 4 button left frame
-        self.button_T3DM = customtkinter.CTkButton( master = self.frame_left,
-                                                    text = "Training 3D model",
-                                                    command = self.button_change_menu_train_models_3D);
-        self.button_T3DM.grid(row = 5, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
-
-        # * 5 button left frame
-        self.button_P2D = customtkinter.CTkButton(  master = self.frame_left,
-                                                    text = "Prediction 2D",
-                                                    command = self.button_change_menu_prediction_2D);
-        self.button_P2D.grid(row = 6, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
-
-        # * 6 button left frame
-        self.button_P3D = customtkinter.CTkButton(  master = self.frame_left,
-                                                    text = "Prediction 3D",
-                                                    command = self.button_change_menu_prediction_3D);
-        self.button_P3D.grid(row = 7, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 7 button left frame
         self.button_BACK = customtkinter.CTkButton( master = self.frame_left,
@@ -125,7 +104,7 @@ class App(customtkinter.CTk):
         self.optionmenu_1.set("Dark")
     
     # ?
-    def button_change_menu_create_objects_2D(self):
+    def button_change_menu_create_folders(self):
 
         # =============================================== frame_right ===============================================
         
@@ -151,37 +130,25 @@ class App(customtkinter.CTk):
 
         # * Label
         self.Label_stage = customtkinter.CTkLabel(  master = self.frame_info,
-                                                    text = "Create 2D images",
+                                                    text = "Create folders",
                                                     text_font = ("Roboto Medium", -16));  # font name and size in px
         self.Label_stage.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 1 Entry(Add number of objects)
-        self.Entry_NO = customtkinter.CTkEntry( self.Labelframe_data, 
+        self.Entry_CF = customtkinter.CTkEntry( self.Labelframe_data, 
                                                 width = 150,
-                                                placeholder_text = "Number of objects");
-        self.Entry_NO.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
-
-        # * 2 Entry(Add height of each object)
-        self.Entry_height = customtkinter.CTkEntry( self.Labelframe_data, 
-                                                    width = 150,
-                                                    placeholder_text = "Height");
-        self.Entry_height.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
-        
-        # * 3 Entry(Add width of each object)
-        self.Entry_width = customtkinter.CTkEntry(  self.Labelframe_data, 
-                                                    width = 150,
-                                                    placeholder_text = "Width");
-        self.Entry_width.grid(row = 2, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+                                                placeholder_text = "Name of the folder");
+        self.Entry_CF.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 1 Button to recolect the information from entries.
         self.Button_add_data = customtkinter.CTkButton( self.Labelframe_data,
                                                         text = "Go!",
-                                                        command = self.create_objects_2D);
+                                                        command = self.create_folders_func);
 
-        self.Button_add_data.grid(row = 4, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        self.Button_add_data.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
     # ?
-    def button_change_menu_train_models_2D(self):
+    def button_change_menu_change_format(self):
 
         # =============================================== frame_right ===============================================
         
@@ -231,7 +198,7 @@ class App(customtkinter.CTk):
         # * 1 Button to recolect the information from entries.
         self.Button_add_data = customtkinter.CTkButton( self.Labelframe_data,
                                                         text = "Go!",
-                                                        command = self.train_model_2D);
+                                                        command = self.change_format_images);
 
         self.Button_add_data.grid(row = 4, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
@@ -465,68 +432,45 @@ class App(customtkinter.CTk):
         print('Empty function')
 
     # ?
-    def create_objects_2D(self):
-        Images_2D = DataEuler(folder = self.__Euler_path_images_2D, NI = self.Entry_NO.get(), 
-                                Height = self.Entry_height.get(), Width = self.Entry_width.get());
-
-        Images_2D.create_data_euler_2D_random();
+    def create_folders_func(self):
+        CF = Generator(folder = "D:\Test2", FN = self.Entry_CF.get())
+        CF.create_folders()
 
     # ?
-    def train_model_2D(self):
-
-        if(self.Combobox_model.get() == 'Connectity 4'):
-
-            Euler_2D = EulerNumberML2D( input = Input_2D, output = Output_2D_4_Connectivity, 
-                                            folder = self.__Euler_path_data_2D, MN = self.Entry_model_name.get(), epochs = self.Entry_epochs.get());
-
-            Euler_2D.model_euler_MLP_2D();
-        
-        elif(self.Combobox_model.get() == 'Connectity 8'):
-
-            Euler_2D = EulerNumberML2D( input = Input_2D, output = Output_2D_8_Connectivity, 
-                                            folder = self.__Euler_path_data_2D, MN = self.Entry_model_name.get(), epochs = self.Entry_epochs.get());
-
-            Euler_2D.model_euler_MLP_2D();
+    def change_format_images_func(self):
+        CFI = ChangeFormat(folder = '', newfolder = '', format = '', newformat = '',)
 
     # ?
-    def prediction_2D(self):
-
-        Euler_2D = EulerNumberML2D()
-
-        Array = Euler_2D.obtain_arrays_from_object_2D(self.Button_txt.get())
-        Euler_2D.model_prediction_2D(self.Button_model.get(), Array)
-
+    def change_DCM_format_func(self):
+        pass
+    
     # ?
-    def create_objects_3D(self):
-        Images_3D = DataEuler(folder = self.__Euler_path_images_3D, NI = self.Entry_NO.get(), 
-                                Height = self.Entry_height.get(), Width = self.Entry_width.get(), Depth = self.Entry_depth.get());
-
-        Images_3D.create_data_euler_3D_random();
-
+    def change_DCM_format_func(self):
+        pass
+    
     # ?
-    def train_model_3D(self):
-
-        if(self.Combobox_model.get() == 'MLP'):
-
-            Euler_3D = EulerNumberML3D( input = Input_3D_array, output = Output_3D_array, 
-                                        folder = self.__Euler_path_data_3D, MN = self.Entry_model_name.get(), epochs = self.Entry_epochs.get());
-
-            Euler_3D.model_euler_MLP_3D();
-        
-        elif(self.Combobox_model.get() == 'RF'):
-
-            Euler_3D = EulerNumberML3D( input = Input_3D_array, output = Output_3D_array, 
-                                        folder = self.__Euler_path_data_3D, MN = self.Entry_model_name.get(), epochs = self.Entry_epochs.get());
-
-            Euler_3D.model_euler_RF_3D();
-
+    def crop_images_func(self):
+        pass
+    
     # ?
-    def prediction_3D(self):
-
-        Euler_3D = EulerNumberML3D()
-
-        Array = Euler_3D.obtain_arrays_from_object_3D(self.Button_txt.get())
-        Euler_3D.model_prediction_3D(self.Button_model.get(), Array)
+    def split_folders_func(self):
+        pass
+    
+    # ?
+    def figure_adjust_func(self):
+        pass
+    
+    # ?
+    def extract_features_func(self):
+        pass
+    
+    # ?
+    def image_processing_func(self):
+        pass
+    
+    # ?
+    def data_agumentation_func(self):
+        pass
 
     # ?
     def change_appearance_mode(self, new_appearance_mode):

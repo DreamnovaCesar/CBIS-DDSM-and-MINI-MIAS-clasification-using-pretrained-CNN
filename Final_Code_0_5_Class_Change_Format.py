@@ -33,9 +33,9 @@ class ChangeFormat(Utilities):
 
         # * General parameters
         self.__Folder = kwargs.get('folder', None)
-        self.__New_folder = kwargs.get('Newfolder', None)
-        self.__Format = kwargs.get('Format', None)
-        self.__New_format = kwargs.get('Newformat', None)
+        self.__New_folder = kwargs.get('newfolder', None)
+        self.__Format = kwargs.get('format', None)
+        self.__New_format = kwargs.get('newformat', None)
 
         # * Values, type errors.
         if self.__Folder == None:

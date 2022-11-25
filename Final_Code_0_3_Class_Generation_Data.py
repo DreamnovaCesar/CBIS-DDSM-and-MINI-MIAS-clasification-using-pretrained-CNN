@@ -176,7 +176,7 @@ class Generator(Utilities):
 
             Dataframe.to_csv(Dataframe_folder);
 
-        return Dataframe
+            return Dataframe
 
     # ? Method to create folders
     @Utilities.timer_func

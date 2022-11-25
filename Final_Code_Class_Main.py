@@ -9,6 +9,7 @@ from Final_Code_0_11_Class_CNN_Architectures import ConfigurationCNN
 from Final_Code_0_15_Class_ML_Configuration import ConfigurationML
 
 from Final_Code_CBIS_DDSM_4_Data_Augmentation import preprocessing_DataAugmentation_Folder
+from Final_Code_Menu_Tkinter import MenuTkinter
 
 #Model_CNN = (Model_pretrained, Model_pretrained)
 
@@ -101,6 +102,7 @@ def plot_data_ML():
     Data_show5.barchart_horizontal()
 
 def main():
+    """
     #plot_data_ML()
     #Testing_CNN_Models_Biclass_From_Folder(Model_CNN, 'D:\Mini-MIAS\Mini_MIAS_NO_Cropped_Images_Biclass' + '_Split', 'TEST')
 
@@ -118,8 +120,6 @@ def main():
     
     CNN.configuration_models_folder_CNN()
 
-    """
-
     CLAHE_test = r"D:\CBIS-DDSM\CBIS-DDSM Final\2_Biclass_DataCSV\Biclass_Dataframe_Gray-Level Co-Occurance Matrix_CLAHE.csv"
 
     ML = ConfigurationML(folder = 'D:\Test', FE = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Biclass", dataframe = CLAHE_test, models = Model_CNN, technique = 'TEST', labels = ['A', 'B'])
@@ -127,6 +127,9 @@ def main():
     ML.Features_extraction_ML()
 
     """
+
+    Menu = MenuTkinter()
+    Menu.menu()
     
 
 if __name__ == "__main__":
