@@ -1,17 +1,28 @@
-# CBIS-DDSM-and-MINI-MIAS-clasification-using-pretrained-CNN
-
-This repo contains a concise Tensorflow implementation using CNN's models for classifying mammograms. ❤️
-This section describes the data pre-processing steps used in this research, the data selection process, the data augmentation strategy, and the CNN architectures used for the classification tasks.
+# CBIS-DDSM-and-MINI-MIAS-clasification-using-pretrained-CNN ❤️
 
 A convolutional neural network (CNN) is a type of artificial neural network specifically designed for processing data that has a grid-like structure, such as an image. It is particularly useful for image classification, object detection, and image generation tasks.
 
 CNNs are composed of several layers of interconnected nodes, with each layer performing a specific operation on the input data. The first layer is the input layer, which takes in the raw image data. The next layer is the convolutional layer, which applies a set of filters to the input data to extract features. These features are then passed through a pooling layer, which reduces the dimensionality of the data by summarizing the extracted features in a fixed-size window. This process is repeated with multiple convolutional and pooling layers until the final layers, which are fully connected and classify the input data into one of the predefined categories.
 
+This repo contains a concise Tensorflow implementation using CNN's models for classifying mammograms. This repository use the following methodology: 
+
+1. For this research, we compared two well-known deep learning models
+(ResNet50 and EfficientB7).
+2. We enhanced the quality of each cropped image. We applied CLAHE (Con-
+trast Limited Adaptive Histogram Equalization), unsharp masking, and a
+median filter.
+3. We used a data augmentation algorithm from the albumentation library.
+For increase the number of training images and have a more robustness
+CNN.
+4. We compared the performance of each model with five metrics(accuracy,
+precision, recall, f1-score, and confusion matrix)
+
+
 ## Setup
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
-```bash
+```python
 pip install foobar
 ```
 
@@ -20,35 +31,35 @@ To create a virtual environment with TensorFlow using Anaconda, follow these ste
 Open the Anaconda Prompt by clicking the Start button and typing "Anaconda Prompt".
 Type the following command to create a new virtual environment called "tfenv":
 
-```bash
+```python
 conda create --name tfenv
 ```
 
 Activate the virtual environment by typing:
 
-```bash
+```python
 conda activate tfenv
 ```
 
 Finally, install requirements.txt.
 
-```bash
+```python
 conda install requirements.txt
 ```
 
 ## GPU setup
 
-```python
-import foobar
+CUDA is a parallel computing platform and programming model developed by NVIDIA for general computing on graphics processing units (GPUs), and cuDNN is a library developed by NVIDIA for deep learning applications. Here are the steps to install both CUDA and cuDNN on your system:
 
-# returns 'words'
-foobar.pluralize('word')
+- Check the version of [TensorFlow](https://www.tensorflow.org/install/source#gpu) that you can use.
+- You need to install Visual Studio; the documentation explains which version of VS you need. The one we used was [Visual Studio 2019.](https://my.visualstudio.com/Downloads?q=Visual%20Studio%202019)
+- Check if your system has an NVIDIA GPU and if it is compatible with CUDA. You can check the list of CUDA-compatible GPUs at the NVIDIA website.
+- Download the CUDA Toolkit and cuDNN from the NVIDIA website. You will need to create an NVIDIA developer account to access the downloads.
 
-# returns 'geese'
-foobar.pluralize('goose')
+The following document gives every link used for this process.
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+```bash
+Install tensorflow GPU.txt
 ```
 ## Connect with me
 
