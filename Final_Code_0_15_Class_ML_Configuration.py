@@ -272,10 +272,21 @@ class ConfigurationML(Utilities):
             
             # ? Search error
             Object_FeatureExtraction = FeatureExtraction(folder = Root_list[i + 1], label = i)
-            Dataframe, X_data, Y_data, Technique = Object_FeatureExtraction.textures_Feature_first_order_from_folder()
+
+            if(self.__Extract_feature_technique == 'FOF'):
+                Dataframe, X_data, Y_data, Technique = Object_FeatureExtraction.textures_Feature_first_order_from_folder()
+            elif(self.__Extract_feature_technique == 'GLCM'):
+                Dataframe, X_data, Y_data, Technique = Object_FeatureExtraction.textures_Feature_GLCM_from_folder()
+            elif(self.__Extract_feature_technique == 'GLRLM'):
+                Dataframe, X_data, Y_data, Technique = Object_FeatureExtraction.textures_Feature_GLRLM_from_folder()
+            else:
+                pass
+
             Dataframes.append(Dataframe)
 
         Dataframe_complete = concat_dataframe(Dataframes, folder = self.__Folder, classp = self.__Class_problem_prefix, technique = Technique, savefile = True)
+
+        return Dataframe_complete
 
     # ? Method to change settings of the model
     @Utilities.timer_func
@@ -310,7 +321,7 @@ class ConfigurationML(Utilities):
             # * Extract data and label
             Dataframe_len_columns = len(self.__Dataframe.columns)
 
-            X_total = self.__Dataframe.iloc[:, 0:Dataframe_len_columns - 1].values
+            X_total = self.__Dataframe.iloc[:, 1:Dataframe_len_columns - 1].values
             Y_total = self.__Dataframe.iloc[:, -1].values
 
             print(X_total)
@@ -339,11 +350,11 @@ class ConfigurationML(Utilities):
 
             # * 
             #Dir_name = str(Class_problem_prefix) + 'Model_s' + str(Enhancement_technique) + '_dir'
-            Dir_name_csv = "{}_Folder_Data_Models_ML_{}".format(self.__Class_problem_prefix, self.__Enhancement_technique)
-            Dir_name_images = "{}_Folder_Images_Models_ML_{}".format(self.__Class_problem_prefix, self.__Enhancement_technique)
+            Dir_name_csv = "{}_Folder_Data_Models_ML_{}_{}".format(self.__Class_problem_prefix, self.__Extract_feature_technique, self.__Enhancement_technique)
+            Dir_name_images = "{}_Folder_Images_Models_ML_{}_{}".format(self.__Class_problem_prefix, self.__Extract_feature_technique, self.__Enhancement_technique)
                 
-            Dir_name_csv_model = "{}_Folder_Data_Model_ML_{}_{}".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
-            Dir_name_images_model = "{}_Folder_Images_Model_ML_{}_{}".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
+            Dir_name_csv_model = "{}_Folder_Data_Model_ML_{}_{}_{}".format(self.__Class_problem_prefix, Model_name_letters, self.__Extract_feature_technique, self.__Enhancement_technique)
+            Dir_name_images_model = "{}_Folder_Images_Model_ML_{}_{}_{}".format(self.__Class_problem_prefix, Model_name_letters, self.__Extract_feature_technique, self.__Enhancement_technique)
             #print(Folder_CSV + '/' + Dir_name)
             #print('\n')
 
@@ -396,28 +407,27 @@ class ConfigurationML(Utilities):
 
             # * Save dataframe in the folder given
             #Dataframe_save_name = 'Biclass' + '_Dataframe_' + 'FOF_' + str(Enhancement_technique)  + '.csv'
-            Dataframe_save_name = "{}_Dataframe_Folder_Data_Models_{}.csv".format(self.__Class_problem_prefix, self.__Enhancement_technique)
+            Dataframe_save_name = "{}_Dataframe_Folder_Data_Models_{}_{}.csv".format(self.__Class_problem_prefix, self.__Extract_feature_technique, self.__Enhancement_technique)
             Dataframe_save_folder = os.path.join(Folder_path_in, Dataframe_save_name)
 
             # *
             #Confusion_matrix_dataframe_name = 'Dataframe_' + str(Class_problem_prefix) + str(Pretrained_model_name) + str(Enhancement_technique) + '.csv'
-            Confusion_matrix_dataframe_name = "Dataframe_Confusion_Matrix_{}_{}_{}.csv".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
+            Confusion_matrix_dataframe_name = "Dataframe_Confusion_Matrix_{}_{}_{}_{}.csv".format(self.__Class_problem_prefix, Model_name_letters, self.__Extract_feature_technique, self.__Enhancement_technique)
             Confusion_matrix_dataframe_folder = os.path.join(Folder_path_in, Confusion_matrix_dataframe_name)
             
             # * 
-            Dataframe_ROC_name = "{}_Dataframe_ROC_Curve_Values_{}_{}.csv".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
+            Dataframe_ROC_name = "{}_Dataframe_ROC_Curve_Values_{}_{}_{}.csv".format(self.__Class_problem_prefix, Model_name_letters, self.__Extract_feature_technique, self.__Enhancement_technique)
             Dataframe_ROC_folder = os.path.join(Folder_path_in, Dataframe_ROC_name)
 
             # * Save this figure in the folder given
             #Class_problem_name = str(Class_problem_prefix) + str(Pretrained_model_name) + str(Enhancement_technique) + '.png'
-            Class_problem_name = "{}_{}_{}.png".format(self.__Class_problem_prefix, Model_name_letters, self.__Enhancement_technique)
+            Class_problem_name = "{}_{}_{}_{}.png".format(self.__Class_problem_prefix, Model_name_letters, self.__Extract_feature_technique, self.__Enhancement_technique)
             Class_problem_folder = os.path.join(Folder_path_images_in, Class_problem_name)
 
             # * Create dataframe and define the headers
-            Column_names_ = ['name model', "model used", "accuracy training FE", "accuracy training LE", 
-                            "accuracy testing", "loss train", "loss test", "training images", "validation images", 
-                            "test images", "time training", "time testing", "technique used", "TN", "FP", "FN", "TP", "epochs", 
-                            "precision", "recall", "f1_Score"]
+            Column_names_ = ['name model', "model used", "Accuracy", "precision", "recall", "f1_score", 
+                            "Training images", "Test images", "Time training", "Technique", 
+                            "Extraction technique", "TN", "FP", "FN", "TP"]
 
             Dataframe_save = pd.DataFrame(columns = Column_names_)
 
@@ -431,6 +441,7 @@ class ConfigurationML(Utilities):
                 print(Confusion_matrix)
                 print(classification_report(y_test, Y_pred, target_names = self.__Class_labels))
 
+                """
                 Dict = classification_report(y_test, Y_pred, target_names = self.__Class_labels, output_dict = True)
 
                 for i, Report_labels in enumerate(Classification_report_labels):
@@ -443,6 +454,7 @@ class ConfigurationML(Utilities):
                 # *
                 Column_names_.extend(self.__Class_labels)
                 Column_names_.extend(Classification_report_names)
+                """
 
                 # *
                 Dataframe_save = pd.DataFrame(columns = Column_names_)
@@ -522,6 +534,7 @@ class ConfigurationML(Utilities):
                 print(confusion_matrix(y_test, Y_pred))
                 print(classification_report(y_test, Y_pred, target_names = self.__Class_labels))
                 
+                """
                 Dict = classification_report(y_test, Y_pred, target_names = self.__Class_labels, output_dict = True)
 
                 for i, Report_labels in enumerate(Classification_report_labels):
@@ -534,6 +547,7 @@ class ConfigurationML(Utilities):
                 # *
                 Column_names_.extend(self.__Class_labels)
                 Column_names_.extend(Classification_report_names)
+                """
 
                 # *
                 Dataframe_save = pd.DataFrame(columns = Column_names_)
@@ -583,7 +597,7 @@ class ConfigurationML(Utilities):
                     Dict_roc_curve = {'FPR': ROC_curve_FPR[j], 'TPR': ROC_curve_TPR[j]}
                     Dataframe_ROC = pd.DataFrame(Dict_roc_curve)
 
-                    Dataframe_ROC_name = "{}_Dataframe_ROC_Curve_Values_{}_{}_{}.csv".format(self.__Class_problem_prefix, Model_name, self.__Enhancement_technique, j)
+                    Dataframe_ROC_name = "{}_Dataframe_ROC_Curve_Values_{}_{}_{}_{}.csv".format(self.__Class_problem_prefix, Model_name, self.__Extract_feature_technique, self.__Enhancement_technique, j)
                     Dataframe_ROC_folder = os.path.join(Folder_path_in, Dataframe_ROC_name)
                     Dataframe_ROC.to_csv(Dataframe_ROC_folder)
                     Dataframe_ROCs.append(Dataframe_ROC_folder)
@@ -600,22 +614,21 @@ class ConfigurationML(Utilities):
 
             Info.append(Model_name_technique)
             Info.append(Model_name)
+            Info.append(Accuracy)
+            Info.append(Precision)
+            Info.append(Recall)
+            Info.append(F1_score)
 
             Info.append(len(y_train))
             Info.append(len(y_test))
             Info.append(Total_time_training)
             Info.append(self.__Enhancement_technique)
+            Info.append(self.__Extract_feature_technique)
 
             Info.append(Confusion_matrix[0][0])
             Info.append(Confusion_matrix[0][1])
             Info.append(Confusion_matrix[1][0])
             Info.append(Confusion_matrix[1][1])
-
-            Info.append(self.__Epochs)
-            Info.append(Accuracy)
-            Info.append(Precision)
-            Info.append(Recall)
-            Info.append(F1_score)
 
             if self.__Classes == 2:
                 Info.append(Auc)
@@ -623,7 +636,7 @@ class ConfigurationML(Utilities):
                 for i in range(self.__Classes):
                     Info.append(Roc_auc[i])
 
-            for i, value in enumerate(Classification_report_values):
-                Info.append(value)
+            #for i, value in enumerate(Classification_report_values):
+            #    Info.append(value)
 
             self.overwrite_dic_CSV_folder(Dataframe_save, Dataframe_save_folder, Column_names_, Info)

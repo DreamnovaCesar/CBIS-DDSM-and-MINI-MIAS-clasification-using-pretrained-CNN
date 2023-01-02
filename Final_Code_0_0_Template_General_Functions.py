@@ -2459,8 +2459,8 @@ class FigureAdjust():
     self.Title = kwargs.get('title', None)
 
     # * 
-    self.Show_image = kwargs.get('SI', False)
-    self.Save_figure = kwargs.get('SF', False)
+    self.Show_image = kwargs.get('SI', True)
+    self.Save_figure = kwargs.get('SF', True)
 
     # *
     self.Num_classes = kwargs.get('classes', None)

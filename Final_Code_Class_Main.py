@@ -1,6 +1,6 @@
 from Final_Code_0_0_Libraries import *
 
-from Final_Code_0_0_Template_General_Functions import BarChart
+from Final_Code_0_9_Class_Figure_Adjust import BarChart
 from Final_Code_0_0_Template_General_Functions import split_folders_train_test_val
 
 from Final_Code_0_0_Template_CNN_Architectures import *
@@ -102,35 +102,26 @@ def plot_data_ML():
     Data_show5.barchart_horizontal()
 
 def main():
-    """
+    
     #plot_data_ML()
     #Testing_CNN_Models_Biclass_From_Folder(Model_CNN, 'D:\Mini-MIAS\Mini_MIAS_NO_Cropped_Images_Biclass' + '_Split', 'TEST')
 
-    Model_CNN = [1, 9]
+    Model_CNN = [1, 2, 3, 4, 5, 6]
 
-    Bic = "D:\CBIS-DDSM\CBIS-DDSM Final\CBIS_DDSM_CLAHE_CANCER_WC_Images_Biclass"
-    Multic = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass"
-    
+    Bic = r"D:\CBIS-DDSM\CBIS-DDSM Final\CBIS_DDSM_MIAS_CLAHE_Images_Biclass"
+    Multic = r"D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass"
+
     BicSplit = split_folders_train_test_val(Bic, False)
 
-    preprocessing_DataAugmentation_Folder(BicSplit, ['Benign', 'Malignant'], [2, 1])
+    preprocessing_DataAugmentation_Folder(BicSplit, ['Abnormal', 'Normal'], [2, 12])
 
     CNN = ConfigurationCNN(folder = BicSplit, foldermodels = 'D:\Test', foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', 
-                            models = Model_CNN, technique = 'TEST', labels = ['Benign', 'Malignant'], X = 224, Y = 224, epochs = 5)
+                            models = Model_CNN, technique = 'TEST', labels = ['Abnormal', 'Normal'], X = 224, Y = 224, epochs = 5)
     
     CNN.configuration_models_folder_CNN()
 
-    CLAHE_test = r"D:\CBIS-DDSM\CBIS-DDSM Final\2_Biclass_DataCSV\Biclass_Dataframe_Gray-Level Co-Occurance Matrix_CLAHE.csv"
-
-    ML = ConfigurationML(folder = 'D:\Test', FE = "D:\Mini-MIAS\CBIS_DDSM_NO_Images_Biclass", dataframe = CLAHE_test, models = Model_CNN, technique = 'TEST', labels = ['A', 'B'])
-
-    ML.Features_extraction_ML()
-
-    """
-
-    Menu = MenuTkinter()
-    Menu.menu()
+    #CLAHE_test = r"D:\CBIS-DDSM\CBIS-DDSM Final\2_Biclass_DataCSV\Biclass_Dataframe_Gray-Level Co-Occurance Matrix_CLAHE.csv"
     
-
+    
 if __name__ == "__main__":
     main()

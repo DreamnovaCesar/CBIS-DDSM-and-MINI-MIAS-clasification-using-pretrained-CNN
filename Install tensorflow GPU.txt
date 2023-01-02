@@ -1,0 +1,10 @@
+Version source
+https://www.tensorflow.org/install/source#gpu
+Documentation
+https://docs.nvidia.com/cuda/archive/11.2.0/cuda-installation-guide-microsoft-windows/index.html
+Visual Studio 2019
+https://my.visualstudio.com/Downloads?q=Visual%20Studio%202019
+CUDA 11.2.0
+https://developer.nvidia.com/cuda-11.2.0-download-archive?target_os=Windows&target_arch=x86_64&target_version=10&target_type=exenetwork
+cuDNN 8.1.0
+https://developer.nvidia.com/rdp/cudnn-archive

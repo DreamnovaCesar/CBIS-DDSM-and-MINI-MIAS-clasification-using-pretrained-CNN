@@ -36,20 +36,20 @@ class FigureAdjust(Utilities):
 
         # * 
         self._Show_image = kwargs.get('SI', False)
-        self._Save_figure = kwargs.get('SF', False)
+        self._Save_figure = kwargs.get('SF', True)
 
         # *
         self._Num_classes = kwargs.get('classes', None)
 
         # *
-        self._X_figure_size = 12
-        self._Y_figure_size = 12
+        self._X_figure_size = 15
+        self._Y_figure_size = 8
 
         # * General parameters
-        self._Font_size_title = self._X_figure_size * 0.1
-        self._Font_size_general = self._X_figure_size * 0.1
-        self._Font_size_confusion = self._X_figure_size * 0.8
-        self._Font_size_ticks = self._X_figure_size  * 0.1
+        self._Font_size_title = self._Y_figure_size * 2
+        self._Font_size_general = self._Y_figure_size * 1.2
+        self._Font_size_confusion = self._Y_figure_size * 1
+        self._Font_size_ticks = self._Y_figure_size  * 1
 
         # * 
         #self.Annot_kws = kwargs.get('annot_kws', None)
@@ -151,7 +151,7 @@ class FigureAdjust(Utilities):
 
     # ? Static method to show the image.
     @staticmethod
-    def show_figure(Show_image: bool = False) -> None:
+    def show_figure(Show_image: bool) -> None:
 
         if(Show_image == True):
             plt.show()
@@ -167,6 +167,7 @@ class FigureAdjust(Utilities):
             
             Figure_name = 'Figure_{}_{}.png'.format(Title, Func_)
             Figure_folder = os.path.join(Folder, Figure_name)
+            print(Figure_folder)
             plt.savefig(Figure_folder)
 
         else:
@@ -401,10 +402,10 @@ class BarChart(FigureAdjust):
                     self._Y_slowest_list_value.append(k)
 
         # * Plot the data using bar() method
-        plt.bar(self._X_slow_list_values, self._Y_slow_list_values, label = "Bad", color = 'gray')
-        plt.bar(self._X_slowest_list_value, self._Y_slowest_list_value, label = "Worse", color = 'black')
-        plt.bar(self._X_fast_list_values, self._Y_fast_list_values, label = "Better", color = 'lightcoral')
-        plt.bar(self._X_fastest_list_value, self._Y_fastest_list_value, label = "Best", color = 'red')
+        plt.barh(self._X_slow_list_values, self._Y_slow_list_values, label = "Bad", color = 'gray')
+        plt.barh(self._X_slowest_list_value, self._Y_slowest_list_value, label = "Worse", color = 'black')
+        plt.barh(self._X_fast_list_values, self._Y_fast_list_values, label = "Better", color = 'lightcoral')
+        plt.barh(self._X_fastest_list_value, self._Y_fastest_list_value, label = "Best", color = 'red')
 
         # *
         for Index, value in enumerate(self._Y_slowest_list_value):
@@ -619,9 +620,6 @@ class FigurePlot(FigureAdjust):
                 "figure's height": str(self._X_figure_size),
                 "figure's width": str(self._Y_figure_size),
                 'Folder CSV path': str(self._CSV_path),
-                'Plot_x_label': str(self._Plot_x_label),
-                "Plot_column": str(self._Plot_column),
-                "Plot_reverse": str(self._Plot_reverse),
                 };
 
     # * _CSV_path attribute
