@@ -20,12 +20,6 @@ precision, recall, f1-score, and confusion matrix)
 
 ## Setup
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
-```python
-pip install foobar
-```
-
 To create a virtual environment with TensorFlow using Anaconda, follow these steps:
 
 Open the Anaconda Prompt by clicking the Start button and typing "Anaconda Prompt".
