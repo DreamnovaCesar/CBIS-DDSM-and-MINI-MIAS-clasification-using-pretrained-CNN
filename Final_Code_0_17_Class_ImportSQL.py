@@ -1,7 +1,4 @@
-import mysql.connector
-from mysql.connector import Error
 
-from Final_Code_0_1_Class_Utilities import Utilities
 from Final_Code_0_16_Class_ConfigurationMySQL import ConfigurationSQL
 
 # ? define the standalone discriminator model
@@ -42,23 +39,23 @@ class ImportSQL(ConfigurationSQL):
         self._Dataframe = kwargs.get('df', None)
         self._Table = kwargs.get('table', None)
 
-        CSQL = ConfigurationSQL("localhost", "root", self._Password, self._Database)
+        CSQL = ConfigurationSQL(self._Host_name, self._User_name, self._User_password, self._DB_name)
         Connection_db = CSQL.create_database_connection()
         CSQL.execute_query(Connection_db, self._Table)
 
-        con = Connection_db.cursor()
+        Con = Connection_db.cursor()
 
         Insert_SQL = "INSERT INTO CLAHE (ID, REFNUM, MAE, MSE, SSIM, PSNR, NRMSE, NMI, R2S, Labels) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
         for row in self._Dataframe.itertuples():
             #print(row)
-            con.execute(sql, (row.Index, row.REFNUM, row.MAE, row.MSE, row.SSIM, row.PSNR, row.NRMSE, row.NMI, row.R2S, row.Labels))
+            Con.execute(Insert_SQL, (row.Index, row.REFNUM, row.MAE, row.MSE, row.SSIM, row.PSNR, row.NRMSE, row.NMI, row.R2S, row.Labels))
         Connection_db.commit()
-        con.close()
+        Con.close()
 
     # * Class variables
     def __repr__(self):
-            return f'[{self._Host_Name}, {self._User_Name}, {self._User_Password}, {self._DB_Name}]';
+            return f'[{self._Host_name}, {self._User_name}, {self._User_password}, {self._DB_name}]';
 
     # * Class description
     def __str__(self):
@@ -71,10 +68,10 @@ class ImportSQL(ConfigurationSQL):
     # * Get data from a dic
     def data_dic(self):
 
-        return {'host_name': str(self._Host_Name),
-                'user_name': str(self._User_Name),
-                'user_password': str(self._User_Password),
-                'db_name': str(self._DB_Name),
+        return {'host_name': str(self._Host_name),
+                'user_name': str(self._User_name),
+                'user_password': str(self._User_password),
+                'db_name': str(self._DB_name),
                 'Dataframe': str(self._Dataframe),
                 'Table': str(self._Table)
                 };

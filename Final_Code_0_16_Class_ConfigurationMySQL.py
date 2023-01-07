@@ -55,10 +55,10 @@ class ConfigurationSQL(Utilities):
     # * Get data from a dic
     def data_dic(self):
 
-        return {'host_name': str(self._Host_Name),
-                'user_name': str(self._User_Name),
-                'user_password': str(self._User_Password),
-                'db_name': str(self._DB_Name)
+        return {'host_name': str(self._Host_name),
+                'user_name': str(self._User_name),
+                'user_password': str(self._User_password),
+                'db_name': str(self._DB_name)
                 };
 
     # ?
