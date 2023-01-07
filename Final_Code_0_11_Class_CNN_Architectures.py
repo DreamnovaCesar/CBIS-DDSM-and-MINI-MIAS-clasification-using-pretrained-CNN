@@ -2,9 +2,9 @@
 from typing import Any
 from Final_Code_0_0_Libraries import *
 
-from Final_Code_0_0_Template_General_Functions_Classes import Utilities
-from Final_Code_0_0_Template_General_Functions import FigureAdjust
-from Final_Code_0_0_Template_General_Functions import FigurePlot
+from Final_Code_0_1_Class_Utilities import Utilities
+from Final_Code_0_9_Class_Figure_Adjust import FigureAdjust
+from Final_Code_0_9_Class_Figure_Adjust import FigurePlot
 
 # ? Configuration of the CNN
 class ConfigurationCNN(Utilities):

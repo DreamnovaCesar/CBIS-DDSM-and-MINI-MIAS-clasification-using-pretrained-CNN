@@ -1,9 +1,9 @@
 from Final_Code_0_0_Libraries import *
 
 from Final_Code_0_9_Class_Figure_Adjust import BarChart
-from Final_Code_0_0_Template_General_Functions import split_folders_train_test_val
+from Final_Code_0_1_Class_Utilities import Utilities
 
-from Final_Code_0_0_Template_CNN_Architectures import *
+from Final_Code_0_11_Class_CNN_Architectures import *
 
 from Final_Code_0_11_Class_CNN_Architectures import ConfigurationCNN
 from Final_Code_0_15_Class_ML_Configuration import ConfigurationML

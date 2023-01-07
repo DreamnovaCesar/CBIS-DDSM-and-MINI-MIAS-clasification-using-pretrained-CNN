@@ -5,7 +5,7 @@ import customtkinter
 from tkinter import filedialog
 
 from Final_Code_0_0_Libraries import *
-from Final_Code_0_0_Template_General_Functions_Classes import Utilities
+from Final_Code_0_1_Class_Utilities import Utilities
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"

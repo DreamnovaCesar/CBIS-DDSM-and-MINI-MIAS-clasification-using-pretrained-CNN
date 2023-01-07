@@ -5,7 +5,8 @@ import customtkinter
 from tkinter import filedialog
 
 from Final_Code_0_0_Libraries import *
-from Final_Code_0_0_Template_General_Functions_Classes import Utilities
+from Final_Code_0_1_Class_Utilities import Utilities
+
 from Final_Code_0_3_Class_Generation_Data import Generator
 from Final_Code_0_5_Class_Change_Format import ChangeFormat
 

@@ -36,6 +36,10 @@ import pydicom
 import warnings
 
 # *
+import mysql.connector
+from mysql.connector import Error
+
+# *
 import splitfolders
 
 # *

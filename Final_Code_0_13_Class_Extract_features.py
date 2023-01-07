@@ -1,7 +1,6 @@
 from Final_Code_0_0_Libraries import *
-from Final_Code_0_0_Template_General_Functions_Classes import Utilities
-
-from Final_Code_0_0_Template_General_Functions import sort_images
+from Final_Code_0_18_Functions import SortData
+from Final_Code_0_1_Class_Utilities import Utilities
 
 # ? First Order features from https://github.com/giakou4/pyfeats/blob/main/pyfeats/textural/fos.py
 
