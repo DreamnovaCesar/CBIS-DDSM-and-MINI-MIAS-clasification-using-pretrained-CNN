@@ -4,7 +4,7 @@ from Final_Code_0_0_Libraries import wraps
 from Final_Code_0_0_Libraries import os
 from Final_Code_0_0_Libraries import cv2
 
-from Final_Code_0_18_Functions import SortData
+from Final_Code_0_18_Functions import FunctionsData
 from Final_Code_0_1_Class_Utilities import Utilities
 
 class ChangeFormat(Utilities):
@@ -146,7 +146,7 @@ class ChangeFormat(Utilities):
         print("\n")
 
         # * Using the sort function
-        Sorted_files, Total_images = sort_images(self.__Folder)
+        Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
         Count:int = 0
 
         # * Reading the files

@@ -1,7 +1,6 @@
 from Final_Code_0_0_Libraries import *
 from Final_Code_0_13_Class_Extract_features import FeatureExtraction
-from Final_Code_0_18_Functions import SortData
-from Final_Code_0_0_Template_General_Functions import concat_dataframe
+from Final_Code_0_18_Functions import FunctionsData
 
 from typing import Any
 
@@ -284,7 +283,7 @@ class ConfigurationML(Utilities):
 
             Dataframes.append(Dataframe)
 
-        Dataframe_complete = concat_dataframe(Dataframes, folder = self.__Folder, classp = self.__Class_problem_prefix, technique = Technique, savefile = True)
+        Dataframe_complete = FunctionsData.concat_dataframe(Dataframes, folder = self.__Folder, classp = self.__Class_problem_prefix, technique = Technique, savefile = True)
 
         return Dataframe_complete
 

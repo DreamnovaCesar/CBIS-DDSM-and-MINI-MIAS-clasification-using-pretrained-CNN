@@ -1,8 +1,7 @@
 from Final_Code_0_0_Libraries import *
-from Final_Code_0_18_Functions import SortData
+from Final_Code_0_4_Class_Remove_Files import RemoveFiles
+from Final_Code_0_18_Functions import FunctionsData
 from Final_Code_0_1_Class_Utilities import Utilities
-
-from Final_Code_0_0_Template_General_Functions import remove_all_files
 
 # ? Image processing
 
@@ -384,7 +383,7 @@ class ImageProcessing(Utilities):
     print("\n")
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count:int = 1
 
     # * Reading the files
@@ -435,7 +434,7 @@ class ImageProcessing(Utilities):
     """
 
     # * Remove all the files in the new folder using this function
-    remove_all_files(self.__New_folder)
+    RemoveFiles.remove_all_files(self.__New_folder)
 
     # * Lists to save the values of the labels and the filename and later use them for a dataframe
     #Images = [] 
@@ -454,7 +453,7 @@ class ImageProcessing(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count:int = 1
 
     # * Reading the files
@@ -541,10 +540,10 @@ class ImageProcessing(Utilities):
     """
 
     # * Remove all the files in the new folder using this function
-    remove_all_files(self.__New_folder)
+    RemoveFiles.remove_all_files(self.__New_folder)
     
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
 
     # * Lists to save the values of the labels and the filename and later use them for a dataframe
     #Images = [] 
@@ -641,7 +640,7 @@ class ImageProcessing(Utilities):
     """
 
     # * Remove all the files in the new folder using this function
-    remove_all_files(self.__New_folder)
+    RemoveFiles.remove_all_files(self.__New_folder)
     
     # * Lists to save the values of the labels and the filename and later use them for a dataframe
     #Images = [] 
@@ -660,7 +659,7 @@ class ImageProcessing(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count = 1
 
     # * Reading the files
@@ -744,7 +743,7 @@ class ImageProcessing(Utilities):
     """
 
     # * Remove all the files in the new folder using this function
-    remove_all_files(self.__New_folder)
+    RemoveFiles.remove_all_files(self.__New_folder)
     
     # * Lists to save the values of the labels and the filename and later use them for a dataframe
     #Images = [] 
@@ -763,7 +762,7 @@ class ImageProcessing(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count = 1
 
     # * Reading the files
@@ -842,7 +841,7 @@ class ImageProcessing(Utilities):
     """
 
     # * Remove all the files in the new folder using this function
-    remove_all_files(self.__New_folder)
+    RemoveFiles.remove_all_files(self.__New_folder)
     
     # * Lists to save the values of the labels and the filename and later use them for a dataframe
     #Images = [] 
@@ -861,7 +860,7 @@ class ImageProcessing(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count = 1
 
     # * Reading the files
@@ -940,7 +939,7 @@ class ImageProcessing(Utilities):
     """
 
     # * Remove all the files in the new folder using this function
-    remove_all_files(self.__New_folder)
+    RemoveFiles.remove_all_files(self.__New_folder)
     
     # * Lists to save the values of the labels and the filename and later use them for a dataframe
     #Images = [] 
@@ -959,7 +958,7 @@ class ImageProcessing(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count = 1
 
     # * Reading the files
@@ -1039,7 +1038,7 @@ class ImageProcessing(Utilities):
     """
 
     # * Remove all the files in the new folder using this function
-    remove_all_files(self.__New_folder)
+    RemoveFiles.remove_all_files(self.__New_folder)
     
     # * Lists to save the values of the labels and the filename and later use them for a dataframe
     #Images = [] 
@@ -1058,7 +1057,7 @@ class ImageProcessing(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count = 1
 
     # * Reading the files

@@ -908,7 +908,6 @@ class ConfigurationCNN(Utilities):
         #Dataframe_save = pd.read_csv(Dataframe_save_folder)
         self.overwrite_dic_CSV_folder(Dataframe_save, Dataframe_save_folder, Column_names_, Info)
       
-
 # ? Function (Custom AlexNet12)
 def CustomCNNAlexNet12_Model(X_size: int, Y_size: int, Num_classes: int):
     """

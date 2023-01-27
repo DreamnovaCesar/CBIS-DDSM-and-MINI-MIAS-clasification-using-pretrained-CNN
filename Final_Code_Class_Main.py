@@ -1,5 +1,6 @@
 from Final_Code_0_0_Libraries import *
 
+from Final_Code_0_7_Class_Split_Folders import SplitDataFolder
 from Final_Code_0_9_Class_Figure_Adjust import BarChart
 from Final_Code_0_1_Class_Utilities import Utilities
 
@@ -111,7 +112,7 @@ def main():
     Bic = r"D:\CBIS-DDSM\CBIS-DDSM Final\CBIS_DDSM_MIAS_CLAHE_Images_Biclass"
     Multic = r"D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass"
 
-    BicSplit = split_folders_train_test_val(Bic, False)
+    BicSplit = SplitDataFolder.split_folders_train_test_val(Bic, False)
 
     preprocessing_DataAugmentation_Folder(BicSplit, ['Abnormal', 'Normal'], [2, 12])
 

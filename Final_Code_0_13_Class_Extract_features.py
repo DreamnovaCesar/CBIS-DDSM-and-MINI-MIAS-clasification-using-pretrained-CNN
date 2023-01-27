@@ -1,5 +1,5 @@
 from Final_Code_0_0_Libraries import *
-from Final_Code_0_18_Functions import SortData
+from Final_Code_0_18_Functions import FunctionsData
 from Final_Code_0_1_Class_Utilities import Utilities
 
 # ? First Order features from https://github.com/giakou4/pyfeats/blob/main/pyfeats/textural/fos.py
@@ -213,7 +213,7 @@ class FeatureExtraction(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count = 1
 
     # * Reading the files
@@ -306,7 +306,7 @@ class FeatureExtraction(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    Sorted_files, Total_images = sort_images(self.__Folder)
+    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count = 1
 
     # * Reading the file
@@ -378,7 +378,7 @@ class FeatureExtraction(Utilities):
     os.chdir(self.__Folder)
 
     # * Using sort function
-    sorted_files, Total_images = sort_images(self.__Folder)
+    sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
     Count = 1
 
     # * Reading the file

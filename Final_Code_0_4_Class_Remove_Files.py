@@ -101,6 +101,7 @@ class RemoveFiles(Utilities):
 
     # ? Method to remove all the files inside the dir
     @Utilities.timer_func
+    @staticmethod
     def remove_all_files(self) -> None:
         """
         Remove all the files inside the dir
