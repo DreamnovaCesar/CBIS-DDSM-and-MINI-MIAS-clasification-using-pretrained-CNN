@@ -45,6 +45,8 @@ Finally, install requirements.txt.
 conda install requirements.txt
 ```
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## GPU setup
 
 CUDA is a parallel computing platform and programming model developed by NVIDIA for general computing on graphics processing units (GPUs), and cuDNN is a library developed by NVIDIA for deep learning applications. Here are the steps to install both CUDA and cuDNN on your system:
@@ -59,16 +61,28 @@ The following document gives every link used for this process.
 ```bash
 Install tensorflow GPU.txt
 ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Connect with me
 
 - Contact me CesareduardoMucha@hotmail.com
 - Follow me on [Linkedin](https://www.linkedin.com/in/cesar-eduardo-mu%C3%B1oz-chavez-a00674186/) and [Twitter](https://twitter.com/CesarEd43166481) 💡
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Co-authors
 
 - Dr. Hermilo Sanchez Cruz
 - Dr. Juan Humberto Sossa Azuela
 - Dr. Julio Cesar Ponce Gallegos
+
+### Built With
+
+* [![Python][Python.com]][Python-url]
+* [![TensorFlow][TensorFlow.com]][TensorFlow-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contributing
 
@@ -77,6 +91,10 @@ to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
