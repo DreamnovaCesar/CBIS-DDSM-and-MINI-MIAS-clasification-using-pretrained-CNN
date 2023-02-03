@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/python-v3.10+-blue.svg)
+[![Build Status](https://travis-ci.org/anfederico/clairvoyant.svg?branch=master)](https://travis-ci.org/anfederico/clairvoyant)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+
 # CBIS-DDSM-and-MINI-MIAS-clasification-using-pretrained-CNN ❤️
 
 A convolutional neural network (CNN) is a type of artificial neural network specifically designed for processing data that has a grid-like structure, such as an image. It is particularly useful for image classification, object detection, and image generation tasks.

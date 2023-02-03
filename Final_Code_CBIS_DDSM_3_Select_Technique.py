@@ -2,6 +2,7 @@
 ########## ########## ########## ########## ########## ########## ########## ########## ########## ##########
 
 from Final_Code_0_1_Class_Utilities import Utilities
+from Final_Code_0_18_Functions import FunctionsData
 from Final_Code_0_10_Class_Image_Processing import ImageProcessing
 
 ########## ########## ########## ########## ########## ########## ########## ########## ########## ##########
@@ -66,7 +67,7 @@ def preprocessing_technique_Biclass(New_technique, Folder_normal, Folder_tumor, 
         raise ValueError("Choose a new technique")      #! Alert
 
     # * Concatenate dataframes with this function
-    concat_dataframe(DataFrame_Normal, DataFrame_Tumor, folder = '', classp = Biclass, technique = New_technique, savefile = True)
+    FunctionsData.concat_dataframe(DataFrame_Normal, DataFrame_Tumor, folder = '', classp = Biclass, technique = New_technique, savefile = True)
 
 def preprocessing_technique_Multiclass(New_technique, Folder_normal, Folder_benign, Folder_malignant, New_folder_normal, New_folder_benign, New_folder_malignant):
 
@@ -137,4 +138,4 @@ def preprocessing_technique_Multiclass(New_technique, Folder_normal, Folder_beni
         raise ValueError("Choose a new technique")    #! Alert
 
     # * Concatenate dataframes with this function
-    concat_dataframe(DataFrame_Normal, DataFrame_Benign, DataFrame_Malignant, Folder = '', Class = Multiclass, Technique = New_technique)
+    FunctionsData.concat_dataframe(DataFrame_Normal, DataFrame_Benign, DataFrame_Malignant, Folder = '', Class = Multiclass, Technique = New_technique)
