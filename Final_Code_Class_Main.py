@@ -102,7 +102,7 @@ def plot_data_ML():
     Data_show4.barchart_horizontal()
     Data_show5.barchart_horizontal()
 
-def main():
+def Test():
     
     #plot_data_ML()
     #Testing_CNN_Models_Biclass_From_Folder(Model_CNN, 'D:\Mini-MIAS\Mini_MIAS_NO_Cropped_Images_Biclass' + '_Split', 'TEST')
@@ -123,6 +123,14 @@ def main():
 
     #CLAHE_test = r"D:\CBIS-DDSM\CBIS-DDSM Final\2_Biclass_DataCSV\Biclass_Dataframe_Gray-Level Co-Occurance Matrix_CLAHE.csv"
     
-    
+# ?
+def main():
+    """Main function
+    """
+
+    config = MenuTkinter()
+    config.menu()
+
+# ?
 if __name__ == "__main__":
     main()
