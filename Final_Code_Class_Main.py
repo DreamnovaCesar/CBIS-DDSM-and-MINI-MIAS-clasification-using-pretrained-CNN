@@ -107,20 +107,25 @@ def Test():
     #plot_data_ML()
     #Testing_CNN_Models_Biclass_From_Folder(Model_CNN, 'D:\Mini-MIAS\Mini_MIAS_NO_Cropped_Images_Biclass' + '_Split', 'TEST')
 
-    Model_CNN = [1, 2, 3, 4, 5, 6]
+    Model_CNN = [1, 2, 3, 4, 5, 6, 7]
 
-    Bic = r"D:\CBIS-DDSM\CBIS-DDSM Final\CBIS_DDSM_MIAS_CLAHE_Images_Biclass"
-    Multic = r"D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass"
+    #Bic = r"D:\CBIS-DDSM\CBIS-DDSM Final\CBIS_DDSM_MIAS_CLAHE_Images_Biclass"
+    #Multic = r"D:\Mini-MIAS\CBIS_DDSM_NO_Images_Multiclass"
 
-    BicSplit = SplitDataFolder.split_folders_train_test_val(Bic, False)
+    #BicSplit = SplitDataFolder.split_folders_train_test_val(Bic, False)
 
-    preprocessing_DataAugmentation_Folder(BicSplit, ['Abnormal', 'Normal'], [2, 12])
+    #preprocessing_DataAugmentation_Folder(BicSplit, ['Abnormal', 'Normal'], [2, 12])
 
-    CNN = ConfigurationCNN(folder = BicSplit, foldermodels = 'D:\Test', foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', 
-                            models = Model_CNN, technique = 'TEST', labels = ['Abnormal', 'Normal'], X = 224, Y = 224, epochs = 5)
+    #CNN = ConfigurationCNN(folder = BicSplit, foldermodels = 'D:\Test', foldermodelesp = 'D:\Test', foldercsv = 'D:\Test', 
+    #                       models = Model_CNN, technique = 'TEST', labels = ['Abnormal', 'Normal'], X = 224, Y = 224, epochs = 5)
     
-    CNN.configuration_models_folder_CNN()
+    #CNN.configuration_models_folder_CNN()
 
+    ML = ConfigurationML()
+    df = ML.Features_extraction_ML(r"D:\Mini-MIAS\Mini-MIAS\CS", 'D:\Test', ['1', '2'], 'GLRLM')
+
+    ML = ConfigurationML(folder = r'D:\Test', dataframe = df, labels = ['1', '2'], EXT = 'GLRLM', technique = 'CS', models = Model_CNN, epochs = 100)
+    ML.configuration_models_folder_ML()
     #CLAHE_test = r"D:\CBIS-DDSM\CBIS-DDSM Final\2_Biclass_DataCSV\Biclass_Dataframe_Gray-Level Co-Occurance Matrix_CLAHE.csv"
     
 # ?
@@ -128,8 +133,10 @@ def main():
     """Main function
     """
 
-    config = MenuTkinter()
-    config.menu()
+    Test()
+
+    #config = MenuTkinter()
+    #config.menu()
 
 # ?
 if __name__ == "__main__":

@@ -200,7 +200,7 @@ class FeatureExtraction(Utilities):
     All_filename = [] 
 
     # * First order tag
-    FOF_ = 'First Order Features'
+    FOF_ = 'First_Order_Features'
     
     # * Lists for the statistics
     Mean = []
@@ -294,7 +294,7 @@ class FeatureExtraction(Utilities):
     All_filename = [] 
 
     # * GLRLM tag
-    GLRLM_ = 'Gray-Level Run Length Matrix'
+    GLRLM_ = 'Gray_Level_Run_Length_Matrix'
 
     # * Lists for the statistics
     SRE = []  # Short Run Emphasis
@@ -365,7 +365,7 @@ class FeatureExtraction(Utilities):
     All_filename = [] 
 
     # * GLCM tag
-    GLCM_ = 'Gray-Level Co-Occurance Matrix'
+    GLCM_ = 'Gray-Level_Co-Occurance_Matrix'
 
     # * Lists for the statistics
     Dissimilarity = []

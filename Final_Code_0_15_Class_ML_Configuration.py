@@ -44,7 +44,7 @@ class ConfigurationML(Utilities):
 
         # * Instance attributes
         self.__Folder = kwargs.get('folder', None)
-        self.__Folder_Extraction = kwargs.get('FE', None)
+        #self.__Folder_Extraction = kwargs.get('FE', None)
         #self.__Folder_models = kwargs.get('foldermodels', None)
         #self.__Folder_models_esp = kwargs.get('foldermodelsesp', None)
         #self.__Folder_CSV = kwargs.get('foldercsv', None)
@@ -74,14 +74,15 @@ class ConfigurationML(Utilities):
         self.__sc = StandardScaler()
 
         # * Class problem definition
-        self.__Classes = len(self.__Class_labels)
+        if isinstance(self.__Class_labels, list):
+            self.__Classes = len(self.__Class_labels)
 
-        if self.__Classes == 2:
-            self.__Class_problem_prefix = 'Biclass'
-        elif self.__Classes >= 3:
-            self.__Class_problem_prefix = 'Multiclass'
-        else:
-            raise TypeError("It can NOT be 1") #! Alert
+            if self.__Classes == 2:
+                self.__Class_problem_prefix = 'Biclass'
+            elif self.__Classes >= 3:
+                self.__Class_problem_prefix = 'Multiclass'
+            else:
+                raise TypeError("It can NOT be 1") #! Alert
 
         if isinstance(self.__Dataframe, str):
             self.__Dataframe = pd.read_csv(self.__Dataframe)
@@ -127,7 +128,6 @@ class ConfigurationML(Utilities):
 
         Row = dict(zip(Column_names, Column_values))
         Dataframe = Dataframe.append(Row, ignore_index = True)
-        
         Dataframe.to_csv(Folder_path, index = False)
     
         print(Dataframe)
@@ -246,10 +246,22 @@ class ConfigurationML(Utilities):
         return Model_name, Model_name_letters, Total_time_training, Y_pred
 
     # ? Method to choose the CNN model
+    @staticmethod
     @Utilities.timer_func
-    def Features_extraction_ML(self):
+    def Features_extraction_ML(Folder: str, Savefolder: str, Classes: list, EXT: str):
         
-        os.chdir(self.__Folder_Extraction)
+        os.chdir(Folder)
+
+        # * Class problem definition
+        if isinstance(Classes, list):
+            Classes = len(Classes)
+
+            if Classes == 2:
+                Class_problem_prefix = 'Biclass'
+            elif Classes >= 3:
+                Class_problem_prefix = 'Multiclass'
+            else:
+                raise TypeError("It can NOT be 1") #! Alert
 
         Files = 0
         Folders = 0
@@ -258,7 +270,7 @@ class ConfigurationML(Utilities):
         Folders_list = []
         Dataframes = []
 
-        for Root, Dirnames, Filenames in os.walk(self.__Folder_Extraction):
+        for Root, Dirnames, Filenames in os.walk(Folder):
             Files += len(Filenames)
             Folders += len(Dirnames)
 
@@ -272,24 +284,36 @@ class ConfigurationML(Utilities):
             # ? Search error
             Object_FeatureExtraction = FeatureExtraction(folder = Root_list[i + 1], label = i)
 
-            if(self.__Extract_feature_technique == 'FOF'):
+            if(EXT == 'FOF'):
                 Dataframe, X_data, Y_data, Technique = Object_FeatureExtraction.textures_Feature_first_order_from_folder()
-            elif(self.__Extract_feature_technique == 'GLCM'):
+            elif(EXT == 'GLCM'):
                 Dataframe, X_data, Y_data, Technique = Object_FeatureExtraction.textures_Feature_GLCM_from_folder()
-            elif(self.__Extract_feature_technique == 'GLRLM'):
+            elif(EXT == 'GLRLM'):
                 Dataframe, X_data, Y_data, Technique = Object_FeatureExtraction.textures_Feature_GLRLM_from_folder()
             else:
                 pass
 
             Dataframes.append(Dataframe)
 
-        Dataframe_complete = FunctionsData.concat_dataframe(Dataframes, folder = self.__Folder, classp = self.__Class_problem_prefix, technique = Technique, savefile = True)
+        Dataframe_complete = FunctionsData.concat_dataframe(Dataframes, folder = Savefolder, classp = Class_problem_prefix, technique = Technique, savefile = True)
 
         return Dataframe_complete
 
     # ? Method to change settings of the model
     @Utilities.timer_func
     def configuration_models_folder_ML(self):
+
+        # * Create dataframe and define the headers
+        Column_names_ = ['name model', "model used", "Accuracy", "precision", "recall", "f1_score", 
+                        "Training images", "Test images", "Time training", "Technique", 
+                        "Extraction technique", "TN", "FP", "FN", "TP"]
+
+        Dataframe_models = pd.DataFrame(columns = Column_names_)
+
+        # * 
+        #Dataframe_save_name = 'Biclass' + '_Dataframe_' + 'FOF_' + str(Enhancement_technique)  + '.csv'
+        Dataframe_save_models = "{}_Dataframe_Folder_Data_Models_{}.csv".format(self.__Class_problem_prefix, self.__Enhancement_technique)
+        Dataframe_save_models_folder = os.path.join(self.__Folder, Dataframe_save_models)
 
         for Index, Model in enumerate(self.__Models):
             
@@ -406,7 +430,7 @@ class ConfigurationML(Utilities):
 
             # * Save dataframe in the folder given
             #Dataframe_save_name = 'Biclass' + '_Dataframe_' + 'FOF_' + str(Enhancement_technique)  + '.csv'
-            Dataframe_save_name = "{}_Dataframe_Folder_Data_Models_{}_{}.csv".format(self.__Class_problem_prefix, self.__Extract_feature_technique, self.__Enhancement_technique)
+            Dataframe_save_name = "{}_Dataframe_Folder_Data_Model_{}_{}.csv".format(self.__Class_problem_prefix, self.__Extract_feature_technique, self.__Enhancement_technique)
             Dataframe_save_folder = os.path.join(Folder_path_in, Dataframe_save_name)
 
             # *
@@ -428,7 +452,7 @@ class ConfigurationML(Utilities):
                             "Training images", "Test images", "Time training", "Technique", 
                             "Extraction technique", "TN", "FP", "FN", "TP"]
 
-            Dataframe_save = pd.DataFrame(columns = Column_names_)
+            #Dataframe_save = pd.DataFrame(columns = Column_names_)
 
             if self.__Classes == 2:
 
@@ -639,3 +663,12 @@ class ConfigurationML(Utilities):
             #    Info.append(value)
 
             self.overwrite_dic_CSV_folder(Dataframe_save, Dataframe_save_folder, Column_names_, Info)
+            #self.overwrite_dic_CSV_folder(Dataframe_models, Dataframe_save_models_folder, Column_names_, Info)
+
+           #overwrite_dic_CSV_folder(Dataframe: pd.DataFrame, Folder_path: str, Column_names: list[str], Column_values: list[str])
+           
+            Row = dict(zip(Column_names_, Info))
+            Dataframe_models = Dataframe_models.append(Row, ignore_index = True)
+            Dataframe_models.to_csv(Dataframe_save_models_folder, index = False)
+    
+            print(Dataframe_models)
