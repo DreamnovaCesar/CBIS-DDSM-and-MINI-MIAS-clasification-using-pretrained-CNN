@@ -304,7 +304,7 @@ class ConfigurationML(Utilities):
     def configuration_models_folder_ML(self):
 
         # * Create dataframe and define the headers
-        Column_names_ = ['name model', "model used", "Accuracy", "precision", "recall", "f1_score", 
+        Column_names_ = ['Model name', "Model", "Accuracy", "Precision", "Recall", "F1_score", 
                         "Training images", "Test images", "Time training", "Technique", 
                         "Extraction technique", "TN", "FP", "FN", "TP"]
 
@@ -312,7 +312,7 @@ class ConfigurationML(Utilities):
 
         # * 
         #Dataframe_save_name = 'Biclass' + '_Dataframe_' + 'FOF_' + str(Enhancement_technique)  + '.csv'
-        Dataframe_save_models = "{}_Dataframe_Folder_Data_Models_{}.csv".format(self.__Class_problem_prefix, self.__Enhancement_technique)
+        Dataframe_save_models = "{}_Dataframe_Folder_Data_Models_{}_{}.csv".format(self.__Class_problem_prefix, self.__Extract_feature_technique, self.__Enhancement_technique)
         Dataframe_save_models_folder = os.path.join(self.__Folder, Dataframe_save_models)
 
         for Index, Model in enumerate(self.__Models):
@@ -369,7 +369,7 @@ class ConfigurationML(Utilities):
             # * Get the data from the model chosen
             Model_name, Model_name_letters, Total_time_training, Y_pred = self.Model_pretrained_ML(Model, X_train, y_train, X_test)
 
-            Model_name_technique = "{}_{}".format(Model_name, self.__Enhancement_technique)
+            Model_name_technique = "{}_{}".format(Model_name_letters, self.__Enhancement_technique)
 
             # * 
             #Dir_name = str(Class_problem_prefix) + 'Model_s' + str(Enhancement_technique) + '_dir'
@@ -448,7 +448,7 @@ class ConfigurationML(Utilities):
             Class_problem_folder = os.path.join(Folder_path_images_in, Class_problem_name)
 
             # * Create dataframe and define the headers
-            Column_names_ = ['name model', "model used", "Accuracy", "precision", "recall", "f1_score", 
+            Column_names_ = ['Model name', "Model", "Accuracy", "Precision", "Recall", "F1_score", 
                             "Training images", "Test images", "Time training", "Technique", 
                             "Extraction technique", "TN", "FP", "FN", "TP"]
 
@@ -636,7 +636,7 @@ class ConfigurationML(Utilities):
                 Plot_model.figure_plot_CM()
 
             Info.append(Model_name_technique)
-            Info.append(Model_name)
+            Info.append(Model_name_letters)
             Info.append(Accuracy)
             Info.append(Precision)
             Info.append(Recall)
@@ -666,7 +666,7 @@ class ConfigurationML(Utilities):
             #self.overwrite_dic_CSV_folder(Dataframe_models, Dataframe_save_models_folder, Column_names_, Info)
 
            #overwrite_dic_CSV_folder(Dataframe: pd.DataFrame, Folder_path: str, Column_names: list[str], Column_values: list[str])
-           
+
             Row = dict(zip(Column_names_, Info))
             Dataframe_models = Dataframe_models.append(Row, ignore_index = True)
             Dataframe_models.to_csv(Dataframe_save_models_folder, index = False)

@@ -3,9 +3,12 @@ from Final_Code_0_0_Libraries import time
 from Final_Code_0_0_Libraries import tf
 from Final_Code_0_0_Libraries import wraps
 
+from abc import ABCMeta
+from abc import abstractmethod
+
 # ? Utilities
 
-class Utilities(object):
+class Utilities(ABCMeta):
     """
     Class used to store decorators.
 
@@ -62,3 +65,14 @@ class Utilities(object):
 
             return result
         return wrapper
+
+    # ? Creates a JSON file with the given data and saves it to the specified file path.
+    @abstractmethod
+    def create_json_file() -> None:
+        """
+        Creates a JSON file with the given data and saves it to the specified file path.
+
+        Returns:
+        None
+        """
+        pass

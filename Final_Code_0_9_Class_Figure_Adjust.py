@@ -42,7 +42,7 @@ class FigureAdjust(Utilities):
         self._Num_classes = kwargs.get('classes', None)
 
         # *
-        self._X_figure_size = 15
+        self._X_figure_size = 12
         self._Y_figure_size = 8
 
         # * General parameters
@@ -161,11 +161,11 @@ class FigureAdjust(Utilities):
 
     # ? Static method to save the figure.
     @staticmethod
-    def save_figure(Save_figure: bool, Title: int, Func_: str, Folder: str) -> None:
+    def save_figure(Save_figure: bool, Title: int, Func_: str, Folder: str, Classes) -> None:
 
         if(Save_figure == True):
             
-            Figure_name = 'Figure_{}_{}.png'.format(Title, Func_)
+            Figure_name = '{}_Figure_{}_{}.png'.format(Classes, Title, Func_)
             Figure_folder = os.path.join(Folder, Figure_name)
             print(Figure_folder)
             plt.savefig(Figure_folder)
@@ -351,7 +351,7 @@ class BarChart(FigureAdjust):
         #data = pd.read_csv("D:\MIAS\MIAS VS\DataCSV\DataFrame_Binary_MIAS_Data.csv")
 
         # * Get X and Y values
-        X = list(self._Dataframe.iloc[:, 1])
+        X = list(self._Dataframe.iloc[:, 0])
         Y = list(self._Dataframe.iloc[:, self._Plot_column])
 
         plt.figure(figsize = (self._X_figure_size, self._Y_figure_size))
@@ -442,7 +442,7 @@ class BarChart(FigureAdjust):
 
         #plt.savefig(Graph_name_folder)
 
-        self.save_figure(self._Save_figure, self._Title, Horizontal, self._Folder_path)
+        self.save_figure(self._Save_figure, self._Title, Horizontal, self._Folder_path, self._Label_class_name)
         self.show_figure(self._Show_image)
 
     # ? Method to plot Vertical barcharts.
