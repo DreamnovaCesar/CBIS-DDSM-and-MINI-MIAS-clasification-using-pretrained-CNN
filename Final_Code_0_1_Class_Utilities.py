@@ -16,6 +16,9 @@ class Utilities(ABCMeta):
         timer_func(func): This function saves the time it takes for the function to finish its process (Decorator).
 
         detect_GPU(func): This function analyzes if there is a gpu in the system for its use (Decorator).
+        
+        @abstractmethod
+        create_json_file(func): Creates a JSON file with the given data and saves it to the specified file path.
     """
 
     # ? Get the execution time of each function

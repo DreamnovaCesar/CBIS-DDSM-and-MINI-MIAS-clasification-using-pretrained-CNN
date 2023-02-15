@@ -3,7 +3,7 @@ from mysql.connector import Error
 
 from Final_Code_0_1_Class_Utilities import Utilities
 
-# ? define the standalone discriminator model
+# ? 
 
 class ConfigurationSQL(Utilities):
     """

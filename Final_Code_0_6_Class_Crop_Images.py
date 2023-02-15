@@ -1,11 +1,14 @@
 # ? Class for images cropping.
 
+import json
+
 from Final_Code_0_0_Libraries import os
 from Final_Code_0_0_Libraries import cv2
 from Final_Code_0_0_Libraries import pd
 
-from Final_Code_0_18_Functions import SortData
 from Final_Code_0_1_Class_Utilities import Utilities
+
+from Final_Code_0_18_Functions import FunctionsData
 
 class CropImages(Utilities):
     """
@@ -13,35 +16,67 @@ class CropImages(Utilities):
 
     A class used to crop Mini-MIAS images using the coordinates from the website.
 
-    Methods:
-        data_dic(): description
+    Methods
+    -------
+    data_dic()
+        Returns a dictionary containing the attributes of the class.
+    CropMIAS()
+        Crops the images according to the coordinates in the CSV file.
 
-        CropMIAS(): description
-
+    Attributes
+    ----------
+    __Folder : str
+        Path to the folder containing the images.
+    __Folder_Normal_images_splitted : str
+        Path to the folder containing the cropped normal images.
+    __Folder_Tormal_images_splitted : str
+        Path to the folder containing the cropped tumor images.
+    __Folder_Bormal_images_splitted : str
+        Path to the folder containing the cropped benign images.
+    __Folder_Malignant_images_splitted : str
+        Path to the folder containing the cropped malignant images.
+    __Dataframe : pd.DataFrame
+        The dataframe containing the coordinates of the images to be cropped.
+    __Shapes : int
+        The size of the cropped images.
+    __X_mean : int
+        The x-coordinate of the center of the image.
+    __Y_mean : int
+        The y-coordinate of the center of the image.
     """
 
     # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
         """
-        Keyword Args:
-            folder (str): description 
-            NF (str): (Normal folder)
-            TF (str): (Tumor folder)
-            BF (str): (Benign folder)
-            MF (str): (Malignant folder)
-            Dataframe (pd.dataframe): description
-            Shapes (int): description
-            X mean (int): description
-            Y mean (int): description
+        Parameters
+        ----------
+        Folder : str
+            Path to the folder containing the images.
+        NF : str
+            Path to the folder for saving the cropped normal images.
+        TF : str
+            Path to the folder for saving the cropped tumor images.
+        BF : str
+            Path to the folder for saving the cropped benign images.
+        MF : str
+            Path to the folder for saving the cropped malignant images.
+        Dataframe : pd.DataFrame
+            The dataframe containing the coordinates of the images to be cropped.
+        Shapes : int
+            The size of the cropped images.
+        X mean : int
+            The x-coordinate of the center of the image.
+        Y mean : int
+            The y-coordinate of the center of the image.
         """
 
         # * This algorithm outputs crop values for images based on the coordinates of the CSV file.
         # * General parameters
-        self.__Folder: str = kwargs.get('folder', None)
-        self.__Normalfolder: str = kwargs.get('NF', None)
-        self.__Tumorfolder: str = kwargs.get('TF', None)
-        self.__Benignfolder: str = kwargs.get('BF', None)
-        self.__Malignantfolder: str = kwargs.get('MF', None)
+        self.__Folder: str = kwargs.get('Folder', None)
+        self.__Folder_Normal_images_splitted: str = kwargs.get('Normal', None)
+        self.__Folder_Tumor_images_splitted: str = kwargs.get('Tumor', None)
+        self.__Folder_Benign_images_splitted: str = kwargs.get('Benign', None)
+        self.__Folder_Malignant_images_splitted: str = kwargs.get('Malignant', None)
 
         # * CSV to extract data
         self.__Dataframe: pd.DataFrame = kwargs.get('Dataframe', None)
@@ -51,6 +86,7 @@ class CropImages(Utilities):
         self.__X_mean:int = kwargs.get('Xmean', None)
         self.__Y_mean:int = kwargs.get('Ymean', None)
 
+        """
         if self.__Folder == None:
             raise ValueError("Folder does not exist") #! Alert
         if not isinstance(self.__Folder, str):
@@ -87,58 +123,114 @@ class CropImages(Utilities):
 
         elif self.__Y_mean == None:
             raise ValueError("Y_mean is required") #! Alert
+        """
 
     # * Class variables
     def __repr__(self):
-            return f'[{self.__Folder}, {self.__Normalfolder}, {self.__Tumorfolder}, {self.__Benignfolder}, {self.__Malignantfolder}, {self.__Dataframe}, {self.__Shapes}, {self.__X_mean}, {self.__Y_mean}]';
+        """
+        Return a string representation of the object.
+
+        Returns:
+            str: String representation of the object.
+        """
+        return f'[{self.__Folder}, {self.__Normalfolder}, {self.__Tumorfolder}, {self.__Benignfolder}, {self.__Malignantfolder}, {self.__Dataframe}, {self.__Shapes}, {self.__X_mean}, {self.__Y_mean}]';
 
     # * Class description
     def __str__(self):
+        """
+        Return a string description of the object.
+
+        Returns:
+            str: String description of the object.
+        """
         return  f'A class used to crop Mini-MIAS images using the coordinates from the website';
     
     # * Deleting (Calling destructor)
     def __del__(self):
+        """
+        Destructor called when the object is deleted.
+        """
         print('Destructor called, crop images class destroyed.');
 
     # * Get data from a dic
     def data_dic(self):
+        """
+        Return a dictionary containing information about the class properties.
 
-        return {'Folder path': str(self.__Folder),
-                'Normal folder path': str(self.__Normalfolder),
-                'Tumor folder path': str(self.__Tumorfolder),
-                'Benign folder path': str(self.__Benignfolder),
-                'Malignant folder path': str(self.__Malignantfolder),
+        Returns:
+            dict: Dictionary containing information about the class properties.
+        """
+        return {'Folder': str(self.__Folder),
+                'Normal': str(self.__Normalfolder),
+                'Tumor': str(self.__Tumorfolder),
+                'Benign': str(self.__Benignfolder),
+                'Malignant': str(self.__Malignantfolder),
                 'Dataframe': str(self.__Dataframe),
                 'Shapes': str(self.__Shapes),
-                'X mean': str(self.__X_mean),
-                'Y mean': str(self.__Y_mean),
+                'Xmean': str(self.__X_mean),
+                'Ymean': str(self.__Y_mean),
                 };
+
+    def create_json_file(self):
+        """
+        Creates a JSON file with the given data and saves it to the specified file path.
+
+        Returns:
+        None
+        """
+        Data = {'Folder': str(self.__Folder),
+                'Normal': str(self.__Normalfolder),
+                'Tumor': str(self.__Tumorfolder),
+                'Benign': str(self.__Benignfolder),
+                'Malignant': str(self.__Malignantfolder),
+                'Dataframe': str(self.__Dataframe),
+                'Shapes': str(self.__Shapes),
+                'Xmean': str(self.__X_mean),
+                'Ymean': str(self.__Y_mean),
+                };
+
+        with open('JSON documents', 'w') as file:
+            json.dump(Data, file)
 
     # * __Folder attribute
     @property
     def __Folder_property(self):
+        """Getter method for the `Folder` property."""
         return self.__Folder
 
     @__Folder_property.setter
     def __Folder_property(self, New_value):
+        """Setter method for the `Folder` property.
+
+        Args:
+            New_value (str): The new value to be assigned to the `Folder` attribute.
+        """
         self.__Folder = New_value
     
     @__Folder_property.deleter
     def __Folder_property(self):
+        """Deleter method for the `Folder` property."""
         print("Deleting folder...")
         del self.__Folder
 
-    # * __Normalfolder attribute
+    # * __Normal attribute
     @property
     def __Normalfolder_property(self):
+        """Getter method for the `Normal` property."""
         return self.__Normalfolder
 
     @__Normalfolder_property.setter
     def __Normalfolder_property(self, New_value):
+        """Setter method for the `Normal` property.
+
+        Args:
+            New_value (str): The new value to be assigned to the `Normal` attribute.
+        """
         self.__Normalfolder = New_value
     
     @__Normalfolder_property.deleter
     def __Normalfolder_property(self):
+        """Deleter method for the `Normal` property."""
         print("Deleting normal folder...")
         del self.__Normalfolder
 
@@ -264,7 +356,7 @@ class CropImages(Utilities):
         Index = 1
         
         # * Using sort function
-        Sorted_files, Total_images = sort_images(self.__Folder)
+        Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
         Count = 1
 
         # * Reading the files

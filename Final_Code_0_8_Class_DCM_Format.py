@@ -41,6 +41,7 @@ class DCM_format(Utilities):
         self.__Severity = kwargs.get('Severity', None)
         self.__Phase = kwargs.get('Phase', None)
 
+        """
         # * Folder attribute (ValueError, TypeError)
         if self.__Folder == None:
             raise ValueError("Folder does not exist") #! Alert
@@ -82,13 +83,20 @@ class DCM_format(Utilities):
             raise ValueError("Phase images does not exist") #! Alert
         if not isinstance(self.__Stage, str):
             raise TypeError("Phase must be a string") #! Alert
-
+        """
+        
     # * Class variables
     def __repr__(self):
             return f'[{self.__Folder}, {self.__Folder_all}, {self.__Folder_patches}, {self.__Folder_resize}, {self.__Folder_resize_normalize}, {self.__Severity}, {self.__Phase}]';
 
     # * Class description
     def __str__(self):
+        """
+        Return a string description of the object.
+
+        Returns:
+            str: String description of the object.
+        """
         return  f'A class used to change the format DCM to png.';
     
     # * Deleting (Calling destructor)

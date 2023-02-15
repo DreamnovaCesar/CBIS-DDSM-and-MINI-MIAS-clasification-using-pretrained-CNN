@@ -7,6 +7,7 @@ from Final_Code_0_0_Libraries import wraps
 from Final_Code_0_18_Functions import FunctionsData
 from Final_Code_0_1_Class_Utilities import Utilities
 
+# ?
 class ChangeFormat(Utilities):
     """
     A class used to change the format of a file to another. This class is a subclass of the `Utilities` class.
@@ -109,7 +110,7 @@ class ChangeFormat(Utilities):
         with open('JSON documents', 'w') as file:
             json.dump(Data, file)
 
-    # * Folder attribute
+    # * __Folder attribute
     @property
     def __Folder_property(self):
         """Getter method for the `Folder` property."""
@@ -130,7 +131,7 @@ class ChangeFormat(Utilities):
         print("Deleting folder...")
         del self.__Folder
 
-    # * NewFolder attribute
+    # * __NewFolder attribute
     @property
     def __New_folder_property(self):
         """Getter method for the `NewFolder` property."""
@@ -152,7 +153,7 @@ class ChangeFormat(Utilities):
         del self.__New_folder
 
     '''
-    # * Format attribute
+    # * __Format attribute
     @property
     def __Format_property(self):
         """Getter method for the `Format` property."""
@@ -174,7 +175,7 @@ class ChangeFormat(Utilities):
         del self.__Format
     '''
     
-    # * NewFormat attribute
+    # * __NewFormat attribute
     @property
     def __New_format_property(self):
         """Getter method for the `NewFormat` property."""
@@ -205,44 +206,60 @@ class ChangeFormat(Utilities):
         The method reads the images from the folder specified in the folder attribute, and saves the converted images in the 
         folder specified in the newfolder attribute. The method also tracks and reports the progress of the conversion.
         """
-        # * Changes the current working directory to the given path
-        os.chdir(self.__Folder)
-        print(os.getcwd())
-        print("\n")
 
-        # * Using the sort function
-        Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
-        Count:int = 1
+        # * List of Image Formats Supported by OpenCV
+        Images_supported_format = ('.bmp', '.pbm', '.pgm', '.ppm', '.sr', '.ras', '.jpeg', '.jpg', '.jpe', '.jp2', '.tiff', '.tif', '.png')
+        
+        try:
 
-        # * Reading the files
-        for File in Sorted_files:
-            # * Extract the file name and format
-            Filename, Format  = os.path.splitext(File)
+            # * Compare the new format proposed with each format supported by OpenCV
+            for Format_supported in Images_supported_format:
+        
+                if(self.__New_format == Format_supported):
+                
+                    # * Changes the current working directory to the given path
+                    os.chdir(self.__Folder)
+                    print(os.getcwd())
+                    print("\n")
 
-            if File.endswith(Format):
+                    # * Using the sort function
+                    Sorted_files, Total_images = FunctionsData.sort_images(self.__Folder)
+                    Count:int = 1
 
-                try:
-                    Filename, Format  = os.path.splitext(File)
-                    print('Working with {} of {} {} images, {} ------- {} ✅'.format(Count, Total_images, Format, Filename, self.__New_format))
-                    #print(f"Working with {Count} of {Total_images} {self.Format} images, {Filename} ------- {self.New_format} ✅")
-                    
-                    # * Reading each image using cv2
-                    Path_file = os.path.join(self.__Folder, File)
-                    Image = cv2.imread(Path_file)         
-                    #Imagen = cv2.cvtColor(Imagen, cv2.COLOR_BGR2GRAY)
-                    
-                    # * Changing its format to a new one
-                    New_name_filename = Filename + self.__New_format
-                    New_folder = os.path.join(self.__New_folder, New_name_filename)
+                    # * Reading the files
+                    for File in Sorted_files:
+                        # * Extract the file name and format
+                        Filename, Format  = os.path.splitext(File)
 
-                    cv2.imwrite(New_folder, Image)
-                    #FilenamesREFNUM.append(Filename)
-                    Count += 1
+                        if File.endswith(Format):
 
-                except OSError:
-                    print('Cannot convert {} ❌'.format(str(File))) #! Alert
-                    #print('Cannot convert %s ❌' % File) #! Alert
+                            try:
+                                Filename, Format  = os.path.splitext(File)
+                                print('Working with {} of {} {} images, {} ------- {} ✅'.format(Count, Total_images, Format, Filename, self.__New_format))
+                                #print(f"Working with {Count} of {Total_images} {self.Format} images, {Filename} ------- {self.New_format} ✅")
+                                
+                                # * Reading each image using cv2
+                                Path_file = os.path.join(self.__Folder, File)
+                                Image = cv2.imread(Path_file)         
+                                #Imagen = cv2.cvtColor(Imagen, cv2.COLOR_BGR2GRAY)
+                                
+                                # * Changing its format to a new one
+                                New_name_filename = Filename + self.__New_format
+                                New_folder = os.path.join(self.__New_folder, New_name_filename)
 
-        print("\n")
-        #print(f"COMPLETE {Count} of {Total_images} TRANSFORMED ✅")
-        print('{} of {} tranformed ✅. From {} to {}.'.format(Count, Total_images, Format, self.__New_format)) #! Alert
+                                cv2.imwrite(New_folder, Image)
+                                #FilenamesREFNUM.append(Filename)
+                                Count += 1
+
+                            except OSError:
+                                print('Cannot convert {} ❌'.format(str(File))) #! Alert
+                                #print('Cannot convert %s ❌' % File) #! Alert
+
+                    print("\n")
+                    #print(f"COMPLETE {Count} of {Total_images} TRANSFORMED ✅")
+                    print('{} of {} tranformed ✅. From {} to {}.'.format(Count, Total_images, Format, self.__New_format)) #! Alert 
+
+        except OSError:
+                print('Format incompatible {}, It must be: {} ❌'.format(str(self.__New_format, Images_supported_format))) #! Alert
+                #print('Cannot convert %s ❌' % File) #! Alert
+
